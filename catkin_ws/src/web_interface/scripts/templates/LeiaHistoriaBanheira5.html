@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<head>
+  <title>{{ title }}</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+  <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+
+  <style>
+    body
+    {
+      width: 800px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 0 20px 20px 20px;
+      border: 3px solid black;
+      font-family: "Gill Sans Extrabold", Helvetica, sans-serif;
+    }
+
+    h1
+    {
+      font-size: 50px;
+      text-align: center;
+    }
+
+    p
+    {
+      text-align: center;
+    }
+
+    .imagem-historia
+    {
+      display: block;
+      max-width: 750px;
+      width: 100%;
+      height: auto;
+
+      margin: 20px auto;
+
+      border: 2px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .button
+    {
+      background: transparent;
+      border: 1px solid transparent;
+      box-sizing: border-box;
+      cursor: pointer;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1;
+      margin: 10px;
+      padding: 5px 15px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      outline: none;
+      position: relative;
+      top: 0;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+      transition: all 0.2s ease-in-out 0s;
+    }
+
+    .grey
+    {
+      background: #4c4c4c;
+      color: #fff;
+      box-shadow: 0 2px 0 #333333;
+    }
+
+    .grey:hover
+    {
+      background: #747373;
+    }
+
+    .grey:active,
+    .grey:focus
+    {
+      background: #444444;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Leitura 📚</h1>
+
+  <p>
+    <img
+      class="imagem-historia"
+      src="{{ url_for('static', filename='images/ReadmeHistory/img5.png') }}"
+      alt="Imagem da história">
+  </p>
+
+  <p>
+    <a class="btn btn-default btn-lg" href="/Activities">
+      Voltar
+    </a>
+
+    <a class="btn btn-default btn-lg" href="/Activities/A8/banheira/pagina6">
+      Proximo
+    </a>   
+    
+    <a class="btn btn-default btn-lg" href="/">
+      Menu
+    </a>
+
+ 
+  </p>
+
+  <script>
+  const verificarLeitura = setInterval(function() {
+
+    fetch('/Activities/A8/banheira/verificar/5')
+      .then(response => response.json())
+      .then(data => {
+
+        console.log("Falado:", data.heard);
+        console.log("Acerto:", data.percentage + "%");
+
+        if (data.success) {
+          clearInterval(verificarLeitura);
+
+          window.location.href =
+            "/Activities/A8/banheira/pagina6";
+        }
+
+      })
+      .catch(error => {
+        console.log("Erro ao verificar leitura:", error);
+      });
+
+  }, 250);
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,5 @@
+uint8 id
+string addr_name
+uint8 value
+---
+bool comm_result

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+  <head>
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <script src="{{ url_for('static', filename='jquery-3.5.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+    <style>
+      body
+      {
+        width: 820px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 0 20px 20px 20px;
+        border: 3px solid black;
+        font-family: "Gill Sans Extrabold", Helvetica, sans-serif;
+      }
+
+      h1
+      {
+        font-size: 50px;
+        text-align: center;
+      }
+
+      p
+      {
+        text-align: center;
+      }
+
+      .button
+      {
+        background:transparent;
+        border: 1px solid transparent;
+        box-sizing: border-box;
+        cursor: pointer;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 1;
+        margin: 10px;
+        padding: 5px 15px;
+        text-align: center;
+        text-decoration: none;
+        display:inline-block;
+        outline:none;
+        position:relative;
+        top:0;
+        text-shadow:0 1px 1px rgba(0, 0, 0, 0.5);
+        -webkit-transition: all 0.2s ease-in-out 0s;
+        -moz-transition: all 0.2s ease-in-out 0s;
+        -ms-transition: all 0.2s ease-in-out 0s;
+        transition: all 0.2s ease-in-out 0s;
+      }
+
+      .grey
+      {
+        background:#4c4c4c;
+        color:#fff;
+        box-shadow: 0 2px 0 #333333;
+      }
+
+      .grey:hover
+      {
+        background:#747373;
+      }
+
+      .grey:active, .grey:focus
+      {
+        background:#444444;
+      }
+    </style>
+  </head>
+  <body>
+  <h1>Atividade 2 - Histórias de José 👦</h1>
+    <h2>Histórias de José:</h2>
+      <p>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/explain2">Explicar a atividade Ver 👀</a>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/explain3">Explicar Atividade Responder 📄</a>
+      </p>
+      <p>
+        <!-- <a class="btn btn-default btn-lg" href="/Activities/A2/explain4">Explicar Actividad Escribir</a> -->
+        <a class="btn btn-default btn-lg" href="/Activities/A2/jose1">José na rua 🛣️</a>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/jose2">José em seu aniversário 🥳</a>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/jose4">A banheira de José 🛁</a>
+      <p>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/jose5">José está com medo 😨</a>
+      </p>
+    <h2>Frases Objetivo Alcançado:</h2>
+      <p>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/gj1">Muito bom! 😊</a>   <!-- Good Job -->
+        <a class="btn btn-default btn-lg" href="/Activities/A2/gj2">Parabéns! 😊</a>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/gj3">Que legal! 😊</a>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/gj4">Você conseguiu! 😊</a>
+      </p>
+      <p>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/gj5">Você se saiu bem! 😊</a>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/gj6">Felicitações! 😊</a>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/gj7">Excelente! 😊</a>
+      </p>
+      <p>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/gj8">Vamos continuar jogando! 😊</a>
+      </p>
+    <h2>Frases de incentivo:</h2>
+      <p>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/nt1">Tente novamente 😔</a> <!-- Nice Try -->
+        <a class="btn btn-default btn-lg" href="/Activities/A2/nt2">Foi por pouco 😔</a>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/nt3">Você quase conseguiu 😔</a>
+      </p>
+      <p>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/nt4">Continue assim 😔</a>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/nt7">Não estou ouvindo! 😔</a>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/nt9">Com prazer! 🤭</a>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/nt10">Sente-se! 😔</a>
+      </p>
+      <p>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/nt11">Venha! 😔</a>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/nt12">Preste atenção em mim! 🤖</a>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/me_duele">Estou com dor 🤕</a>
+      </p>
+      <p>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/lastimar">Você está me machucando 🤕</a>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/t1">Tudo está bem! 😜</a>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/t2">Não tem problema! 😜</a>
+      </p>
+      <p>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/t4">Olhe para mim 👀</a>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/t5">Não grite 😭</a>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/t6">Não chore 😭</a>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/t10">Diz-se "por favor" 😜</a>
+      </p>
+    <h2>Emoções</h2>
+      <p>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/happy">🙂</a>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/sad">🙁</a>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/angry">😠</a>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/surprise">😮</a>
+        <a class="btn btn-default btn-lg" href="/Activities/A2/neutral">😐</a>
+      </p>
+      <a class="btn btn-info btn-lg" href="/Activities">Voltar</a>
+      <a class="btn btn-info btn-lg" href="/">Menu</a>
+      <a class="btn btn-info btn-lg" id="next-button" >Próximo</a>
+    <!-- Modal -->
+    <div id="endOfActivitiesModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Atividades</h4>
+          </div>
+          <div class="modal-body">
+            <p>Sem mais atividades por hoje, vamos voltar ao menu principal.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" id="returnToMenuButton" data-dismiss="modal">Menu</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../../static/script.js"></script>
+  </body>
+</html>

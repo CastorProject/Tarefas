@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en"> 
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>{{ title }}</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+        <script src="{{ url_for('static', filename='jquery-3.5.1.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+        <script>
+            const level = "{{ level }}";
+        </script>
+        <script src="../../static/game.js" defer></script>
+        <style>
+            body 
+            {
+                width: 800px;
+                margin: 0 auto;
+                background-color: white;
+                padding: 0 20px 20px 20px;
+                border: 3px solid black;
+                font-family: "Gill Sans Extrabold", Helvetica, sans-serif;
+            }
+    
+            h1 {
+                font-size: 50px;
+            }
+    
+            p {
+                text-align: center;
+            }
+    
+            .button {
+                background: transparent;
+                border: 1px solid transparent;
+                box-sizing: border-box;
+                cursor: pointer;
+                font-size: 20px;
+                font-weight: 700;
+                line-height: 1;
+                margin: 10px;
+                padding: 2px 10px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                outline: none;
+                position: relative;
+                top: 0;
+                text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+                transition: all 0.2s ease-in-out 0s;
+            }
+    
+            .grey {
+                background: #4c4c4c;
+                color: #fff;
+                box-shadow: 0 2px 0 #333333;
+            }
+    
+            .grey:hover {
+                background: #747373;
+            }
+    
+            .grey:active, .grey:focus {
+                background: #444444;
+            }
+        </style>
+    </head>
+<body>
+    <h1>Atenção ativa</h1>
+    <form action="/game_atac" method="POST">
+        <input type="hidden" name="action" value="button_pressed">
+        <input type="hidden" name="level" value="{{ level }}">
+        <button type="submit" class="btn btn-default btn-lg">Como Jogar?</button>
+    </form>
+    <div id="game-area">
+        <!-- Aquí aparecerán los estímulos -->
+    </div>
+    <div id="info">
+        <p>Tempo: <span id="time">60</span> segundos</p>
+        <p>Pontuação: <span id="score">0</span></p>
+    </div>
+     <!-- Modal -->
+     <div id="timeUpModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Jogos</h4>
+            </div>
+            <div class="modal-body">
+              <p>O tempo acabou! Placar final: <span id="scoreDisplay"></span></p></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" id="goToResults" data-dismiss="modal">Ok</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <p>
+    <button class="btn btn-default btn-lg" id="pauseButton">Pausar</button>
+    <button class="btn btn-default btn-lg" id="resumeButton" style="display:none;">Seguir</button>
+    </p>
+    <button class="btn btn-default btn-lg" id="startButton">Iniciar jogo</button>
+    <button class="btn btn-default btn-lg" onclick="location.href='/'">Menu</button>
+</body>
+</html>

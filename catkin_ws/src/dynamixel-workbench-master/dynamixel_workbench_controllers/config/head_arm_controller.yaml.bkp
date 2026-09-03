@@ -1,0 +1,39 @@
+# Publish all joint states -----------------------------------
+#joint_state_controller:
+#  type: joint_state_controller/JointStateController
+#------------------head actuation---------------------
+neck_joint_controller:
+    ID: 1
+    Moving_Speed: 1023
+    Return_Delay_Time: 0
+#------------------right arm actuation---------------------
+right_shoulder_roll_controller:
+    ID: 2
+    Moving_Speed: 1023
+    Return_Delay_Time: 0
+
+right_shoulder_pitch_controller:
+    ID: 3
+    Moving_Speed: 1023
+    Return_Delay_Time: 0
+
+right_elbow_pitch_controller:
+    ID: 4
+    Moving_Speed: 1023
+    Return_Delay_Time: 0
+
+#------------------left arm actuation---------------------
+left_shoulder_roll_controller:
+    ID: 5
+    Moving_Speed: 1023
+    Return_Delay_Time: 0
+
+left_shoulder_pitch_controller:
+    ID: 6
+    Moving_Speed: 1023
+    Return_Delay_Time: 0
+
+left_elbow_pitch_controller:
+    ID: 7
+    Moving_Speed: 1023
+    Return_Delay_Time: 0

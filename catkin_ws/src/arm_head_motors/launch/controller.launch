@@ -1,0 +1,48 @@
+<launch>
+<!-- Start tilt joint controller -->
+    <rosparam file="$(find arm_head_motors)/config/head_arm_controller.yaml" command="load"/>
+    <node name="controller_spawner" pkg="dynamixel_controllers" type="controller_spawner.py"
+          args="--manager=dxl_manager
+                --port pan_tilt_port
+                neck_joint_controller
+                right_shoulder_roll_controller
+                right_shoulder_pitch_controller
+                right_elbow_pitch_controller
+                left_shoulder_roll_controller
+                left_elbow_pitch_controller
+                left_shoulder_pitch_controller
+                "
+          output="screen"
+    />
+
+  <!-- Start joints trajectory controller controller -->
+    <rosparam file="$(find arm_head_motors)/config/joint_trajectory_controller.yaml" command="load"/>
+    <node name="head_metacontroller" pkg="dynamixel_controllers" type="controller_spawner.py"
+          args="--manager=dxl_manager
+                --type=meta
+                head_controller
+                neck_joint_controller
+               "
+          output="screen"
+    />
+    <node name="rightArm_metacontroller" pkg="dynamixel_controllers" type="controller_spawner.py"
+          args="--manager=dxl_manager
+                --type=meta
+                right_arm_controller
+                right_shoulder_roll_controller
+                right_shoulder_pitch_controller
+                right_elbow_pitch_controller
+               "
+          output="screen"
+    />
+    <node name="leftArm_metacontroller" pkg="dynamixel_controllers" type="controller_spawner.py"
+          args="--manager=dxl_manager
+                --type=meta
+                left_arm_controller
+                left_shoulder_roll_controller
+                left_shoulder_pitch_controller
+                left_elbow_pitch_controller
+               "
+          output="screen"
+    />
+</launch>

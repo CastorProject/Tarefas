@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+    <style>
+      body
+      {
+        width: 800px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 0 20px 20px 20px;
+        border: 3px solid black;
+        font-family: "Gill Sans Extrabold", Helvetica, sans-serif;
+      }
+
+      h1
+      {
+        font-size: 50px;
+        text-align: center;
+      }
+
+      p
+      {
+        text-align: center;
+      }
+
+
+      .button
+      {
+        background:transparent;
+        border: 1px solid transparent;
+        box-sizing: border-box;
+        cursor: pointer;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 1;
+        margin: 10px;
+        padding: 5px 15px;
+        text-align: center;
+        text-decoration: none;
+        display:inline-block;
+        outline:none;
+        position:relative;
+        top:0;
+        text-shadow:0 1px 1px rgba(0, 0, 0, 0.5);
+        -webkit-transition: all 0.2s ease-in-out 0s;
+        -moz-transition: all 0.2s ease-in-out 0s;
+        -ms-transition: all 0.2s ease-in-out 0s;
+        transition: all 0.2s ease-in-out 0s;
+      }
+
+      .grey
+      {
+        background:#4c4c4c;
+        color:#fff;
+        box-shadow: 0 2px 0 #333333;
+      }
+
+      .grey:hover
+      {
+        background:#747373;
+      }
+
+      .grey:active, .grey:focus
+      {
+        background:#444444;
+      }
+    </style>
+  </head>
+  <body>
+  <h1>Cadastro facial 📷</h1>
+  <h4 style="text-align: center;">Digite o nome da pessoa que será cadastrada</h4>
+  <h4 style="text-align: center;">Depois, aproxime a pessoa da câmera</h4>
+
+  <form action="/face_registration" method="post">
+    <p>
+      <label for="faceName">Nome da pessoa:</label>
+      <input
+        id="faceName"
+        type="text"
+        name="name"
+        maxlength="40"
+        placeholder="Digite o nome"
+        autocomplete="off"
+        required
+      >
+    </p>
+    <p>
+      <button
+        id="confirmRegistrationButton"
+        class="btn btn-default btn-lg"
+        type="submit"
+      >Confirmar cadastro 📷</button>
+    </p>
+  </form>
+
+  <p id="faceRegistrationStatus">
+  {% if face_message %}
+    {{ face_message }}
+  {% else %}
+    Aguardando solicitação de cadastro.
+  {% endif %}
+  </p>
+
+  <p>
+    <a class="btn btn-default btn-lg" href="/">Menu</a>
+  </p>
+
+  <script>
+    function atualizarStatusCadastro()
+    {
+      $.getJSON(
+        "/face_registration/status",
+        function(status)
+        {
+          if (status.message)
+          {
+            $("#faceRegistrationStatus").text(
+              status.message
+            );
+          }
+
+          var cadastroEmAndamento = [
+            "waiting_face",
+            "face_detected",
+            "learning"
+          ].indexOf(status.state) !== -1;
+
+          $("#confirmRegistrationButton").prop(
+            "disabled",
+            cadastroEmAndamento
+          );
+        }
+      );
+    }
+
+    atualizarStatusCadastro();
+    setInterval(atualizarStatusCadastro, 1000);
+  </script>
+  </body>
+</html>

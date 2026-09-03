@@ -1,0 +1,11 @@
+<launch>
+    <node
+        pkg="huskylens_2"
+        type="face_recognition.py"
+        name="face_recognition"
+        output="screen"
+        respawn="true"
+        respawn_delay="5"
+    />
+</launch>
+

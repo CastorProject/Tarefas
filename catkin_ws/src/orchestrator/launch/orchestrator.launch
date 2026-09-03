@@ -1,0 +1,25 @@
+<!-- -*- mode: XML -*- -->
+<launch>
+	<!--dynamixel launcher/-->
+	<!--include file="$(find dynamixel_workbench_controllers)/launch/dynamixel_controllers.launch"/-->
+	<!--include file="$(find arm_head_motors)/launch/controller.launch"/-->
+
+	<!--castor robot nodes/-->
+	<!--node name="eyes_behavior" pkg="eyes_behavior" type="eyes_manager.py"/-->
+	<!--node name="facial_behavior_eyeL" pkg="face_motors" type="face_motor_eyeledL.py"/-->
+	<!--node name="facial_behavior_eyeR" pkg="face_motors" type="face_motor_eyeledR.py"/-->
+	<!--node name="facial_behavior_mouthL" pkg="face_motors" type="face_motor_mouthL.py"/-->
+	<!--node name="motor_behavior" pkg="dynamixel_workbench_msgs" type="motor_manager.py"/-->
+	<!--node name="touch_sensors" pkg="touch_sensors" type="touchSensors.py"/-->
+	<node name="web_interface" pkg="web_interface" type="web_interface_portuguese.py"/>
+	<node name="microphone" pkg="microphone" type="ros_microphone.py"/>
+	<node name="castor_system" pkg="castor_system" type="castor_system.py"/>
+	<!--node name="facial_behavior" pkg="face_motors" type="face_motor_final.py"/-->
+	<node name="eyes" pkg="eyes" type="ros_eyes.py"/>
+	<node name="speaker" pkg="speaker" type="speaker.py"/>
+	<!--node name="mic_emotions" pkg="mic_emotions" type="ros_micEmotions.py"/-->
+	<!--node name="chat" pkg="chat" type="ros_chat.py"/-->
+	<!--node name="text_to_speech" pkg="text_to_speech" type="ros_tts.py"/-->
+        <!--node name="antena_emotions" pkg="antena_emotions" type="ros_antenaEmotions.py"/-->
+        <!--include file="/home/pi/catkin_ws/src/huskylens_2/scripts/castor_aac/launch/face_recognition.launch" /-->
+</launch>

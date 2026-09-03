@@ -1,0 +1,2 @@
+[console_scripts]
+pinpong = pinpong.base.help:main

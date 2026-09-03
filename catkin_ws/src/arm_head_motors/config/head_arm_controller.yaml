@@ -1,0 +1,96 @@
+# Publish all joint states -----------------------------------
+#joint_state_controller:
+#  type: joint_state_controller/JointStateController
+#  publish_rate: 50
+#------------------head actuation---------------------
+neck_joint_controller:
+    controller:
+        package: dynamixel_controllers
+        module: joint_position_controller
+        type: JointPositionController
+    joint_name: neck_joint
+    joint_speed: 2.0
+    motor:
+        id: 1
+        init: 363
+        min: 144
+        max: 582
+#------------------right arm actuation---------------------
+right_shoulder_roll_controller:
+    controller:
+        package: dynamixel_controllers
+        module: joint_position_controller
+        type: JointPositionController
+    joint_name: right_shoulder_roll_joint
+    joint_speed: 2.0
+    motor:
+        id: 2
+        init: 1400
+        min: 700
+        max: 1450
+
+right_shoulder_pitch_controller:
+    controller:
+        package: dynamixel_controllers
+        module: joint_position_controller
+        type: JointPositionController
+    joint_name: right_shoulder_pitch_joint
+    joint_speed: 2.0
+    motor:
+        id: 3
+        init: 120
+        min: 35
+        max: 250
+
+right_elbow_pitch_controller:
+    controller:
+        package: dynamixel_controllers
+        module: joint_position_controller
+        type: JointPositionController
+    joint_name: right_elbow_pitch_joint
+    joint_speed: 2.0
+    motor:
+        id: 4
+        init: 132
+        min: 100
+        max: 250
+
+#------------------left arm actuation---------------------
+left_shoulder_roll_controller:
+    controller:
+        package: dynamixel_controllers
+        module: joint_position_controller
+        type: JointPositionController
+    joint_name: left_shoulder_roll_joint
+    joint_speed: 2.0
+    motor:
+        id: 5
+        init: 2400
+        min: 2350
+        max: 3100
+
+left_shoulder_pitch_controller:
+    controller:
+        package: dynamixel_controllers
+        module: joint_position_controller
+        type: JointPositionController
+    joint_name: left_shoulder_pitch_joint
+    joint_speed: 2.0
+    motor:
+        id: 6
+        init: 850
+        min: 750
+        max: 1000
+
+left_elbow_pitch_controller:
+    controller:
+        package: dynamixel_controllers
+        module: joint_position_controller
+        type: JointPositionController
+    joint_name: left_elbow_pitch_joint
+    joint_speed: 2.0
+    motor:
+        id: 7
+        init: 637
+        min: 480
+        max: 833

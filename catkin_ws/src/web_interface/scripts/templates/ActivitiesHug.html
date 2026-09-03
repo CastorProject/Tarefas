@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+  <head>
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <script src="{{ url_for('static', filename='jquery-3.5.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+    <style>
+      body
+      {
+        width: 800px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 0 20px 20px 20px;
+        border: 3px solid black;
+        font-family: "Gill Sans Extrabold", Helvetica, sans-serif;
+      }
+
+      h1
+      {
+        font-size: 50px;
+        text-align: center;
+      }
+
+      p
+      {
+        text-align: center;
+      }
+
+      .button
+      {
+        background:transparent;
+        border: 1px solid transparent;
+        box-sizing: border-box;
+        cursor: pointer;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 1;
+        margin: 10px;
+        padding: 5px 15px;
+        text-align: center;
+        text-decoration: none;
+        display:inline-block;
+        outline:none;
+        position:relative;
+        top:0;
+        text-shadow:0 1px 1px rgba(0, 0, 0, 0.5);
+        -webkit-transition: all 0.2s ease-in-out 0s;
+        -moz-transition: all 0.2s ease-in-out 0s;
+        -ms-transition: all 0.2s ease-in-out 0s;
+        transition: all 0.2s ease-in-out 0s;
+      }
+
+      .grey
+      {
+        background:#4c4c4c;
+        color:#fff;
+        box-shadow: 0 2px 0 #333333;
+      }
+
+      .grey:hover
+      {
+        background:#747373;
+      }
+      .grey:active, .grey:focus
+      {
+        background:#444444;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Atividade 7 - Abraços 💕</h1>
+      <p>
+        <a style="width: 330px;" class="btn btn-default btn-lg" href="/Activities/A7/sayHug">Dê-me um abraço</a>
+      </p>
+      <p>
+        <a style="width: 165px;" class="btn btn-default btn-lg" href="/Activities/A7/hugOpen">Braços abertos</a>
+        <a style="width: 165px;" class="btn btn-default btn-lg" href="/Activities/A7/hugClose">Braços fechados</a>
+      </p>
+      <p>  
+        <a style="width: 165px;" class="btn btn-default btn-lg" href="/Activities/A7/hugEnd">Abraço Final</a>
+        <a style="width: 165px;" class="btn btn-default btn-lg" href="/Activities/A7/thanks">Obrigado</a>
+      </p>
+
+      <a class="btn btn-info btn-lg" href="/Activities">Voltar</a>
+      <a class="btn btn-info btn-lg" href="/">Menu</a>
+      <a class="btn btn-info btn-lg" id="next-button">Próximo</a>
+    <!-- Modal -->
+    <div id="endOfActivitiesModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Atividades</h4>
+          </div>
+          <div class="modal-body">
+            <p>Sem mais atividades por hoje, vamos voltar ao menu principal.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" id="returnToMenuButton" data-dismiss="modal">Menu</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../../static/script.js"></script>
+  </body>
+</html>

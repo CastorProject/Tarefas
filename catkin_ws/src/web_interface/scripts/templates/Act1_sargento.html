@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+  <head>
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <script src="{{ url_for('static', filename='jquery-3.5.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+    <style>
+      body
+      {
+        width: 700px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 0 20px 20px 20px;
+        border: 3px solid black;
+        font-family: "Gill Sans Extrabold", Helvetica, sans-serif;
+      }
+
+      h1
+      {
+        font-size: 50px;
+        text-align: center;
+      }
+
+      p
+      {
+        text-align: center;
+      }
+
+      .button
+      {
+        background:transparent;
+        border: 1px solid transparent;
+        box-sizing: border-box;
+        cursor: pointer;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 1;
+        margin: 10px;
+        padding: 5px 15px;
+        text-align: center;
+        text-decoration: none;
+        display:inline-block;
+        outline:none;
+        position:relative;
+        top:0;
+        text-shadow:0 1px 1px rgba(0, 0, 0, 0.5);
+        -webkit-transition: all 0.2s ease-in-out 0s;
+        -moz-transition: all 0.2s ease-in-out 0s;
+        -ms-transition: all 0.2s ease-in-out 0s;
+        transition: all 0.2s ease-in-out 0s;
+      }
+
+      .grey
+      {
+        background:#4c4c4c;
+        color:#fff;
+        box-shadow: 0 2px 0 #333333;
+      }
+
+      .grey:hover
+      {
+        background:#747373;
+      }
+
+      .grey:active, .grey:focus
+      {
+        background:#444444;
+      }
+    </style>
+  </head>
+  <body>
+  <h1>Atividade 1 - A batalha 👮‍♂️</h1>
+    <p>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/songBattle">O mestre mandou... 🎵</a>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/explain">Explicação 🤔</a>
+    </p>
+  <h2>Indicações:</h2>
+    <p>
+
+    </p>
+    <p>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/indication1">Salta 🦶</a>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/indication2">Aplaudir 2 👏</a>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/indication3">Dê uma volta 🤸</a>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/indication4">Abaixe-se 👇</a>
+    </p>
+      <p><a style="width: 400px;" class="btn btn-default btn-lg" href="/Activities/A1/indication5">Você tem que fazer uma cara de surpresa 😱</a></p>
+      <p><a style="width: 400px;" class="btn btn-default btn-lg" href="/Activities/A1/indication6">Você tem que fazer uma cara de enojo 😡</a></p>  
+      <p><a style="width: 400px;" class="btn btn-default btn-lg" href="/Activities/A1/indication7">Você tem que fazer uma cara feliz 😁</a></p>
+      <p><a style="width: 400px;" class="btn btn-default btn-lg" href="/Activities/A1/indication8">Você tem que fazer uma cara de medo 😨</a></p>
+      <p><a style="width: 400px;" class="btn btn-default btn-lg" href="/Activities/A1/indication9">Você tem que fazer uma cara triste 😞</a></p>
+    <p>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/indication10">Toque sua boca 👄</a>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/indication11">Toque seus cotovelos 💪</a>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/indication12">Toque seu nariz 👃</a>
+    </p>
+    <p><a class="btn btn-default btn-lg" href="/Activities/A1/indication13">Toque seus pés 🦶</a></p>
+    <p>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/indication14">Levante a mão direita 🤚</a>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/indication15">Levanta a mão esquerda 🤚</a>
+    </p>
+    <p>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/indication16">Pula em um pé só 🦶</a>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/indication17">Coloque sua língua para fora 👅</a>
+    </p>
+  <h2>Frases Objetivo Alcançado:</h2>
+    <p>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/gj1">Muito bom! 😊</a>   <!-- Good Job -->
+      <a class="btn btn-default btn-lg" href="/Activities/A1/gj2">Parabéns! 😊</a>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/gj3">Que legal! 😊</a>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/gj4">Você conseguiu! 😊</a>
+    </p>
+    <p>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/gj5">Você se saiu bem! 😊</a>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/gj6">Felicitações! 😊</a>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/gj7">Excelente! 😊</a>
+    </p>
+    <p>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/gj8">Vamos continuar jogando! 😊</a>
+    </p>
+  <h2>Frases de incentivo:</h2>
+    <p>
+    </p>
+    <p>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/nt1">Tente novamente 😔</a> <!-- Nice Try -->
+      <a class="btn btn-default btn-lg" href="/Activities/A1/nt2">Foi por pouco 😔</a>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/nt3">Você quase conseguiu 😔</a>
+    </p>
+    <p>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/nt4">Continue assim 😔</a>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/nt7">Não estou ouvindo! 😔</a>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/nt9">Com prazer! 🤭</a>
+    </p>
+    <p>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/nt10">Sente-se! 😔</a>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/nt11">Venha! 😔</a>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/nt12">Preste atenção em mim! 🤖</a></p>
+    <p>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/me_duele">Estou com dor 🤕</a>
+    </p>
+    <p>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/lastimar">Você está me machucando 🤕</a>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/t1">Tudo está bem! 😜</a>
+    </p>
+    <p>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/t2">Não tem problema! 😜</a>
+    </p>
+    <p>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/t4">Olhe para mim 👀</a>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/t5">Não grite 😭</a>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/t6">Não chore 😭</a>
+    </p>
+    <p>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/t10">Diz-se "por favor" 😜</a>
+    </p>
+  <h2>Emoções:</h2>
+    <p>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/happy">🙂</a>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/sad">🙁</a>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/angry">😠</a>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/surprise">😮</a>
+      <a class="btn btn-default btn-lg" href="/Activities/A1/neutral">😐</a>
+    </p>
+    <a class="btn btn-info btn-lg" href="/Activities">Voltar</a>
+    <a class="btn btn-info btn-lg" href="/">Menu</a>
+    <a class="btn btn-info btn-lg" id="next-button" >Próximo</a>
+
+    <!-- Modal -->
+    <div id="endOfActivitiesModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Atividades</h4>
+          </div>
+          <div class="modal-body">
+            <p>Sem mais atividades por hoje, vamos voltar ao menu principal.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" id="returnToMenuButton" data-dismiss="modal">Menu</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../../static/script.js"></script>
+  </body>
+</html>

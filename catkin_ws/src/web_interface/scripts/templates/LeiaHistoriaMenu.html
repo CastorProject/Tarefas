@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>{{ title }}</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+
+      font-family: Arial, Helvetica, sans-serif;
+
+      background-color: #f4f6f8;
+
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+
+      padding: 30px 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 850px;
+
+      background-color: white;
+
+      border-radius: 16px;
+      padding: 35px;
+
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+    }
+
+    h1 {
+      margin-top: 0;
+      margin-bottom: 8px;
+
+      font-size: 42px;
+      text-align: center;
+      color: #333;
+    }
+
+    .subtitle {
+      text-align: center;
+
+      font-size: 20px;
+      color: #666;
+
+      margin-bottom: 35px;
+    }
+
+    .stories {
+      display: grid;
+
+      grid-template-columns: repeat(2, 1fr);
+
+      gap: 18px;
+    }
+
+    .story-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      min-height: 90px;
+
+      padding: 18px;
+
+      background-color: #ffffff;
+
+      border: 2px solid #d9dfe5;
+      border-radius: 12px;
+
+      text-decoration: none;
+
+      color: #333;
+
+      font-size: 21px;
+      font-weight: 500;
+
+      text-align: center;
+
+      transition: 0.2s ease;
+    }
+
+    .story-button:hover {
+      background-color: #f1f5f9;
+
+      border-color: #9ca8b3;
+
+      transform: translateY(-2px);
+
+      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.10);
+
+      text-decoration: none;
+      color: #222;
+    }
+
+    .story-button:active {
+      transform: translateY(0);
+    }
+
+    .navigation {
+      display: flex;
+      justify-content: center;
+
+      gap: 15px;
+
+      margin-top: 35px;
+    }
+
+    .nav-button {
+      padding: 12px 25px;
+
+      border: 1px solid #bbb;
+      border-radius: 8px;
+
+      background-color: white;
+
+      color: #333;
+      text-decoration: none;
+
+      font-size: 18px;
+
+      transition: 0.2s;
+    }
+
+    .nav-button:hover {
+      background-color: #eeeeee;
+      text-decoration: none;
+      color: #222;
+    }
+
+    @media (max-width: 650px) {
+
+      .container {
+        padding: 25px 18px;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+
+      .stories {
+        grid-template-columns: 1fr;
+      }
+
+      .story-button {
+        min-height: 75px;
+        font-size: 19px;
+      }
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <div class="container">
+
+    <h1>Histórias de José 👦</h1>
+
+    <div class="subtitle">
+      Escolha uma história
+    </div>
+
+
+    <div class="stories">
+
+      <a class="story-button" href="/Activities/A8/LeiaHistoria3">
+        José na rua 🛣️
+      </a>
+
+      <a class="story-button" href="/Activities/A8/LeiaHistoria2">
+        José em seu aniversário 🥳
+      </a>
+
+      <a class="story-button" href="/Activities/A8/LeiaHistoriaBanheira">
+        A banheira de José 🛁
+      </a>
+
+      <a class="story-button" href="/Activities/A8/LeiaHistoria4">
+        José está com medo 😨
+      </a>
+
+    </div>
+
+
+    <div class="navigation">
+
+      <a class="nav-button" href="/Activities">
+        ← Voltar
+      </a>
+
+      <a class="nav-button" href="/">
+        Menu
+      </a>
+
+    </div>
+
+  </div>
+
+</body>
+
+</html>

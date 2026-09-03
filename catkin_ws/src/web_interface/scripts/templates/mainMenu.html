@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+    <style>
+      body
+      {
+        width: 800px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 0 20px 20px 20px;
+        border: 3px solid black;
+        font-family: "Gill Sans Extrabold", Helvetica, sans-serif;
+      }
+
+      h1
+      {
+        font-size: 50px;
+        text-align: center;
+      }
+
+      p
+      {
+        text-align: center;
+      }
+
+
+      .button
+      {
+        background:transparent;
+        border: 1px solid transparent;
+        box-sizing: border-box;
+        cursor: pointer;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 1;
+        margin: 10px;
+        padding: 5px 15px;
+        text-align: center;
+        text-decoration: none;
+        display:inline-block;
+        outline:none;
+        position:relative;
+        top:0;
+        text-shadow:0 1px 1px rgba(0, 0, 0, 0.5);
+        -webkit-transition: all 0.2s ease-in-out 0s;
+        -moz-transition: all 0.2s ease-in-out 0s;
+        -ms-transition: all 0.2s ease-in-out 0s;
+        transition: all 0.2s ease-in-out 0s;
+      }
+
+      .grey
+      {
+        background:#4c4c4c;
+        color:#fff;
+        box-shadow: 0 2px 0 #333333;
+      }
+
+      .grey:hover
+      {
+        background:#747373;
+      }
+
+      .grey:active, .grey:focus
+      {
+        background:#444444;
+      }
+    </style>
+  </head>
+  <body>
+  <h1>CASTOR Robot 🤖</h1>
+  <h4 style="text-align: center;">Olá! Eu sou o robô CASTOR 🤖</h4>
+  <h4 style="text-align: center;">Bem-vindo ao menu Operação 🤖</h4>
+  <p>
+    <a class="btn btn-default btn-lg" href="/greet">Cumprimentos, como você? 👋</a>
+    <a class="btn btn-default btn-lg" href="/greet2">Olá meu nome, tudo bem? 👋</a>
+  </p>
+  <p>
+    <a class="btn btn-default btn-lg" href="/presentation1">Apresentação CASTOR 🤖</a>
+    <a class="btn btn-default btn-lg" href="/lets_go">Vamos jogar ⚽</a>
+  </p>
+  <p>
+    <a class="btn btn-default btn-lg" href="/bye">Despedida 🙋‍♂️</a>
+    <a class="btn btn-default btn-lg" href="/bye2">Despedida 🙋‍♀️‍</a>
+	  <a class="btn btn-default btn-lg" href="/byeamigos">Despedida amigos 👯‍♂️‍</a>
+  </p>
+  <p>
+    <a class="btn btn-default btn-lg" href="/final">Isso é tudo por hoje 😀</a>
+    <a class="btn btn-default btn-lg" href="/thanks">Obrigado por jogar comigo 😀</a>
+    <a class="btn btn-default btn-lg" href="/happyday">Tenha um bom dia 😀</a>
+  </p>
+  <p>
+    <a class="btn btn-default btn-lg" href="/hifiveinstruction">Dê um high-five 🖐️</a>
+    <a class="btn btn-default btn-lg" href="/highfive">High-five 🖐️</a>
+    <a class="btn btn-default btn-lg" href="/bajar_brazo">Abaixar o braço 🖐️</a>
+  </p>
+  <h2>Atividades português:</h2>
+  <p>
+    <a class="btn btn-default btn-lg" href="/Activities">Atividades 🎮</a>
+    <a class="btn btn-default btn-lg" href="/game_menu">Jogos 🎮</a>
+    <a class="btn btn-default btn-lg" href="/Text">Texto 📝</a>
+    <a class="btn btn-default btn-lg" href="/Pseudoprogramacion">Pseudoprogramação ✔</a>
+  </p>
+
+  <h2>Cadastro facial:</h2>
+  <p>
+    <a class="btn btn-default btn-lg" href="/face_registration">Cadastrar pessoa 📷</a>
+  </p>
+
+  <h2>Sistema:</h2>
+  <p>
+    <a class="btn btn-default btn-lg" href="/shutdown">Desligar 📴</a>
+	  <a class="btn btn-default btn-lg" href="/reboot">Reiniciar 🔄</a>
+    <a class="btn btn-default btn-lg" href="/Ativar">Ativar microfone 🔄</a>
+    <a class="btn btn-default btn-lg" href="/Desativar">Desativar microfone 🔄</a>
+  </p>
+  </body>
+</html>

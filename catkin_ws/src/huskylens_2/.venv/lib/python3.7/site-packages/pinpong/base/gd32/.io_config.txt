@@ -1,0 +1,70 @@
+# File for configuring GPIO pin mode
+# STATE_NONE    0
+# STATE_GPIO    1
+# STATE_IIC     2
+# STATE_SPI     4
+# STATE_UART    8
+# STATE_PWM     16
+# STATE_ADC     32
+# STATE_SPECIAL 64
+# STATE_2812    65
+# STATE_DHT11   66
+# STATE_18B20   67
+# STATE_BUZZ    68
+# STATE_SR04    69
+# STATE_IR_SEND 70
+# STATE_IR_RECV 71
+# STATE_ICM20689 72
+# STATE_RESERVE 255
+
+GPIO state                #  GD32V IO  |  Golden IO  | pin state     | Supported pin modes |
+GPIO_0=STATE_GPIO         #  PA0       |  P27 keyB   | STATE_GPIO    |        |            |         |              |          |              |               |               |               | The button can only be used as an input IO pin.
+GPIO_1=STATE_ADC          #  PA1       |  P29 LIGHT  | STATE_ADC     |        |            |  ADC_1  |              |          |              |               |               |               | The light sensor can only be used as an ADC.
+GPIO_2=STATE_GPIO         #  PA2       |  P3         | STATE_GPIO    |  gpio  |  uart1 rx  |  ADC_2  |  tim1_2 pwm  |  buzzer  |  STATE_2812  |  STATE_DHT11  |  STATE_18B20  |  STATE_URM09  |
+GPIO_3=STATE_GPIO         #  PA3       |  P0         | STATE_GPIO    |  gpio  |  uart1 tx  |  ADC_3  |  tim1_3 pwm  |  buzzer  |  STATE_2812  |  STATE_DHT11  |  STATE_18B20  |  STATE_URM09  |
+GPIO_4=STATE_GPIO         #  PA4       |  P4         | STATE_GPIO    |  gpio  |            |  ADC_4  |              |          |  STATE_2812  |  STATE_DHT11  |  STATE_18B20  |  STATE_URM09  |
+GPIO_5=STATE_GPIO         #  PA5       |  P1         | STATE_GPIO    |  gpio  |  spi0      |  ADC_5  |              |          |  STATE_2812  |  STATE_DHT11  |  STATE_18B20  |  STATE_URM09  |
+GPIO_6=STATE_GPIO         #  PA6       |  P10        | STATE_PWM     |  gpio  |  spi0      |  ADC_6  |  tim2_0 pwm  |  buzzer  |  STATE_2812  |  STATE_DHT11  |  STATE_18B20  |  STATE_URM09  |
+GPIO_7=STATE_GPIO         #  PA7       |  P2         | STATE_PWM     |  gpio  |  spi0      |  ADC_7  |  tim2_1 pwm  |  buzzer  |  STATE_2812  |  STATE_DHT11  |  STATE_18B20  |  STATE_URM09  |
+GPIO_8=STATE_BUZZ         #  PA8       |  P26 Buzzer | STATE_BUZZ    |        |            |         |  tim0_0 pwm  |  buzzer  |              |               |               |               |
+GPIO_9=STATE_UART         #  PA9       |  xxxx       | STATE_UART    |        |  uart0 TX  |         |              |          |              |               |               |               | The communication interface cannot be changed
+GPIO_10=STATE_UART        #  PA10      |  xxxx       | STATE_UART    |        |  uart0 RX  |         |              |          |              |               |               |               | The communication interface cannot be changed
+GPIO_11=STATE_GPIO        #  PA11      |  P23        | STATE_GPIO    |  gpio  |            |         |  tim0_3 pwm  |  buzzer  |  STATE_2812  |  STATE_DHT11  |  STATE_18B20  |  STATE_URM09  |
+GPIO_12=STATE_GPIO        #  PA12      |  P24        | STATE_GPIO    |  gpio  |            |         |              |          |  STATE_2812  |  STATE_DHT11  |  STATE_18B20  |  STATE_URM09  |
+GPIO_13=STATE_GPIO        #  PA13      |  P12        | STATE_GPIO    |  gpio  | spi0cs     |         |              |          |  STATE_2812  |  STATE_DHT11  |  STATE_18B20  |  STATE_URM09  |
+GPIO_14=STATE_GPIO        #  PA14      |  P11        | STATE_GPIO    |  gpio  | spi1cs     |         |              |          |  STATE_2812  |  STATE_DHT11  |  STATE_18B20  |  STATE_URM09  |
+GPIO_15=STATE_GPIO        #  PA15      |  P25 LED    | STATE_GPIO    |        |            |         |              |          |              |               |               |               | The LED can only be used as an output pin.
+GPIO_16=STATE_18B20       #  PB0       |  P22        | STATE_GPIO    |  gpio  |            |  ADC_8  |  tim2_2 pwm  |  buzzer  |  STATE_2812  |  STATE_DHT11  |  STATE_18B20  |  STATE_URM09  |
+GPIO_17=STATE_GPIO        #  PB1       |  P21        | STATE_GPIO    |  gpio  |            |  ADC_9  |  tim2_3 pwm  |  buzzer  |  STATE_2812  |  STATE_DHT11  |  STATE_18B20  |  STATE_URM09  |
+GPIO_18=STATE_RESERVE     #  PB2       |  BOOT 1     | STATE_RESERVE |        |            |         |              |          |              |               |               |               | Cannot be used.
+GPIO_19=STATE_GPIO        #  PB3       |  P28 keyA   | STATE_GPIO    |        |            |         |              |          |              |               |               |               | The button can only be used as an input IO pin.
+GPIO_20=STATE_GPIO        #  PB4       |  P9         | STATE_GPIO    |  gpio  |            |         |  tim2_0 pwm  |  buzzer  |  STATE_2812  |  STATE_DHT11  |  STATE_18B20  |  STATE_URM09  |
+GPIO_21=STATE_GPIO        #  PB5       |  P8         | STATE_GPIO    |  gpio  |            |         |  tim2_1 pwm  |  buzzer  |  STATE_2812  |  STATE_DHT11  |  STATE_18B20  |  STATE_URM09  |
+GPIO_22=STATE_ICM20689    #  PB6       |  ICM SCL    | STATE_ICM20689|        |  iic0 scl  |         |              |          |              |               |               |               | ICM20689
+GPIO_23=STATE_ICM20689    #  PB7       |  ICM SDA    | STATE_ICM20689|        |  iic0 sda  |         |              |          |              |               |               |               | ICM20689
+GPIO_24=STATE_ICM20689    #  PB8       |  ICM INT    | STATE_ICM20689|        |            |         |              |          |              |               |               |               | ICM20689
+GPIO_25=STATE_GPIO        #  PB9       |  P16        | STATE_GPIO    |  gpio  |            |         |  tim3_3 pwm  |  buzzer  |  STATE_2812  |  STATE_DHT11  |  STATE_18B20  |  STATE_URM09  |
+GPIO_26=STATE_IIC         #  PB10      |  P19        | STATE_GPIO    |  gpio  |  iic1 scl  |         |              |          |              |               |               |               | i2c interface cannot be changed
+GPIO_27=STATE_IIC         #  PB11      |  P20        | STATE_GPIO    |  gpio  |  iic1 sda  |         |              |          |              |               |               |               | i2c interface cannot be changed
+GPIO_28=STATE_ICM20689    #  PB12      |  ICM CS     | STATE_ICM20689|        |            |         |              |          |              |               |               |               | ICM20689
+GPIO_29=STATE_GPIO        #  PB13      |  P13        | STATE_GPIO    |  gpio  |  spi1      |         |              |          |  STATE_2812  |  STATE_DHT11  |  STATE_18B20  |  STATE_URM09  |
+GPIO_30=STATE_GPIO        #  PB14      |  P14        | STATE_GPIO    |  gpio  |  spi1      |         |              |          |  STATE_2812  |  STATE_DHT11  |  STATE_18B20  |  STATE_URM09  |
+GPIO_31=STATE_GPIO        #  PB15      |  P15        | STATE_GPIO    |  gpio  |  spi1      |         |              |          |  STATE_2812  |  STATE_DHT11  |  STATE_18B20  |  STATE_URM09  |
+GPIO_32=STATE_RESERVE     #  PC0       |  xxxx       | STATE_RESERVE |  xxxx  |  xxxx      |  xxxx   |  xxxxxxxxx   |  xxxxxx  |  xxxx        |               |               |               | Cannot be used.
+GPIO_33=STATE_RESERVE     #  PC1       |  xxxx       | STATE_RESERVE |  xxxx  |  xxxx      |  xxxx   |  xxxxxxxxx   |  xxxxxx  |  xxxx        |               |               |               | Cannot be used.
+GPIO_34=STATE_RESERVE     #  PC2       |  xxxx       | STATE_RESERVE |  xxxx  |  xxxx      |  xxxx   |  xxxxxxxxx   |  xxxxxx  |  xxxx        |               |               |               | Cannot be used.
+GPIO_35=STATE_RESERVE     #  PC3       |  xxxx       | STATE_RESERVE |  xxxx  |  xxxx      |  xxxx   |  xxxxxxxxx   |  xxxxxx  |  xxxx        |               |               |               | Cannot be used.
+GPIO_36=STATE_RESERVE     #  PC4       |  xxxx       | STATE_RESERVE |  xxxx  |  xxxx      |  xxxx   |  xxxxxxxxx   |  xxxxxx  |  xxxx        |               |               |               | Cannot be used.
+GPIO_37=STATE_RESERVE     #  PC5       |  xxxx       | STATE_RESERVE |  xxxx  |  xxxx      |  xxxx   |  xxxxxxxxx   |  xxxxxx  |  xxxx        |               |               |               | Cannot be used.
+GPIO_38=STATE_RESERVE     #  PC6       |  xxxx       | STATE_RESERVE |  xxxx  |  xxxx      |  xxxx   |  xxxxxxxxx   |  xxxxxx  |  xxxx        |               |               |               | Cannot be used.
+GPIO_39=STATE_RESERVE     #  PC7       |  xxxx       | STATE_RESERVE |  xxxx  |  xxxx      |  xxxx   |  xxxxxxxxx   |  xxxxxx  |  xxxx        |               |               |               | Cannot be used.
+GPIO_40=STATE_RESERVE     #  PC8       |  xxxx       | STATE_RESERVE |  xxxx  |  xxxx      |  xxxx   |  xxxxxxxxx   |  xxxxxx  |  xxxx        |               |               |               | Cannot be used.
+GPIO_41=STATE_RESERVE     #  PC9       |  xxxx       | STATE_RESERVE |  xxxx  |  xxxx      |  xxxx   |  xxxxxxxxx   |  xxxxxx  |  xxxx        |               |               |               | Cannot be used.
+GPIO_42=STATE_RESERVE     #  PC10      |  xxxx       | STATE_RESERVE |  xxxx  |  xxxx      |  xxxx   |  xxxxxxxxx   |  xxxxxx  |  xxxx        |               |               |               | Cannot be used.
+GPIO_43=STATE_RESERVE     #  PC11      |  xxxx       | STATE_RESERVE |  xxxx  |  xxxx      |  xxxx   |  xxxxxxxxx   |  xxxxxx  |  xxxx        |               |               |               | Cannot be used.
+GPIO_44=STATE_RESERVE     #  PC12      |  xxxx       | STATE_RESERVE |  xxxx  |  xxxx      |  xxxx   |  xxxxxxxxx   |  xxxxxx  |  xxxx        |               |               |               | Cannot be used.
+GPIO_45=STATE_GPIO        #  PC13      |  P6         | STATE_GPIO    |  gpio  |            |         |              |          |  STATE_2812  |  STATE_DHT11  |  STATE_18B20  |  STATE_URM09  |
+GPIO_46=STATE_GPIO        #  PC14      |  P5         | STATE_GPIO    |  gpio  |            |         |              |          |  STATE_2812  |  STATE_DHT11  |  STATE_18B20  |  STATE_URM09  |
+GPIO_47=STATE_GPIO        #  PC15      |  P7         | STATE_GPIO    |  gpio  |            |         |              |          |  STATE_2812  |  STATE_DHT11  |  STATE_18B20  |  STATE_URM09  |
+
+

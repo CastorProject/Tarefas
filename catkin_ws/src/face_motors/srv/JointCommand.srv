@@ -1,0 +1,5 @@
+#service definition for joint command 
+int8 id
+float32 value
+---
+bool res
