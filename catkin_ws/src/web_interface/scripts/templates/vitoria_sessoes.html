@@ -7,36 +7,64 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
   <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
   <style>
-    body { background: #f0f4f8; font-family: 'Segoe UI', sans-serif; padding: 40px 20px; }
+    body { background: #f0f4f8; font-family: 'Segoe UI', sans-serif; padding: 28px 20px 50px; }
     .container-sessoes { max-width: 600px; margin: 0 auto; }
-    h1 { font-size: 24px; font-weight: 700; color: #1A2E4A; margin-bottom: 4px; }
-    .subtitulo { color: #888; font-size: 14px; margin-bottom: 32px; }
-    .dia-grupo { margin-bottom: 24px; }
-    .dia-titulo { font-size: 13px; font-weight: 700; color: #028090; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-    .sessao-item { background: white; border-radius: 12px; padding: 16px 20px; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 8px rgba(0,0,0,0.06); text-decoration: none; color: #333; transition: all 0.2s; }
-    .sessao-item:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); transform: translateY(-1px); color: #1A2E4A; text-decoration: none; }
+    .topo-nav { position: sticky; top: 0; z-index: 10; background: #f0f4f8;
+                padding: 10px 0 12px; margin-bottom: 4px; display: flex; gap: 20px;
+                border-bottom: 1px solid #e2e9f0; }
+    .topo-robo { text-align: center; margin-bottom: 6px; }
+    .topo-robo .robo { font-size: 50px; line-height: 1; cursor: pointer; display: inline-block; }
+    .topo-robo .dica { font-size: 11px; color: #c0c8d0; }
+    h1 { font-size: 23px; font-weight: 700; color: #1A2E4A; text-align: center; margin: 22px 0 2px; }
+    .robo-titulo { font-size: 30px; vertical-align: -5px; }
+    .subtitulo { color: #888; font-size: 14px; text-align: center; margin-bottom: 26px; }
+    .dia-grupo { margin-bottom: 22px; }
+    .dia-titulo { font-size: 13px; font-weight: 700; color: #028090; text-transform: uppercase;
+                  letter-spacing: 1px; margin-bottom: 10px; display: flex; align-items: baseline; gap: 8px; }
+    .dia-titulo .data { font-size: 11px; color: #b4bec8; letter-spacing: 0; text-transform: none; }
+    .sessao-item { background: white; border-radius: 12px; padding: 16px 20px; margin-bottom: 8px;
+                   display: flex; align-items: center; justify-content: space-between;
+                   box-shadow: 0 2px 8px rgba(0,0,0,0.06); text-decoration: none; color: #333;
+                   transition: all 0.2s; }
+    .sessao-item:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); transform: translateY(-1px);
+                         color: #1A2E4A; text-decoration: none; }
     .sessao-num { font-weight: 700; font-size: 16px; }
     .sessao-meta { font-size: 12px; color: #888; margin-top: 2px; }
     .seta { color: #028090; font-size: 18px; }
     .vazio { text-align: center; color: #bbb; padding: 60px 0; font-size: 15px; }
-    .btn-voltar { display: inline-flex; align-items: center; gap: 8px; color: #028090; text-decoration: none; font-weight: 600; font-size: 14px; margin-bottom: 24px; }
+    .btn-voltar { display: inline-flex; align-items: center; gap: 6px; color: #028090;
+                  text-decoration: none; font-weight: 600; font-size: 14px; }
     .btn-voltar:hover { text-decoration: underline; color: #028090; }
+    .rodape { margin-top: 32px; padding-top: 18px; border-top: 1px solid #e2e9f0;
+              display: flex; justify-content: space-between; align-items: center; }
+    .badge-labtel { font-size: 11px; color: #c0c8d0; }
   </style>
 </head>
 <body>
   <div class="container-sessoes">
-    <a href="/Vitoria/tela" class="btn-voltar">&#8592; Voltar</a>
-    <h1>&#128193; Sessoes gravadas</h1>
-    <p class="subtitulo">Clique em uma sessao para ver a transcricao completa</p>
-    {% if sessoes %}
-      {% for dia, lista in sessoes.items() %}
+
+    <div class="topo-nav">
+      <a href="/Vitoria/tela" class="btn-voltar">&#8592; Voltar para a IA Vit&oacute;ria</a>
+      <a href="/" class="btn-voltar" onclick="return podeIrAoMenu();">&#8962; Menu principal</a>
+    </div>
+
+    <h1><span class="robo-titulo">&#129302;</span> Sess&otilde;es gravadas</h1>
+    <p class="subtitulo">Clique em uma sess&atilde;o para ver a transcri&ccedil;&atilde;o completa</p>
+
+    {% if grupos %}
+      {% for g in grupos %}
         <div class="dia-grupo">
-          <div class="dia-titulo">&#128197; {{ dia }}</div>
-          {% for s in lista %}
-            <a href="/Vitoria/sessoes/{{ dia }}/{{ s.numero }}" class="sessao-item">
+          <div class="dia-titulo">
+            {{ g.rotulo }}
+            {% if g.rotulo in ['Hoje', 'Ontem', 'Anteontem'] %}
+              <span class="data">{{ g.dia }}</span>
+            {% endif %}
+          </div>
+          {% for s in g.lista %}
+            <a href="/Vitoria/sessoes/{{ g.dia }}/{{ s.numero }}" class="sessao-item">
               <div>
-                <div class="sessao-num">Sessao {{ s.numero }}</div>
-                <div class="sessao-meta">{{ s.linhas }} turnos registrados</div>
+                <div class="sessao-num">Sess&atilde;o {{ s.numero }}</div>
+                <div class="sessao-meta">{{ s.linhas }} falas registradas</div>
               </div>
               <span class="seta">&#8250;</span>
             </a>
@@ -45,10 +73,35 @@
       {% endfor %}
     {% else %}
       <div class="vazio">
-        Nenhuma sessao encontrada ainda.<br>
+        Nenhuma sess&atilde;o gravada ainda.<br>
         Inicie uma conversa com o Castor!
       </div>
     {% endif %}
+
+    <div class="rodape">
+      <a href="/Vitoria/tela" class="btn-voltar">&#8592; Voltar para a IA Vit&oacute;ria</a>
+      <a href="/" class="btn-voltar" onclick="return podeIrAoMenu();">&#8962; Menu principal</a>
+      <span class="badge-labtel">LabTEL/UFES</span>
+    </div>
+
   </div>
+
+  <script>
+    // O menu tem atividades de fala que brigam com a sessao em andamento, por
+    // isso sair por ele encerra a gravacao e precisa perguntar antes.
+    var estadoAtual = "parado";
+    function lerEstado() {
+      $.get("/Vitoria/estado", function (d) { estadoAtual = d.status || "parado"; });
+    }
+    function podeIrAoMenu() {
+      if (estadoAtual !== "ativo" && estadoAtual !== "pausado") return true;
+      if (confirm("A sessao esta gravando.\n\nEncerrar a sessao e ir para o menu?")) {
+        $.get("/Vitoria/parar", function () { window.location = "/"; });
+      }
+      return false;
+    }
+    lerEstado();
+    setInterval(lerEstado, 3000);
+  </script>
 </body>
 </html>

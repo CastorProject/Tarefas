@@ -16,7 +16,9 @@
       align-items: center;
       min-height: 100vh;
       margin: 0;
+      transition: background .25s;
     }
+    body.pausado-bg { background: #fdf3e3; }
     .card-castor {
       background: white;
       border-radius: 20px;
@@ -25,7 +27,7 @@
       width: 480px;
       text-align: center;
     }
-    .robot-icon { font-size: 64px; margin-bottom: 10px; }
+    .robot-icon { font-size: 64px; margin-bottom: 10px; cursor: pointer; }
     h1 { font-size: 28px; font-weight: 700; color: #1A2E4A; margin-bottom: 4px; }
     .subtitulo { color: #888; font-size: 14px; margin-bottom: 24px; }
     .status-box { background: #f8f9fa; border-radius: 12px; padding: 16px; margin-bottom: 24px; }
@@ -44,17 +46,52 @@
     .btn-parar    { background: #dc3545; color: white; }
     .btn-parar:hover    { background: #b02a37; }
     .btn-castor:disabled { opacity: 0.4; cursor: not-allowed; }
-    .ultima-fala { background: #f0f4f8; border-left: 4px solid #028090; border-radius: 8px; padding: 14px 16px; text-align: left; margin-bottom: 24px; min-height: 60px; font-size: 14px; color: #444; font-style: italic; }
+    .ultima-fala { background: #f0f4f8; border-left: 4px solid #028090; border-radius: 8px; padding: 14px 16px; text-align: left; margin-bottom: 16px; min-height: 60px; font-size: 14px; color: #444; font-style: italic; }
     .ultima-fala .label { font-weight: 700; color: #028090; font-style: normal; font-size: 12px; margin-bottom: 4px; }
+    .btn-aovivo { width: 100%; background: #028090; color: #fff; border: none; border-radius: 10px; padding: 10px; font-size: 14px; font-weight: 600; cursor: pointer; margin-bottom: 20px; }
+    .btn-aovivo:hover { background: #02697a; }
     .rodape-btns { display: flex; justify-content: space-between; align-items: center; }
-    .btn-link { color: #028090; text-decoration: none; font-size: 14px; font-weight: 600; }
+    .btn-link { color: #028090; text-decoration: none; font-size: 14px; font-weight: 600; cursor: pointer; }
     .btn-link:hover { text-decoration: underline; }
     .badge-labtel { font-size: 11px; color: #bbb; }
+
+    /* ---- gaveta lateral ao vivo ---- */
+    .gaveta {
+      position: fixed; top: 0; right: 0; height: 100%; width: 400px; max-width: 90vw;
+      background: #fff; box-shadow: -6px 0 28px rgba(0,0,0,.16);
+      transform: translateX(100%); transition: transform .25s ease;
+      display: flex; flex-direction: column; z-index: 60;
+    }
+    .gaveta.aberta { transform: translateX(0); }
+    .gaveta-topo { padding: 18px 20px; border-bottom: 1px solid #e8eef4;
+                   display: flex; align-items: center; justify-content: space-between; }
+    .gaveta-titulo { font-size: 16px; font-weight: 700; color: #1A2E4A; }
+    .gaveta-estado { font-size: 12px; color: #888; margin-top: 2px; }
+    .fechar { background: none; border: none; font-size: 22px; color: #aaa; cursor: pointer; line-height: 1; }
+    .fechar:hover { color: #555; }
+    .gaveta-feed { flex: 1; overflow-y: auto; padding: 16px 20px; background: #fafcfe; }
+    .turno { border-left: 3px solid #d4dde5; padding: 2px 0 2px 12px; margin-bottom: 14px; }
+    .turno.castor { border-left-color: #028090; }
+    .turno.pausa  { border-left-color: #f0ad4e; }
+    .turno .cab   { font-size: 11px; color: #aaa; }
+    .turno .quem  { font-size: 13px; font-weight: 700; color: #1A2E4A; }
+    .turno .texto { font-size: 15px; color: #333; margin-top: 1px; }
+    .selo { float: right; background: #fdf0d9; color: #a06a12; border-radius: 20px;
+            font-size: 10px; padding: 2px 8px; font-weight: 700; }
+    .nota { text-align: center; font-size: 11px; color: #bbb; margin: 10px 0; }
+    .feed-vazio { text-align: center; color: #c3ced8; padding-top: 60px; font-size: 14px; }
+    .fundo-gaveta { position: fixed; inset: 0; background: rgba(26,46,74,.28);
+                    opacity: 0; pointer-events: none; transition: opacity .25s; z-index: 55; }
+    .fundo-gaveta.visivel { opacity: 1; pointer-events: auto; }
+
+    @media (prefers-reduced-motion: reduce) {
+      body, .gaveta, .fundo-gaveta { transition: none; }
+    }
   </style>
 </head>
 <body>
   <div class="card-castor">
-    <div class="robot-icon">🤖</div>
+    <div class="robot-icon" onclick="sairPara('/')">&#129302;</div>
     <h1>IA Vitoria</h1>
     <p class="subtitulo">Sistema de conversa autonoma | LabTEL/UFES</p>
     <div class="status-box">
@@ -73,54 +110,136 @@
       <div class="label">&#128172; CASTOR disse:</div>
       <div id="ultima-fala-texto">--</div>
     </div>
+    <button class="btn-aovivo" onclick="abrirGaveta()">&#128065; Ver conversa ao vivo</button>
     <div class="rodape-btns">
-      <a href="/" class="btn-link">&#8592; Menu</a>
+      <a class="btn-link" onclick="sairPara('/')">&#8592; Menu</a>
       <a href="/Vitoria/sessoes" class="btn-link">&#128193; Ver Sessoes</a>
       <span class="badge-labtel">LabTEL/UFES</span>
     </div>
   </div>
+
+  <div class="fundo-gaveta" id="fundo-gaveta" onclick="fecharGaveta()"></div>
+  <div class="gaveta" id="gaveta">
+    <div class="gaveta-topo">
+      <div>
+        <div class="gaveta-titulo">Conversa ao vivo</div>
+        <div class="gaveta-estado" id="gaveta-estado">--</div>
+      </div>
+      <button class="fechar" onclick="fecharGaveta()">&times;</button>
+    </div>
+    <div class="gaveta-feed" id="gaveta-feed">
+      <div class="feed-vazio">A conversa aparece aqui quando a sessao comecar.</div>
+    </div>
+  </div>
+
   <script>
     var estadoAtual = "parado";
+    var ultimoTotal = -1;
+    var gavetaAberta = false;
+
     function acaoIA(acao) {
-      $.get("/Vitoria/" + acao, function(data) {
+      $.get("/Vitoria/" + acao, function (data) {
         if (data.status) atualizarStatus(data.status);
         if (data.sessao) document.getElementById("sessao-info").innerText = "Sessao: " + data.sessao;
+        ultimoTotal = -1;
       });
     }
+
+    function sairPara(destino) {
+      if (estadoAtual === "parado") { window.location = destino; return; }
+      if (confirm("A sessao ainda esta gravando.\n\nEncerrar a sessao e sair?")) {
+        $.get("/Vitoria/parar", function () { window.location = destino; });
+      }
+    }
+
+    function abrirGaveta() {
+      gavetaAberta = true;
+      document.getElementById("gaveta").classList.add("aberta");
+      document.getElementById("fundo-gaveta").classList.add("visivel");
+      ultimoTotal = -1;
+      atualizarFeed();
+    }
+    function fecharGaveta() {
+      gavetaAberta = false;
+      document.getElementById("gaveta").classList.remove("aberta");
+      document.getElementById("fundo-gaveta").classList.remove("visivel");
+    }
+
     function atualizarStatus(status) {
-      var dot  = document.getElementById("dot");
-      var txt  = document.getElementById("status-texto");
-      var ini  = document.getElementById("btn-iniciar");
-      var pau  = document.getElementById("btn-pausar");
-      var par  = document.getElementById("btn-parar");
+      var dot = document.getElementById("dot");
+      var txt = document.getElementById("status-texto");
+      var ini = document.getElementById("btn-iniciar");
+      var pau = document.getElementById("btn-pausar");
+      var par = document.getElementById("btn-parar");
       dot.className = "dot";
       estadoAtual = status;
+      document.body.className = (status === "pausado") ? "pausado-bg" : "";
+
       if (status === "ativo") {
         dot.classList.add("ativo");
-        txt.innerText = "Respondendo";
+        txt.innerText = "Gravando e respondendo";
         ini.disabled = true; pau.disabled = false; par.disabled = false;
-        pau.innerText = "Pausar";
+        pau.innerHTML = "&#9208; Pausar";
       } else if (status === "pausado") {
         dot.classList.add("pausado");
-        txt.innerText = "Pausado";
+        txt.innerText = "Gravando sem responder";
         ini.disabled = true; pau.disabled = false; par.disabled = false;
-        pau.innerText = "Retomar";
+        pau.innerHTML = "&#9654; Retomar";
       } else {
         dot.classList.add("parado");
         txt.innerText = "Aguardando inicio";
         ini.disabled = false; pau.disabled = true; par.disabled = true;
-        pau.innerText = "Pausar";
+        pau.innerHTML = "&#9208; Pausar";
         document.getElementById("sessao-info").innerText = "Nenhuma sessao ativa";
       }
+      document.getElementById("gaveta-estado").innerText = txt.innerText;
     }
+
     function atualizarFala() {
-      $.get("/Vitoria/ultima_fala", function(data) {
-        if (data.fala) {
-          document.getElementById("ultima-fala-texto").innerText = data.fala;
-        }
+      $.get("/Vitoria/ultima_fala", function (data) {
+        if (data.fala) document.getElementById("ultima-fala-texto").innerText = data.fala;
       });
     }
+
+    function escapar(t) { return $("<div>").text(t).html(); }
+
+    function montarTurno(t) {
+      if (t.quem === "Sistema") return '<div class="nota">' + escapar(t.texto) + '</div>';
+      var ehCastor = (t.quem === "Castor");
+      var ehPausa  = (t.quem.indexOf("standby") >= 0);
+      var classe   = ehCastor ? "turno castor" : (ehPausa ? "turno pausa" : "turno");
+      var cabeca   = ehCastor ? "&#129302; Castor" : "&#128172;";
+      var selo     = ehPausa ? '<span class="selo">SEM RESPOSTA</span>' : "";
+      return '<div class="' + classe + '">' +
+               '<div class="cab">' + selo + escapar(t.hora) + '</div>' +
+               '<div class="quem">' + cabeca + '</div>' +
+               '<div class="texto">' + escapar(t.texto) + '</div>' +
+             '</div>';
+    }
+
+    function atualizarFeed() {
+      if (!gavetaAberta) return;
+      $.get("/Vitoria/ao_vivo", function (data) {
+        if (data.status && data.status !== estadoAtual) atualizarStatus(data.status);
+        if (data.turnos.length === ultimoTotal) return;
+        ultimoTotal = data.turnos.length;
+
+        var feed = document.getElementById("gaveta-feed");
+        var perto = (feed.scrollHeight - feed.scrollTop - feed.clientHeight) < 80;
+        if (data.turnos.length === 0) {
+          feed.innerHTML = '<div class="feed-vazio">A conversa aparece aqui quando a sessao comecar.</div>';
+          return;
+        }
+        var html = "";
+        for (var i = 0; i < data.turnos.length; i++) html += montarTurno(data.turnos[i]);
+        feed.innerHTML = html;
+        if (perto) feed.scrollTop = feed.scrollHeight;
+      });
+    }
+
+    $.get("/Vitoria/estado", function (d) { atualizarStatus(d.status || "parado"); });
     setInterval(atualizarFala, 2000);
+    setInterval(atualizarFeed, 1500);
   </script>
 </body>
 </html>
