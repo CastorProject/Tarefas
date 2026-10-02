@@ -420,6 +420,8 @@ def actionAct(action):
     elif action == "A8":
         pubSpeaker.publish("Hora_Da_Leitura")
         template = 'LeiaHistoriaMenu.html'
+    elif action == "A9":
+            template = "Act9_emocoes.html"
     templateData = {
 		'title' : 'Activities',
 	}
