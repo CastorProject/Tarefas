@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <style>
+      body {
+        max-width: 900px;
+        margin: 24px auto;
+        padding: 32px 24px;
+        border: 3px solid #222;
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+      }
+      h1 { margin: 0 0 36px; }
+      .emocoes {
+        display: flex;
+        justify-content: center;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+      .emocoes form { margin: 0; }
+      .emoji-button {
+        width: 155px;
+        height: 155px;
+        border: 2px solid #d2d2d2;
+        border-radius: 12px;
+        background: #fff;
+        font-size: 78px;
+        line-height: 1;
+        cursor: pointer;
+      }
+      .emoji-button:hover, .emoji-button:focus {
+        border-color: #337ab7;
+        background: #f2f8fc;
+      }
+      .round { font-size: 24px; margin-bottom: 28px; }
+      .feedback { font-size: 30px; font-weight: bold; margin: 32px 0; }
+      .next { margin-top: 24px; }
+      @media (max-width: 400px) {
+        .emoji-button { width: 120px; height: 120px; font-size: 64px; }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Jogo das Emoções</h1>
+    <p class="round">Rodada {{ rodada }} de {{ total_rodadas }}</p>
+    {% if not respondeu %}
+    <p>Qual emoção o CASTOR está mostrando?</p>
+    <div class="emocoes" aria-label="Escolha uma emoção">
+      <form method="post" action="{{ url_for('selecionar_emocao_atividade_9', emocao='happy') }}">
+        <button class="emoji-button" type="submit" aria-label="Feliz" title="Feliz">😊</button>
+      </form>
+      <form method="post" action="{{ url_for('selecionar_emocao_atividade_9', emocao='sad') }}">
+        <button class="emoji-button" type="submit" aria-label="Triste" title="Triste">😢</button>
+      </form>
+      <form method="post" action="{{ url_for('selecionar_emocao_atividade_9', emocao='angry') }}">
+        <button class="emoji-button" type="submit" aria-label="Com raiva" title="Com raiva">😠</button>
+      </form>
+      <form method="post" action="{{ url_for('selecionar_emocao_atividade_9', emocao='surprise') }}">
+        <button class="emoji-button" type="submit" aria-label="Surpreso" title="Surpreso">😮</button>
+      </form>
+    </div>
+    {% else %}
+    <p class="feedback" role="status">{{ feedback }}</p>
+      {% if rodada < total_rodadas %}
+      <form method="post" action="{{ url_for('proxima_rodada_atividade_9') }}">
+        <button class="btn btn-primary btn-lg next" type="submit">Próxima rodada</button>
+      </form>
+      {% else %}
+      <a class="btn btn-primary btn-lg next" href="{{ url_for('resultado_atividade_9') }}">Ver pontuação</a>
+      {% endif %}
+    {% endif %}
+  </body>
+</html>

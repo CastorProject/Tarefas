@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <style>
+      body {
+        max-width: 800px;
+        margin: 24px auto;
+        padding: 32px 24px;
+        border: 3px solid #222;
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+      }
+      h1 { margin-bottom: 28px; }
+      .explanation {
+        font-size: 22px;
+        line-height: 1.5;
+        margin: 0 auto 32px;
+        max-width: 650px;
+      }
+      .actions .btn { margin: 8px; min-width: 180px; }
+    </style>
+  </head>
+  <body>
+    <h1>Atividade 9 - Emoções 🎭</h1>
+    <p class="explanation">
+      Vamos descobrir emoções juntos! Observe minhas expressões e tente acertar
+      qual é o meu sentimento. Quando estiver pronto, clique em Jogar.
+    </p>
+    <div class="actions">
+      <form method="post" action="{{ url_for('iniciar_atividade_9') }}" style="display: inline-block;">
+        <button class="btn btn-primary btn-lg" type="submit">Jogar</button>
+      </form>
+      <a class="btn btn-default btn-lg" href="/Activities/A9">Ouvir novamente</a>
+      <form method="post" action="{{ url_for('sair_atividade_9') }}" style="display: inline-block;">
+        <button class="btn btn-default btn-lg" type="submit">Sair</button>
+      </form>
+    </div>
+  </body>
+</html>
