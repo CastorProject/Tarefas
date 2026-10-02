@@ -15,6 +15,7 @@ class speakerNode(object):
 		self.initSubscribers()
 		self.initPublishers()
 		self.initVariables()
+		pygame.mixer.init()
 		return
 
 	def initSubscribers(self):
@@ -96,7 +97,7 @@ class speakerNode(object):
 		rospy.loginfo("[%s] speaker node started ok", self.name)
 		while not (rospy.is_shutdown()):
 			if self.newSound:
-					self.playMusic("/home/pi/Sounds/" + self.playSound + ".mp3")
+					self.playMusic("/home/pi/Sounds/" + (self.playSound if self.playSound.endswith(".mp3") else self.playSound + ".mp3"))
 					self.newSound = False
                         rospy.sleep(0.1)
 		return
