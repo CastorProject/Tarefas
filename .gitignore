@@ -9,6 +9,13 @@
 !/stop_ia_vitoria.sh
 !/voltar_mafe.sh
 
+# Dados de sessao: conversa real gravada em atendimento. NUNCA versionar.
+/catkin_ws/src/chat/sessoes/
+**/sessoes/
+**/transcricao.txt
+/logs_ia/
+*.wav
+
 # Only source packages belong in the Catkin workspace on GitHub.
 /catkin_ws/*
 !/catkin_ws/src/
@@ -199,3 +206,13 @@ pyrightconfig.json
 # End of https://www.toptal.com/developers/gitignore/api/python
 
 .vscode
+
+# Gerados em execucao, nunca versionar.
+/catkin_ws/src/chat/sessoes/
+**/sessoes/
+**/transcricao.txt
+!**/vitoria_transcricao.html
+/logs_ia/
+/sessoes_vazias/
+/Sounds/CastorSAY.wav
+/catkin_ws/src/chat/.ultima_saudacao

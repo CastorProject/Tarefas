@@ -37,6 +37,7 @@ pubMovements = rospy.Publisher('/movements', String, queue_size = 5)
 pubCastorSystem = rospy.Publisher('/castor_system', String, queue_size = 5)
 pubMicrophone = rospy.Publisher('/mic', String, queue_size = 5)
 pubRecord     = rospy.Publisher('/record_data', String, queue_size = 5)
+pubChatEstado = rospy.Publisher('/chat_estado', String, queue_size = 5)
 #pubText = rospy.Publisher('/microphone', String, queue_size = 5)
 pubFaceRegistration = rospy.Publisher(
     '/face_registration/request',
@@ -329,6 +330,14 @@ def faceRegistration():
 @app.route("/face_registration/status")
 def faceRegistrationStatus():
     return jsonify(face_registration_status)
+
+@app.route("/favicon.ico")
+def favicon_vazio():
+    """O navegador pede /favicon.ico sozinho a cada pagina aberta. Sem esta
+    rota o pedido caia na regra /<action>, que executa acciones.Main_Menu e
+    disparava acao no robo a cada navegacao entre telas."""
+    return ("", 204)
+
 
 @app.route("/<action>")
 def actionMainMenu(action):
@@ -1220,17 +1229,37 @@ def ia_vitoria_encerrar():
 PASTA_SESSOES    = "/home/pi/catkin_ws/src/chat/sessoes"
 ULTIMA_FALA_ARQ  = "/tmp/castor_ultima_fala.txt"
 ESTADO_ARQ       = "/tmp/castor_estado.txt"
+INICIO_ARQ       = "/tmp/castor_sessao_inicio.txt"
 
 def salvar_estado_vitoria(estado):
     with open(ESTADO_ARQ, "w") as f:
         f.write(estado)
 
+def _chat_vivo():
+    """O no do chat esta mesmo rodando?"""
+    try:
+        with open(os.devnull, "w") as nulo:
+            return subprocess.call(["pgrep", "-f", "scripts/ros_chat.py"],
+                                   stdout=nulo, stderr=nulo) == 0
+    except Exception:
+        return False
+
 def ler_estado_vitoria():
+    """Estado real da IA.
+
+    O arquivo sozinho mente: reiniciar o castor_start.service derruba o chat
+    e o llama-server junto (eles sobem de dentro do painel, no mesmo grupo de
+    processos do servico), mas o arquivo continua marcado como ativo. Entao o
+    painel mostrava Gravando com a IA morta. Aqui o arquivo so vale se o no
+    do chat realmente existir."""
     try:
         with open(ESTADO_ARQ) as f:
-            return f.read().strip()
-    except:
+            estado = f.read().strip()
+    except Exception:
         return "parado"
+    if estado in ("ativo", "pausado") and not _chat_vivo():
+        return "parado"
+    return estado
 
 def gerar_nome_sessao_vitoria():
     data = datetime.now().strftime("%d-%m-%Y")
@@ -1259,9 +1288,15 @@ def vitoria_iniciar():
     if estado == "parado":
         subprocess.Popen(["/bin/bash", "/home/pi/start_ia_vitoria.sh"])
         salvar_estado_vitoria("ativo")
-        sessao = gerar_nome_sessao_vitoria()
+        # Quem cria a pasta da sessao e o ros_chat.py. O painel so marca a hora
+        # de inicio, para a tela ao vivo nao mostrar conversa de sessao antiga.
+        try:
+            with open(INICIO_ARQ, "w") as f:
+                f.write(str(time.time()))
+        except Exception:
+            pass
         pubRecord.publish("iniciar")
-        return jsonify({"status": "ativo", "sessao": sessao})
+        return jsonify({"status": "ativo"})
     return jsonify({"status": estado})
 
 @app.route("/Vitoria/pausar")
@@ -1270,10 +1305,12 @@ def vitoria_pausar():
     if estado == "ativo":
         salvar_estado_vitoria("pausado")
         pubRecord.publish("pausar")
+        pubChatEstado.publish("pausar")
         return jsonify({"status": "pausado"})
     elif estado == "pausado":
         salvar_estado_vitoria("ativo")
         pubRecord.publish("retomar")
+        pubChatEstado.publish("retomar")
         return jsonify({"status": "ativo"})
     return jsonify({"status": estado})
 
@@ -1296,25 +1333,45 @@ def vitoria_ultima_fala():
 
 @app.route("/Vitoria/sessoes")
 def vitoria_sessoes():
-    sessoes = {}
+    """Lista as sessoes agrupadas por dia, do mais recente para o mais antigo.
+    O nome da pasta e DD-MM-AAAA, entao ordenar como texto colocava dia 30 na
+    frente de dia 02. Aqui a data e convertida antes de ordenar."""
+    from datetime import date, timedelta
+    grupos = []
+    hoje = date.today()
     if os.path.exists(PASTA_SESSOES):
-        for pasta_dia in sorted(os.listdir(PASTA_SESSOES), reverse=True):
+        for pasta_dia in os.listdir(PASTA_SESSOES):
             caminho_dia = os.path.join(PASTA_SESSOES, pasta_dia)
             if not os.path.isdir(caminho_dia):
                 continue
             dia = pasta_dia.replace("sessao-", "")
+            try:
+                d = datetime.strptime(dia, "%d-%m-%Y").date()
+            except ValueError:
+                continue
             lista = []
             for num in sorted(os.listdir(caminho_dia)):
                 txt_path = os.path.join(caminho_dia, num, "transcricao.txt")
                 linhas = 0
                 if os.path.exists(txt_path):
                     with open(txt_path) as f:
-                        linhas = sum(1 for l in f if l.strip() and "===" not in l)
+                        linhas = sum(1 for l in f if l.startswith("["))
                 if linhas > 0:
                     lista.append({"numero": num, "linhas": linhas})
-            if lista:
-                sessoes[dia] = lista
-    return render_template('vitoria_sessoes.html', sessoes=sessoes, title='Sessoes')
+            if not lista:
+                continue
+            if d == hoje:
+                rotulo = "Hoje"
+            elif d == hoje - timedelta(days=1):
+                rotulo = "Ontem"
+            elif d == hoje - timedelta(days=2):
+                rotulo = "Anteontem"
+            else:
+                rotulo = dia
+            grupos.append({"dia": dia, "rotulo": rotulo,
+                           "ordem": d.isoformat(), "lista": lista})
+    grupos.sort(key=lambda g: g["ordem"], reverse=True)
+    return render_template('vitoria_sessoes.html', grupos=grupos, title='Sessoes')
 
 @app.route("/Vitoria/sessoes/<dia>/<numero>")
 def vitoria_transcricao(dia, numero):
@@ -1336,6 +1393,79 @@ def vitoria_transcricao(dia, numero):
         total_standby=total_standby,
         title='Transcricao'
     )
+
+@app.route("/Vitoria")
+def vitoria_raiz():
+    return redirect("/Vitoria/tela")
+
+@app.route("/Vitoria/estado")
+def vitoria_estado():
+    return jsonify({"status": ler_estado_vitoria()})
+
+def _inicio_sessao():
+    try:
+        with open(INICIO_ARQ) as f:
+            return float(f.read().strip())
+    except Exception:
+        return 0.0
+
+def _transcricao_atual():
+    """Transcricao da sessao atual: so conta o que foi escrito depois do Iniciar."""
+    inicio = _inicio_sessao()
+    if inicio <= 0:
+        return None
+    melhor, melhor_m = None, -1
+    if os.path.exists(PASTA_SESSOES):
+        for raiz, _dirs, arquivos in os.walk(PASTA_SESSOES):
+            if "transcricao.txt" in arquivos:
+                caminho = os.path.join(raiz, "transcricao.txt")
+                try:
+                    m = os.path.getmtime(caminho)
+                except OSError:
+                    continue
+                if m >= inicio and m > melhor_m:
+                    melhor, melhor_m = caminho, m
+    return melhor
+
+@app.route("/Vitoria/ao_vivo")
+def vitoria_ao_vivo():
+    # Sessao encerrada sai do ao vivo: ela passa a viver em Ver Sessoes.
+    estado = ler_estado_vitoria()
+    if estado == "parado":
+        return jsonify({"turnos": [], "sessao": "", "status": estado})
+    caminho = _transcricao_atual()
+    turnos = []
+    sessao = ""
+    if caminho:
+        partes = caminho.split(os.sep)
+        if len(partes) >= 3:
+            sessao = "{}/{}".format(partes[-3].replace("sessao-", ""), partes[-2])
+        try:
+            with open(caminho) as f:
+                for linha in f:
+                    linha = linha.rstrip()
+                    if not linha.startswith("["):
+                        continue
+                    fim = linha.find("]")
+                    if fim < 0:
+                        continue
+                    hora  = linha[1:fim]
+                    resto = linha[fim + 1:].strip()
+                    if ":" not in resto:
+                        continue
+                    quem, texto = resto.split(":", 1)
+                    quem, texto = quem.strip(), texto.strip()
+                    if quem == "Sistema":
+                        baixo = texto.lower()
+                        if ("llm" in baixo
+                                or baixo.startswith("tempo de resposta")
+                                or "saudacao" in baixo):
+                            continue
+                    turnos.append({"hora": hora, "quem": quem, "texto": texto})
+        except Exception:
+            pass
+    return jsonify({"turnos": turnos, "sessao": sessao,
+                    "status": ler_estado_vitoria()})
 
 @app.route("/Terapia/comando/<action>", methods=["POST"])
 def terapia_comando(action):
