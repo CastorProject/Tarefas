@@ -1,0 +1,18 @@
+services:
+  piper:
+    image: debian:bullseye-slim
+    container_name: castor-piper
+
+    restart: unless-stopped
+
+    working_dir: /opt/piper
+
+    environment:
+      LD_LIBRARY_PATH: /opt/piper:/opt/piper/lib
+
+    volumes:
+      - /home/pi/piper_v1.2.0:/opt/piper:ro
+      - ./assets/models:/models:ro
+      - ./generated_audio:/output
+
+    command: ["sleep", "infinity"]
