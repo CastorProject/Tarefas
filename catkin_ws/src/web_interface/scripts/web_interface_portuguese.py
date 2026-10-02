@@ -4,9 +4,11 @@
 import time
 import subprocess
 import json
-import threading
+import unicodedata
 
 import rospy
+import os
+from datetime import datetime
 from flask import Flask, jsonify, redirect, render_template, request, url_for
 
 import rps_camera  # adicionado por Adryan
@@ -21,7 +23,7 @@ from std_msgs.msg import String
 ################ ROS #################
 ######################################
 
-threading.Thread(target=lambda: rospy.init_node('mainMenuHTML', disable_signals=True)).start()
+rospy.init_node('mainMenuHTML', disable_signals=True)
 
 ######################################
 ############# PUBLISHERS #############
@@ -33,7 +35,8 @@ pubSpeakerAction = rospy.Publisher('/speakerAction', String, queue_size = 15)
 pubMovements = rospy.Publisher('/movements', String, queue_size = 5)
 pubCastorSystem = rospy.Publisher('/castor_system', String, queue_size = 5)
 pubMicrophone = rospy.Publisher('/mic', String, queue_size = 5)
-pubText = rospy.Publisher('/microphone', String, queue_size = 5)
+pubRecord     = rospy.Publisher('/record_data', String, queue_size = 5)
+#pubText = rospy.Publisher('/microphone', String, queue_size = 5)
 pubFaceRegistration = rospy.Publisher(
     '/face_registration/request',
     String,
@@ -79,6 +82,11 @@ def callbackText(msg):
     global text
     text = msg.data
     print(text)
+    try:
+        with open("/tmp/castor_ultima_fala.txt", "w") as fala:
+            fala.write(text)
+    except:
+        pass
     return
 
 subText = rospy.Subscriber('/chat_output', String, callbackText)
@@ -90,7 +98,7 @@ texto_microfone = ""
 def callbackMicrophone(msg):
     global texto_microfone
 
-    texto_recebido = msg.data.lower().strip()
+    texto_recebido = msg.data.strip()
 
     if texto_recebido == "":
         return
@@ -119,20 +127,44 @@ textos_banheira = {
 }
 
 
+def normalizar_palavra(palavra):
+    """Normaliza só para comparação, preservando a palavra original na tela."""
+
+    palavra = palavra.lower()
+
+    # Remove acentos: "é" -> "e", "josé" -> "jose".
+    palavra = "".join(
+        caractere
+        for caractere in unicodedata.normalize("NFD", palavra)
+        if unicodedata.category(caractere) != "Mn"
+    )
+
+    # Remove pontuação, mantendo letras e números.
+    palavra = "".join(
+        caractere
+        for caractere in palavra
+        if caractere.isalnum()
+    )
+
+    return palavra
+
+
 def calcular_acerto(texto_falado, texto_esperado):
-    """Calcula o percentual de palavras corretas mantendo a ordem.
+    """Calcula o percentual de palavras corretas mantendo a ordem."""
 
-    Usa a maior subsequência comum (LCS). Palavras fora de ordem
-    não recebem o mesmo crédito que palavras ditas na ordem correta.
-    """
+    falado = [
+        normalizar_palavra(palavra)
+        for palavra in texto_falado.split()
+    ]
 
-    falado = texto_falado.lower().split()
-    esperado = texto_esperado.lower().split()
+    esperado = [
+        normalizar_palavra(palavra)
+        for palavra in texto_esperado.split()
+    ]
 
     if len(esperado) == 0:
         return 0.0
 
-    # Matriz da maior subsequência comum entre as duas listas de palavras.
     dp = [
         [0] * (len(falado) + 1)
         for _ in range(len(esperado) + 1)
@@ -151,6 +183,69 @@ def calcular_acerto(texto_falado, texto_esperado):
     palavras_corretas = dp[len(esperado)][len(falado)]
 
     return (palavras_corretas / len(esperado)) * 100.0
+
+
+def gerar_feedback_palavras(texto_falado, texto_esperado):
+    """Mostra exatamente o que o microfone captou e colore cada palavra."""
+
+    # Estas são as palavras que serão realmente exibidas na tela.
+    falado_original = texto_falado.split()
+
+    # Cópias normalizadas usadas SOMENTE para comparar.
+    falado = [
+        normalizar_palavra(palavra)
+        for palavra in falado_original
+    ]
+
+    esperado = [
+        normalizar_palavra(palavra)
+        for palavra in texto_esperado.split()
+    ]
+
+    n = len(esperado)
+    m = len(falado)
+
+    dp = [
+        [0] * (m + 1)
+        for _ in range(n + 1)
+    ]
+
+    for i in range(1, n + 1):
+        for j in range(1, m + 1):
+            if esperado[i - 1] == falado[j - 1]:
+                dp[i][j] = dp[i - 1][j - 1] + 1
+            else:
+                dp[i][j] = max(
+                    dp[i - 1][j],
+                    dp[i][j - 1]
+                )
+
+    # Índices das palavras realmente captadas que fizeram parte
+    # da sequência correta.
+    palavras_corretas_faladas = set()
+
+    i = n
+    j = m
+
+    while i > 0 and j > 0:
+        if esperado[i - 1] == falado[j - 1]:
+            palavras_corretas_faladas.add(j - 1)
+            i -= 1
+            j -= 1
+        elif dp[i - 1][j] >= dp[i][j - 1]:
+            i -= 1
+        else:
+            j -= 1
+
+    feedback = []
+
+    for indice, palavra_original in enumerate(falado_original):
+        feedback.append({
+            "word": palavra_original,
+            "correct": indice in palavras_corretas_faladas
+        })
+
+    return feedback
 
 ######################################
 ############# MAIN MENU ##############
@@ -253,6 +348,8 @@ def actionMainMenu(action):
         pubMicrophone.publish("Activo")
     elif action == "Desativar":
         pubMicrophone.publish("Inactivo")
+    elif action == "Vitoria":
+        return redirect("/Vitoria/tela")
     
     templateData = {
         'title' : 'Main Menu',
@@ -321,6 +418,7 @@ def actionAct(action):
     elif action == "A7":
         template = 'ActivitiesHug.html'
     elif action == "A8":
+        pubSpeaker.publish("Hora_Da_Leitura")
         template = 'LeiaHistoriaMenu.html'
     templateData = {
 		'title' : 'Activities',
@@ -571,12 +669,23 @@ def actionA8(action):
     if action == "LeiaHistoriaBanheira":
         # Começa uma nova leitura e liga o microfone.
         texto_microfone = ""
-        pubMicrophone.publish("Activo")
+        pubMicrophone.publish("Inactivo")
+        pubSpeaker.publish("Vamos_comecar")
+
+        #Timer para ligar o mic
+        rospy.Timer(
+        rospy.Duration(3.2),
+        lambda _: pubMicrophone.publish("Activo"),
+        oneshot=True
+    )
         template = 'LeiaHistoriaBanheira.html'
+
     elif action == "LeiaHistoria2":
         template = 'LeiaHistoria2.html'
+
     elif action == "LeiaHistoria3":
         template = 'LeiaHistoria3.html'
+
     elif action == "LeiaHistoria4":
         template = 'LeiaHistoria4.html'
 
@@ -628,7 +737,8 @@ def verificar_banheira(pagina):
         return jsonify({
             "success": False,
             "percentage": 0,
-            "heard": texto_microfone
+            "heard": texto_microfone,
+            "feedback": []
         })
 
     texto_esperado = textos_banheira[pagina]
@@ -638,10 +748,16 @@ def verificar_banheira(pagina):
         texto_esperado
     )
 
+    feedback = gerar_feedback_palavras(
+        texto_microfone,
+        texto_esperado
+    )
+
     return jsonify({
         "success": porcentagem >= 60.0,
         "percentage": round(porcentagem, 1),
-        "heard": texto_microfone
+        "heard": texto_microfone,
+        "feedback": feedback
     })
 
 ###########################################
@@ -656,7 +772,7 @@ def get():
 ###########################################
 ############ Texto Interactivo ############
 ###########################################
-
+'''
 @app.route('/get_text')
 def get_text():
     global text
@@ -668,6 +784,7 @@ def submit_text():
     pubText.publish(input_text)
     #print(input_text)
     return jsonify({'status': 'success', 'input_text': input_text})
+    '''
 
 ###########################################
 ############ Game Serious Menu ############
@@ -896,51 +1013,51 @@ def game_rps():
 def play():
     try:
         # Inicio do jogo
-        pubSpeaker.publish("rps_ola_vamos_jogar.mp3")
+        pubSpeaker.publish("rps_ola_vamos_jogar")
         rospy.sleep(4)
 
-        pubSpeaker.publish("rps_mostre_sua_jogada.mp3")
+        pubSpeaker.publish("rps_mostre_sua_jogada")
 
         # Espera a jogada
         result = rps_camera.jogar()
 
         # Jogada do jogador
         if result["player"] == "PEDRA":
-            pubSpeaker.publish("rps_voce_jogou_pedra.mp3")
+            pubSpeaker.publish("rps_voce_jogou_pedra")
 
         elif result["player"] == "PAPEL":
-            pubSpeaker.publish("rps_voce_jogou_papel.mp3")
+            pubSpeaker.publish("rps_voce_jogou_papel")
 
         elif result["player"] == "TESOURA":
-            pubSpeaker.publish("rps_voce_jogou_tesoura.mp3")
+            pubSpeaker.publish("rps_voce_jogou_tesoura")
 
         rospy.sleep(2)
 
         # Jogada do Castor
         if result["computer"] == "PEDRA":
-            pubSpeaker.publish("rps_eu_joguei_pedra.mp3")
+            pubSpeaker.publish("rps_eu_joguei_pedra")
 
         elif result["computer"] == "PAPEL":
-            pubSpeaker.publish("rps_eu_joguei_papel.mp3")
+            pubSpeaker.publish("rps_eu_joguei_papel")
 
         elif result["computer"] == "TESOURA":
-            pubSpeaker.publish("rps_eu_joguei_tesoura.mp3")
+            pubSpeaker.publish("rps_eu_joguei_tesoura")
 
         rospy.sleep(2)
 
         # Resultado da partida
         if result["result"] == "VENCEU":
-            pubSpeaker.publish("rps_parabens_voce_ganhou.mp3")
+            pubSpeaker.publish("rps_parabens_voce_ganhou")
 
         elif result["result"] == "PERDEU":
-            pubSpeaker.publish("rps_dessa_vez_eu_ganhei.mp3")
+            pubSpeaker.publish("rps_dessa_vez_eu_ganhei")
 
         elif result["result"] == "EMPATOU":
-            pubSpeaker.publish("rps_nos_empatamos.mp3")
+            pubSpeaker.publish("rps_nos_empatamos")
 
         
         rospy.sleep(2)
-        pubSpeaker.publish("rps_clique_abaixo_em_jogar_novamente.mp3")
+        pubSpeaker.publish("rps_clique_abaixo_em_jogar_novamente")
         return jsonify(result)
     except Exception as e:
         return jsonify({
@@ -953,6 +1070,178 @@ def play():
     #rps_camera.reset_game()
    # return jsonify({"status": "ok"})
 
+
+
+# =============================================================
+# === ROTAS DA VITORIA — NAO MEXER ===
+# =============================================================
+
+def _ia_esta_ativa():
+    r = subprocess.run(["pgrep", "-f", "ros_chat.py"],
+                       capture_output=True)
+    return r.returncode == 0
+
+@app.route("/ia_vitoria")
+def ia_vitoria_painel():
+    return render_template("ia_vitoria.html",
+                           ia_ativa=_ia_esta_ativa(),
+                           mensagem=request.args.get("msg"))
+
+@app.route("/ia_vitoria/iniciar")
+def ia_vitoria_iniciar():
+    subprocess.Popen(["bash", "/home/pi/start_ia_vitoria.sh"],
+                     stdout=open("/home/pi/logs_ia/start.log", "w"),
+                     stderr=subprocess.STDOUT)
+    return redirect("/ia_vitoria?msg=Iniciando+IA...+aguarde+cerca+de+1+minuto+e+atualize+a+pagina")
+
+@app.route("/ia_vitoria/encerrar")
+def ia_vitoria_encerrar():
+    pubMicrophone.publish("Inactivo")
+    time.sleep(1)
+    subprocess.run(["pkill", "-f", "ros_microphone_vitoria.py"])
+    subprocess.run(["pkill", "-f", "speaker_vitoria.py"])
+    subprocess.run(["pkill", "-f", "ros_chat.py"])
+    subprocess.run(["pkill", "-f", "ros_tts.py"])
+    subprocess.run(["pkill", "-f", "llama-server"])
+    time.sleep(2)
+    subprocess.Popen(["python",
+                       "/home/pi/catkin_ws/src/speaker/scripts/speaker.py"],
+                     stdout=open("/home/pi/logs_ia/speaker_mafe.log", "w"),
+                     stderr=subprocess.STDOUT)
+    subprocess.Popen(["python",
+                       "/home/pi/catkin_ws/src/microphone/scripts/ros_microphone.py"],
+                     stdout=open("/home/pi/logs_ia/mic_mafe.log", "w"),
+                     stderr=subprocess.STDOUT)
+    time.sleep(2)
+    return redirect("/ia_vitoria?msg=Sessao+encerrada.+Painel+da+Mafe+restaurado.")
+
+
+
+# =============================================================
+# === ROTAS NOVAS DA VITORIA (painel bonito) ===
+# =============================================================
+
+PASTA_SESSOES    = "/home/pi/catkin_ws/src/chat/sessoes"
+ULTIMA_FALA_ARQ  = "/tmp/castor_ultima_fala.txt"
+ESTADO_ARQ       = "/tmp/castor_estado.txt"
+
+def salvar_estado_vitoria(estado):
+    with open(ESTADO_ARQ, "w") as f:
+        f.write(estado)
+
+def ler_estado_vitoria():
+    try:
+        with open(ESTADO_ARQ) as f:
+            return f.read().strip()
+    except:
+        return "parado"
+
+def gerar_nome_sessao_vitoria():
+    data = datetime.now().strftime("%d-%m-%Y")
+    pasta_dia = os.path.join(PASTA_SESSOES, "sessao-{}".format(data))
+    os.makedirs(pasta_dia, exist_ok=True)
+    contador = 1
+    while os.path.exists(os.path.join(pasta_dia, "{:02d}".format(contador))):
+        contador += 1
+    pasta = os.path.join(pasta_dia, "{:02d}".format(contador))
+    os.makedirs(pasta)
+    with open(os.path.join(pasta, "transcricao.txt"), "w") as f:
+        f.write("=" * 60 + "\n")
+        f.write("TRANSCRICAO DE SESSAO -- CASTOR / LabTEL / UFES\n")
+        f.write("=" * 60 + "\n")
+        f.write("Data/Hora : {}\n".format(datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
+        f.write("=" * 60 + "\n\n")
+    return "{}/{}".format(data, "{:02d}".format(contador))
+
+@app.route("/Vitoria/tela")
+def vitoria_tela():
+    return render_template('exemplo_vitoria.html', title='IA Vitoria')
+
+@app.route("/Vitoria/iniciar")
+def vitoria_iniciar():
+    estado = ler_estado_vitoria()
+    if estado == "parado":
+        subprocess.Popen(["/bin/bash", "/home/pi/start_ia_vitoria.sh"])
+        salvar_estado_vitoria("ativo")
+        sessao = gerar_nome_sessao_vitoria()
+        pubRecord.publish("iniciar")
+        return jsonify({"status": "ativo", "sessao": sessao})
+    return jsonify({"status": estado})
+
+@app.route("/Vitoria/pausar")
+def vitoria_pausar():
+    estado = ler_estado_vitoria()
+    if estado == "ativo":
+        salvar_estado_vitoria("pausado")
+        pubRecord.publish("pausar")
+        return jsonify({"status": "pausado"})
+    elif estado == "pausado":
+        salvar_estado_vitoria("ativo")
+        pubRecord.publish("retomar")
+        return jsonify({"status": "ativo"})
+    return jsonify({"status": estado})
+
+@app.route("/Vitoria/parar")
+def vitoria_parar():
+    salvar_estado_vitoria("parado")
+    pubRecord.publish("parar")
+    subprocess.Popen(["setsid", "bash", "/home/pi/stop_ia_vitoria.sh"],
+        stdout=open("/home/pi/logs_ia/stop_vitoria.log", "w"),
+        stderr=subprocess.STDOUT)
+    return jsonify({"status": "parado"})
+
+@app.route("/Vitoria/ultima_fala")
+def vitoria_ultima_fala():
+    try:
+        with open(ULTIMA_FALA_ARQ) as f:
+            return jsonify({"fala": f.read().strip()})
+    except:
+        return jsonify({"fala": ""})
+
+@app.route("/Vitoria/sessoes")
+def vitoria_sessoes():
+    sessoes = {}
+    if os.path.exists(PASTA_SESSOES):
+        for pasta_dia in sorted(os.listdir(PASTA_SESSOES), reverse=True):
+            caminho_dia = os.path.join(PASTA_SESSOES, pasta_dia)
+            if not os.path.isdir(caminho_dia):
+                continue
+            dia = pasta_dia.replace("sessao-", "")
+            lista = []
+            for num in sorted(os.listdir(caminho_dia)):
+                txt_path = os.path.join(caminho_dia, num, "transcricao.txt")
+                linhas = 0
+                if os.path.exists(txt_path):
+                    with open(txt_path) as f:
+                        linhas = sum(1 for l in f if l.strip() and "===" not in l)
+                if linhas > 0:
+                    lista.append({"numero": num, "linhas": linhas})
+            if lista:
+                sessoes[dia] = lista
+    return render_template('vitoria_sessoes.html', sessoes=sessoes, title='Sessoes')
+
+@app.route("/Vitoria/sessoes/<dia>/<numero>")
+def vitoria_transcricao(dia, numero):
+    txt_path = os.path.join(PASTA_SESSOES, "sessao-{}".format(dia), numero, "transcricao.txt")
+    linhas = []
+    total_castor  = 0
+    total_standby = 0
+    if os.path.exists(txt_path):
+        with open(txt_path) as f:
+            linhas = f.readlines()
+        total_castor  = sum(1 for l in linhas if "Castor:" in l)
+        total_standby = sum(1 for l in linhas if "[standby]" in l)
+    return render_template(
+        'vitoria_transcricao.html',
+        linhas=[l.rstrip() for l in linhas],
+        dia=dia, numero=numero,
+        total_turnos=len(linhas),
+        total_castor=total_castor,
+        total_standby=total_standby,
+        title='Transcricao'
+    )
+
+# === FIM ROTAS NOVAS DA VITORIA ===
 
 if __name__ == "__main__":
    app.run(
