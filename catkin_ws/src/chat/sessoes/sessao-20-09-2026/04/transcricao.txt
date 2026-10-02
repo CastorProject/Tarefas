@@ -1,0 +1,37 @@
+============================================================
+TRANSCRICAO DE SESSAO — CASTOR / labtel / ufes
+============================================================
+Data/Hora : 20/09/2026 10:55:23
+Modo      : VOZ (ROS)
+============================================================
+
+[10:58:35] Crianca: oi chamo
+[11:01:05] Castor: Demorei demais para pensar. Pode repetir?
+[11:01:05] Sistema: tempo de resposta: 150.1s
+[11:03:43] Crianca: é claro
+[11:03:54] Castor: Legal! Me conta uma coisa que você gosta!
+[11:03:54] Sistema: tempo de resposta: 10.5s
+[11:11:47] Crianca: como chamo
+[11:12:03] Castor: você
+[11:12:03] Sistema: tempo de resposta: 15.2s
+[11:12:03] Crianca: me chamo
+[11:12:53] Castor: João
+[11:12:53] Sistema: tempo de resposta: 50.6s
+[11:12:53] Crianca: vitória vitória eu me chamo natalia
+[11:13:23] Castor: Que vitória, Natalia! Fico muito contente em te conhecer e compartilhar as minhas experiências.
+[11:13:23] Sistema: tempo de resposta: 29.9s
+[11:14:00] Crianca: você gosta de fazer
+[11:15:18] Castor: Vou adorar brincar com você!
+[11:15:18] Sistema: tempo de resposta: 77.5s
+[11:27:25] Crianca: cartão só
+[11:27:44] Castor: Legal! Me conta uma coisa que você gosta!
+[11:27:44] Sistema: tempo de resposta: 19.5s
+
+============================================================
+Fim da sessao: 11:48:58
+------------------------------------------------------------
+Falas processadas    : 7
+Respondidas pelo LLM : 7
+Frases de incentivo  : 0
+Ruido descartado     : 11
+============================================================

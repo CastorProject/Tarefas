@@ -1,0 +1,19 @@
+{
+  "reacoes": ["Que organização boa!", "Nossa, que caprichado!", "Adorei!",
+              "Que ideia prática!", "Ficou bem arrumado!", "Que legal!"],
+  "convites": ["Me conta como você organiza!",
+               "Me ensina o seu jeito de guardar!",
+               "Me fala como você separa as coisas!",
+               "Se você tivesse uma lojinha, me conta o que venderia!",
+               "Me explica como funciona essa sua lista!"],
+  "curiosidades": ["Guardar cada coisa num lugar ajuda a achar depois.",
+                   "Fazer uma lista ajuda a não esquecer nada.",
+                   "Em loja de verdade alguém confere o que entra e o que sai.",
+                   "Separar por cor ou por tamanho facilita na hora de achar.",
+                   "Troco é o dinheiro que volta quando a gente paga a mais."],
+  "perguntas": ["Você gosta de organizar suas coisas?",
+                "Você separa por cor, por tamanho ou por tipo?",
+                "Você já brincou de lojinha?",
+                "O que você guarda com mais cuidado?",
+                "Você gosta de fazer lista?"]
+}

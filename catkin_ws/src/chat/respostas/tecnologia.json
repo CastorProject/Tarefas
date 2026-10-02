@@ -1,0 +1,17 @@
+{
+  "reacoes": ["Que legal!", "Nossa, que máquina boa!", "Que invenção incrível!",
+              "Você entende disso!", "Que ideia genial!", "Isso é muito inteligente!"],
+  "convites": ["Me ensina como isso funciona?", "Me conta o que você fez!",
+               "Se você inventasse uma máquina, me conta o que ela faria!",
+               "Me explica esse jogo, eu não conheço!",
+               "Como seria o robô que você construiria?"],
+  "curiosidades": ["Tem robô que explora outros planetas sozinho.",
+                   "Dá pra programar arrastando blocos coloridos.",
+                   "O primeiro computador ocupava uma sala inteira!",
+                   "Tem robô que ajuda médico em cirurgia.",
+                   "Os desenhos animados são feitos de muitos quadrinhos seguidos."],
+  "perguntas": ["Você gosta de mexer no computador?", "Qual jogo você mais gosta?",
+                "Você já montou alguma coisa com peças?",
+                "Você prefere montar ou desmontar as coisas?",
+                "Você queria construir um robô?"]
+}

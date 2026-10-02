@@ -1,0 +1,43 @@
+============================================================
+TRANSCRICAO DE SESSAO — CASTOR / labtel / ufes
+============================================================
+Data/Hora : 19/09/2026 17:33:01
+Modo      : VOZ (ROS)
+============================================================
+
+[17:33:40] Crianca: me chamo vitória
+[17:34:50] Castor: Que nome legal, Vitória! Fico feliz em te conhecer!
+[17:34:50] Sistema: tempo de resposta: 70.6s
+[17:35:33] Crianca: de brincar
+[17:36:11] Castor: Brincadeiras! Como vai?
+[17:36:11] Sistema: tempo de resposta: 37.9s
+[17:37:27] Crianca: está
+[17:38:09] Castor: Brincadeira, sou aqui para te ajudar!
+[17:38:09] Sistema: tempo de resposta: 41.4s
+[17:47:18] Crianca: comprar mais
+[17:47:40] Castor: Com certeza, vou te ajudar com o que precisas!
+[17:47:40] Sistema: tempo de resposta: 21.9s
+[17:47:53] Crianca: é sua fique à no
+[17:48:48] Castor: Com certeza, vou te ajudar com o que precisas!
+[17:48:48] Sistema: tempo de resposta: 54.3s
+[17:50:36] Crianca: harry
+[17:52:25] Castor: Com certeza, vou te ajudar com o que precisas!
+[17:52:25] Sistema: tempo de resposta: 109.0s
+[17:52:32] Crianca: casa e deixou
+[17:54:48] Castor: Aqui está a pergunta que você gostaria de fazer com ela:
+
+Vocês estão na mesma casa hoje?
+[17:54:48] Sistema: tempo de resposta: 136.8s
+[17:55:53] Crianca: é moderna
+[17:56:56] Castor: Aqui está a pergunta que você gostaria de fazer com ela:
+
+Vocês estão na mesma casa hoje?
+[17:56:56] Sistema: tempo de resposta: 62.3s
+[17:57:20] Crianca: falso mercado já falei
+[17:57:44] Sistema: sessao pausada
+
+============================================================
+Fim da sessao: 17:58:03
+============================================================
+[17:59:26] Castor: Você está certo, acho que já falava. Estou aqui para ajudar a fazer perguntas e conversar com a criança.
+[17:59:26] Sistema: tempo de resposta: 125.9s

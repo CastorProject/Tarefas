@@ -1,0 +1,57 @@
+============================================================
+TRANSCRICAO DE SESSAO — CASTOR / labtel / ufes
+============================================================
+Data/Hora : 01/10/2026 17:01:36
+Modo      : VOZ (ROS)
+============================================================
+
+[17:01:37] Castor: Olá! Que dia especial! Como você gostaria de ser chamado?
+[17:01:37] Sistema: saudacao de abertura (sem LLM)
+[17:01:58] Crianca: eu me chamo vitória
+[17:01:58] Castor: Que nome legal, Vitória! Fico feliz em te conhecer!
+[17:01:58] Sistema: tempo de resposta: 0.0s
+[17:02:22] Crianca: como você foi criado
+[17:02:22] Castor: Entendi você.
+[17:02:22] Sistema: tempo de resposta: 0.1s
+[17:02:35] Crianca: como você foi criado
+[17:02:35] Castor: Certo. Pode continuar, eu tô ouvindo.
+[17:02:35] Sistema: tempo de resposta: 0.0s
+[17:02:51] Crianca: castor responde direito
+[17:02:51] Castor: Que legal! Me fala mais sobre isso!
+[17:02:51] Sistema: tempo de resposta: 0.0s
+[17:03:06] Crianca: responda direito
+[17:03:06] Castor: Nossa! Fala mais, se você quiser.
+[17:03:06] Sistema: tempo de resposta: 0.1s
+[17:03:19] Crianca: você está
+[17:03:19] Castor: Legal.
+[17:03:19] Sistema: tempo de resposta: 0.1s
+[17:03:48] Crianca: meu amigo se chama daniel
+[17:03:48] Castor: Interessante! Me conta outra coisa sobre você!
+[17:03:48] Sistema: tempo de resposta: 0.1s
+[17:04:22] Crianca: eu faço engenharia
+[17:04:22] Castor: Entendi!
+[17:04:22] Sistema: tempo de resposta: 0.0s
+[17:04:32] Crianca: você gosta de brincar
+[17:04:32] Castor: Não sei muito disso. Me conta?
+[17:04:32] Sistema: tempo de resposta: 0.0s
+[17:04:49] Crianca: você gosta de brincar
+[17:04:49] Castor: Essa eu não conheço. Me conta?
+[17:04:49] Sistema: tempo de resposta: 0.0s
+[17:05:14] Crianca: castor pai castor
+[17:05:15] Castor: Sei. Me conta mais se quiser.
+[17:05:15] Sistema: tempo de resposta: 0.0s
+[17:05:31] Crianca: desligar encerrar
+[17:05:31] Castor: Me conta uma coisa que você gosta!
+[17:05:31] Sistema: tempo de resposta: 0.0s
+[17:05:44] Crianca: desligar encerrar
+[17:05:44] Castor: Bacana. Se quiser falar mais disso, eu quero ouvir.
+[17:05:44] Sistema: tempo de resposta: 0.1s
+
+============================================================
+Fim da sessao: 17:14:09
+------------------------------------------------------------
+Falas processadas    : 13
+Respondidas pelo LLM : 13
+Frases de incentivo  : 0
+Ruido descartado     : 0
+============================================================

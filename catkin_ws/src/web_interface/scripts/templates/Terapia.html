@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Terapia — CASTOR</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+
+    <style>
+      body {
+        width: 800px;
+        max-width: 100%;
+        margin: 0 auto;
+        background-color: white;
+        padding: 0 20px 20px;
+        border: 3px solid black;
+        font-family: "Gill Sans Extrabold", Helvetica, sans-serif;
+        box-sizing: border-box;
+      }
+
+      h1 {
+        font-size: 50px;
+        text-align: center;
+      }
+
+      h2 {
+        text-align: center;
+        margin-top: 30px;
+      }
+
+      p {
+        text-align: center;
+      }
+
+      .comandos {
+        text-align: center;
+      }
+
+      .comandos form {
+        display: inline-block;
+        margin: 8px;
+      }
+
+      .comandos button {
+        min-width: 200px;
+        white-space: normal;
+      }
+
+      .menu {
+        margin-top: 35px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Terapia 🩺</h1>
+
+    <p>Selecione um comando para interagir com o robô CASTOR 🤖</p>
+
+    <h2>Expressões</h2>
+
+    <div class="comandos">
+      <form method="post" action="/Terapia/comando/happy">
+        <button class="btn btn-default btn-lg" type="submit">
+          Feliz 😀
+        </button>
+      </form>
+
+      <form method="post" action="/Terapia/comando/sad">
+        <button class="btn btn-default btn-lg" type="submit">
+          Triste 😢
+        </button>
+      </form>
+
+      <form method="post" action="/Terapia/comando/angry">
+        <button class="btn btn-default btn-lg" type="submit">
+          Bravo 😠
+        </button>
+      </form>
+
+      <form method="post" action="/Terapia/comando/surprise">
+        <button class="btn btn-default btn-lg" type="submit">
+          Surpreso 😮
+        </button>
+      </form>
+
+      <form method="post" action="/Terapia/comando/neutral">
+        <button class="btn btn-default btn-lg" type="submit">
+          Neutro 😐
+        </button>
+      </form>
+    </div>
+
+    <h2>O mestre mandou</h2>
+
+    <div class="comandos">
+      <form method="post" action="/Terapia/comando/explicar_mestre">
+        <button class="btn btn-default btn-lg" type="submit">
+          Explicar atividade 🔊
+        </button>
+      </form>
+
+      <form method="post" action="/Terapia/comando/musica_mestre">
+        <button class="btn btn-default btn-lg" type="submit">
+          Música: O mestre mandou 🎵
+        </button>
+      </form>
+    </div>
+
+    <p class="menu">
+      <a class="btn btn-default btn-lg" href="/">Menu</a>
+    </p>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "gatilhos": [
+    "sou autista", "tenho autismo", "eu sou autista", "sou do espectro",
+    "fui diagnosticado", "fui diagnosticada", "meu autismo", "sou atipico",
+    "sou atipica", "sou neurodivergente", "sou tea"
+  ],
+  "respostas": [
+    "Entendi. Pra mim tá tudo certo.",
+    "Legal você me contar isso.",
+    "Entendi. Eu gosto de conversar com você.",
+    "Certo. Pode me contar o que você quiser.",
+    "Entendi você. Estou aqui te ouvindo.",
+    "Que bom saber. Gosto de estar conversando com você.",
+    "Entendi. Pode ficar à vontade comigo.",
+    "Legal. Eu gosto de falar com você.",
+    "Entendi! Continua, estou ouvindo.",
+    "Certo. Pode falar o que quiser comigo.",
+    "Entendi. Tô gostando da nossa conversa.",
+    "Que bom que você quis me contar.",
+    "Entendi. Eu gosto de te ouvir.",
+    "Tá certo! Fico contente de conversar com você.",
+    "Entendi. Tô aqui com você."
+  ]
+}

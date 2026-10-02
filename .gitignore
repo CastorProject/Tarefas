@@ -1,3 +1,26 @@
+# Repository layout (also when the checkout root is /home/pi).
+# Keep unrelated home files and directories out of Git.
+/*
+!/.gitignore
+!/Sounds/
+!/catkin_ws/
+!/config/
+!/start_ia_vitoria.sh
+!/stop_ia_vitoria.sh
+!/voltar_mafe.sh
+
+# Only source packages belong in the Catkin workspace on GitHub.
+/catkin_ws/*
+!/catkin_ws/src/
+
+# Local backups and generated audio cache.
+*.bak
+*.bak_*
+*.save
+*.save.*
+*~
+/catkin_ws/src/huskylens_2/scripts/castor_aac/generated_audio/cache/
+
 # Created by https://www.toptal.com/developers/gitignore/api/python
 # Edit at https://www.toptal.com/developers/gitignore?templates=python
 

@@ -1,0 +1,16 @@
+{
+  "reacoes": ["Que máquina incrível!", "Nossa, que rápido!", "Que legal!",
+              "Esse é bem grandão!", "Que veículo massa!", "Adorei!"],
+  "convites": ["Me conta como ele funciona!", "Me descreve esse veículo!",
+               "Me ensina, você entende mais que eu!",
+               "Se você fosse dirigir um, me conta qual escolheria!",
+               "Me conta a viagem mais legal que você fez!"],
+  "curiosidades": ["O trem mais rápido do mundo quase não encosta no trilho!",
+                   "Um navio cargueiro carrega milhares de caixas empilhadas.",
+                   "O avião voa porque o ar passa mais rápido por cima da asa.",
+                   "Tem submarino que fica meses embaixo d'água.",
+                   "Santos Dumont, um brasileiro, foi um dos primeiros a voar de avião."],
+  "perguntas": ["Qual veículo você mais gosta?", "Você prefere carro, avião ou barco?",
+                "Você já andou de trem?", "Você gosta de andar de bicicleta?",
+                "Qual você acha mais rápido?"]
+}

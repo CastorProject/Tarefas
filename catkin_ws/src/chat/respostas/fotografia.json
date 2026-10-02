@@ -1,0 +1,19 @@
+{
+  "reacoes": ["Que foto bonita!", "Nossa, que olhar bom!", "Adorei!",
+              "Deve ter ficado linda!", "Que legal!", "Que momento bom de guardar!"],
+  "convites": ["Me descreve essa foto!",
+               "Me conta o que você fotografou!",
+               "Me ensina como você tirou!",
+               "Me fala o que tinha na foto!",
+               "Me conta a foto que você mais gosta!"],
+  "curiosidades": ["Fotografia quer dizer escrever com luz.",
+                   "As primeiras fotos exigiam vários minutos parado!",
+                   "A câmera tem um buraquinho que deixa a luz entrar.",
+                   "Dá pra fazer foto com uma caixa de sapato e um furinho.",
+                   "Antes as fotos eram só em preto e branco."],
+  "perguntas": ["Você gosta de tirar foto?",
+                "O que você mais gosta de fotografar?",
+                "Você prefere foto de bicho, de lugar ou de gente?",
+                "Você já viu uma foto bem antiga?",
+                "Tem alguma foto sua favorita?"]
+}

@@ -1,0 +1,23 @@
+# ============================================================
+# CASTOR — Modelfile para Ollama
+# LabTEL / UFES
+# ============================================================
+# Como usar:
+#   ollama create castor -f src/prompts/Modelfile
+#   ollama run castor
+#
+# Para atualizar depois de editar:
+#   ollama rm castor
+#   ollama create castor -f src/prompts/Modelfile
+# ============================================================
+
+FROM qwen3:1.7b
+
+# Parâmetros de geração
+PARAMETER temperature 0.5
+PARAMETER num_ctx 4096
+PARAMETER num_predict 500
+PARAMETER repeat_penalty 1.1
+
+# SYSTEM vazio — a personalidade completa vem do instrucoes.txt
+# enviado pelo interaction.py a cada mensagem

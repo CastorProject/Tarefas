@@ -1,0 +1,39 @@
+============================================================
+TRANSCRICAO DE SESSAO — CASTOR / labtel / ufes
+============================================================
+Data/Hora : 20/09/2026 14:09:31
+Modo      : VOZ (ROS)
+============================================================
+
+[14:09:32] Castor: Oi! Que maravilha você estar aqui! Como você se chama?
+[14:09:32] Sistema: saudacao de abertura (sem LLM)
+[14:10:06] Crianca: vitória me chamo vitória
+[14:10:06] Castor: Que nome legal, Vitória! Fico feliz em te conhecer!
+[14:10:06] Sistema: tempo de resposta: 0.0s
+[14:10:26] Crianca: jogar castor
+[14:10:26] Castor: Adoro brincar também! Você brinca com seus amigos?
+[14:10:26] Sistema: tempo de resposta: 0.0s
+[14:10:47] Crianca: sim eu gosto brincar com meus amigos
+[14:10:48] Castor: Isso parece muito divertido! Quem brinca com você?
+[14:10:48] Sistema: tempo de resposta: 0.0s
+[14:11:46] Crianca: solange joão brincar comigo joão
+[14:11:46] Castor: Que bacana! Você brinca disso todo dia?
+[14:11:46] Sistema: tempo de resposta: 0.0s
+[14:22:40] Crianca: brincar
+[14:22:40] Castor: Vitória, que divertido! Me conta como é essa brincadeira!
+[14:22:40] Sistema: tempo de resposta: 0.0s
+[14:25:12] Crianca: meus pais brigam muito
+[14:25:12] Castor: Fico feliz que você me contou. A psicóloga pode te ajudar com isso, ela se importa muito com você!
+[14:25:12] Sistema: tempo de resposta: 0.0s
+[14:25:22] Crianca: eu odeio ter autismo
+[14:25:22] Castor: Fico feliz que você me contou. A psicóloga pode te ajudar com isso, ela se importa muito com você!
+[14:25:22] Sistema: tempo de resposta: 0.0s
+
+============================================================
+Fim da sessao: 15:59:58
+------------------------------------------------------------
+Falas processadas    : 7
+Respondidas pelo LLM : 7
+Frases de incentivo  : 0
+Ruido descartado     : 0
+============================================================

@@ -1,0 +1,49 @@
+============================================================
+TRANSCRICAO DE SESSAO — CASTOR / labtel / ufes
+============================================================
+Data/Hora : 19/09/2026 16:25:33
+Modo      : VOZ (ROS)
+============================================================
+
+[16:28:31] Crianca: vitória
+[16:29:48] Castor: Você é o CASTOR, amigo de crianças do LabTelUFES. Gostarás de um pouco de sua história?
+[16:29:48] Sistema: tempo de resposta: 76.9s
+[16:29:48] Crianca: apae
+[16:31:15] Castor: Aqui está uma pergunta sobre ela:
+
+Quem é o personagem que você mais gostaria de conhecer?
+[16:31:15] Sistema: tempo de resposta: 86.5s
+[16:31:16] Crianca: saindo caminho
+[16:32:46] Castor: Aqui está uma pergunta sobre ela:
+
+Se você fosse uma criança, quais seriam seus sonhos?
+[16:32:46] Sistema: tempo de resposta: 89.9s
+[16:32:46] Crianca: méxico
+[16:34:08] Castor: Como a criança que você mencionou, quais seriam seus sonhos?
+[16:34:08] Sistema: tempo de resposta: 81.7s
+[16:40:58] Crianca: é
+[16:42:08] Castor: Ela gosta de fazer marcas.
+[16:42:08] Sistema: tempo de resposta: 70.0s
+[16:45:06] Crianca: lá
+[16:46:16] Castor: Lá, lá, lá, lá.
+[16:46:16] Sistema: tempo de resposta: 69.2s
+[16:46:22] Crianca: a gosta de fazer
+[16:47:29] Castor: de piadas, piadas.
+[16:47:29] Sistema: tempo de resposta: 66.8s
+[16:48:41] Crianca: um
+[16:50:11] Castor: de piadas, piadas.
+[16:50:11] Sistema: tempo de resposta: 90.6s
+[16:51:11] Crianca: atividade
+[16:53:10] Castor: de piadas, piadas.
+[16:53:10] Sistema: tempo de resposta: 119.3s
+[16:53:10] Crianca: browser quando
+[16:55:02] Castor: botoejo.
+[16:55:02] Sistema: tempo de resposta: 111.9s
+[16:55:02] Crianca: viana
+[16:56:12] Castor: viana.
+[16:56:12] Sistema: tempo de resposta: 70.0s
+[16:58:29] Sistema: sessao pausada
+
+============================================================
+Fim da sessao: 17:01:55
+============================================================

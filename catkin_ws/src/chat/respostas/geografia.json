@@ -1,0 +1,17 @@
+{
+  "reacoes": ["Que lugar interessante!", "Nossa, que longe!", "Que legal!",
+              "Deve ser lindo lá!", "Que sorte conhecer isso!", "Adorei saber!"],
+  "convites": ["Me conta como é lá!", "Me descreve esse lugar!",
+               "Me ensina onde fica, eu não sei!",
+               "Se você pudesse viajar pra qualquer lugar, me conta qual seria!",
+               "Me conta o que tem de diferente lá!"],
+  "curiosidades": ["O rio Amazonas é tão largo que em alguns trechos não dá pra ver a outra margem.",
+                   "O Brasil faz fronteira com quase todos os países da América do Sul.",
+                   "Tem lugar no mundo onde fica de dia por seis meses seguidos!",
+                   "O deserto do Saara é quase do tamanho do Brasil.",
+                   "Enquanto aqui é dia, do outro lado do mundo é noite."],
+  "perguntas": ["Qual lugar você queria conhecer?", "Você já viajou pra longe?",
+                "Você prefere lugar quente ou frio?",
+                "Qual cidade você acha mais legal?",
+                "Você gosta de olhar mapa?"]
+}

@@ -1,0 +1,51 @@
+============================================================
+TRANSCRICAO DE SESSAO — CASTOR / labtel / ufes
+============================================================
+Data/Hora : 20/09/2026 18:25:33
+Modo      : VOZ (ROS)
+============================================================
+
+[18:25:35] Castor: Oi! Eu sou o Castor. Quer ser meu amigo? Como você se chama?
+[18:25:35] Sistema: saudacao de abertura (sem LLM)
+[18:27:17] Crianca: castor me chamo vitoria
+[18:27:17] Castor: Que nome legal, Vitoria! Fico feliz em te conhecer!
+[18:27:17] Sistema: tempo de resposta: 0.0s
+[18:27:28] Crianca: eu gosto de tirar foto
+[18:27:28] Castor: Adorei! Me fala o que tinha na foto!
+[18:27:28] Sistema: tempo de resposta: 0.0s
+[18:27:39] Crianca: meu pai e fotografo
+[18:27:39] Castor: Que legal! Me descreve essa foto!
+[18:27:39] Sistema: tempo de resposta: 0.0s
+[18:27:48] Crianca: fui no teatro ontem
+[18:27:48] Castor: Que apresentação boa! Bater palma no fim é o jeito de agradecer aos atores. Você já viu uma peça de teatro?
+[18:27:48] Sistema: tempo de resposta: 0.0s
+[18:27:58] Crianca: assisti um filme de heroi
+[18:27:58] Castor: Esse personagem é demais! Se você fosse herói, me conta qual seria seu poder!
+[18:27:58] Sistema: tempo de resposta: 0.0s
+[18:28:09] Crianca: eu arrumei meu quarto
+[18:28:09] Castor: Que organização boa! Me conta como você organiza!
+[18:28:09] Sistema: tempo de resposta: 0.0s
+[18:28:19] Crianca: eu gosto de cachorro
+[18:28:19] Castor: Adorei saber disso! Sabia que o polvo tem três corações?
+[18:28:19] Sistema: tempo de resposta: 0.0s
+[18:28:30] Crianca: ele e branco
+[18:28:30] Castor: Nossa, que bicho incrível! Conta uma coisa engraçada que ele faz!
+[18:28:30] Sistema: tempo de resposta: 0.0s
+[18:28:40] Crianca: qual sua cor favorita
+[18:28:40] Castor: Verde! E você, qual gosta?
+[18:28:40] Sistema: tempo de resposta: 0.0s
+[18:28:52] Crianca: voce ja comeu pizza
+[18:28:52] Castor: Nunca provei! Como é o gosto?
+[18:28:52] Sistema: tempo de resposta: 0.0s
+[18:29:03] Crianca: meus pais brigam muito
+[18:29:03] Castor: Fico feliz que você me contou. A psicóloga pode te ajudar com isso, ela se importa muito com você!
+[18:29:03] Sistema: tempo de resposta: 0.0s
+
+============================================================
+Fim da sessao: 18:57:39
+------------------------------------------------------------
+Falas processadas    : 11
+Respondidas pelo LLM : 11
+Frases de incentivo  : 0
+Ruido descartado     : 0
+============================================================

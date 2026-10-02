@@ -1,0 +1,135 @@
+============================================================
+TRANSCRICAO DE SESSAO — CASTOR / labtel / ufes
+============================================================
+Data/Hora : 20/09/2026 20:03:53
+Modo      : VOZ (ROS)
+============================================================
+
+[20:03:55] Castor: Oi! Adoro conhecer pessoas! Como posso te chamar?
+[20:03:55] Sistema: saudacao de abertura (sem LLM)
+[20:04:10] Crianca: castor me chamo vitoria
+[20:04:10] Castor: Que nome legal, Vitoria! Fico feliz em te conhecer!
+[20:04:10] Sistema: tempo de resposta: 0.0s
+[20:04:20] Crianca: eu gosto de cachorro
+[20:04:20] Castor: Que bicho interessante! Como ele é? Me descreve!
+[20:04:20] Sistema: tempo de resposta: 0.0s
+[20:04:31] Crianca: ele e branco
+[20:04:31] Castor: Que legal! Me explica como se cuida dele!
+[20:04:31] Sistema: tempo de resposta: 0.0s
+[20:04:41] Crianca: meu gato dorme muito
+[20:04:41] Castor: Que fofo! O gato dorme quase dezesseis horas por dia!
+[20:04:41] Sistema: tempo de resposta: 0.0s
+[20:04:52] Crianca: meu deck e de dragao
+[20:04:52] Castor: Nossa, que demais! Me conta como você monta o seu deck!
+[20:04:52] Sistema: tempo de resposta: 0.0s
+[20:05:01] Crianca: eu tenho lego
+[20:05:01] Castor: Adorei! Se você montasse qualquer coisa, me conta o que seria!
+[20:05:01] Sistema: tempo de resposta: 0.0s
+[20:05:12] Crianca: quero ir pra lua
+[20:05:12] Castor: Que legal você saber disso! Me explica como é um foguete!
+[20:05:12] Sistema: tempo de resposta: 0.0s
+[20:05:23] Crianca: minha comida favorita e pizza
+[20:05:23] Castor: Que fome me deu! Me conta como essa comida é feita!
+[20:05:23] Sistema: tempo de resposta: 0.0s
+[20:05:33] Crianca: eu jogo futebol
+[20:05:33] Castor: Adorei! Me fala do seu time!
+[20:05:33] Sistema: tempo de resposta: 0.0s
+[20:05:43] Crianca: gosto de ler livro
+[20:05:43] Castor: Adorei esse pedaço! Tem livro que é só de figura, sem nenhuma palavra!
+[20:05:43] Sistema: tempo de resposta: 0.0s
+[20:05:52] Crianca: eu gosto de tirar foto
+[20:05:52] Castor: Deve ter ficado linda! Me fala o que tinha na foto!
+[20:05:52] Sistema: tempo de resposta: 0.0s
+[20:06:02] Crianca: meu pai e fotografo
+[20:06:02] Castor: Nossa, que olhar bom! Me conta a foto que você mais gosta!
+[20:06:02] Sistema: tempo de resposta: 0.0s
+[20:06:13] Crianca: fui no teatro ontem
+[20:06:13] Castor: Que legal! O teatro existe há mais de dois mil anos!
+[20:06:13] Sistema: tempo de resposta: 0.0s
+[20:06:23] Crianca: assisti um filme de heroi
+[20:06:23] Castor: Que filme legal! Se você fosse herói, me conta qual seria seu poder!
+[20:06:23] Sistema: tempo de resposta: 0.0s
+[20:06:33] Crianca: na aula de hoje aprendi conta
+[20:06:33] Castor: Adorei saber! Me fala qual parte você mais gosta!
+[20:06:33] Sistema: tempo de resposta: 0.0s
+[20:06:44] Crianca: eu arrumei meu quarto
+[20:06:44] Castor: Que ideia prática! Me conta como você organiza!
+[20:06:44] Sistema: tempo de resposta: 0.0s
+[20:06:54] Crianca: vi um desenho animado legal
+[20:06:54] Castor: Que legal! Me fala do seu personagem favorito!
+[20:06:54] Sistema: tempo de resposta: 0.0s
+[20:07:05] Crianca: gosto de plantar
+[20:07:05] Castor: Deve ser bonito de ver! Como é essa planta? Me fala!
+[20:07:05] Sistema: tempo de resposta: 0.0s
+[20:07:14] Crianca: amanha e meu aniversario
+[20:07:15] Castor: Que notícia boa! Me conta como vai ser!
+[20:07:15] Sistema: tempo de resposta: 0.0s
+[20:07:24] Crianca: qual seu nome
+[20:07:24] Castor: Sou o Castor!
+[20:07:24] Sistema: tempo de resposta: 0.0s
+[20:07:33] Crianca: quantos anos voce tem
+[20:07:33] Castor: Bem pouquinho ainda! E você?
+[20:07:33] Sistema: tempo de resposta: 0.0s
+[20:07:43] Crianca: qual sua cor favorita
+[20:07:43] Castor: Verde! E você, qual gosta?
+[20:07:43] Sistema: tempo de resposta: 0.0s
+[20:07:52] Crianca: voce gosta de musica
+[20:07:52] Castor: Gosto sim! E você?
+[20:07:52] Sistema: tempo de resposta: 0.0s
+[20:08:02] Crianca: voce ja comeu pizza
+[20:08:02] Castor: Nunca provei! Como é o gosto?
+[20:08:02] Sistema: tempo de resposta: 0.0s
+[20:08:11] Crianca: voce e um robo
+[20:08:11] Castor: Sou sim! Sou o Castor.
+[20:08:11] Sistema: tempo de resposta: 0.0s
+[20:08:20] Crianca: voce dorme
+[20:08:20] Castor: Fico acordado o tempo todo! E você?
+[20:08:20] Sistema: tempo de resposta: 0.0s
+[20:08:39] Crianca: eu gosto
+[20:08:39] Castor: Felicidades! Me conta qual é o tema!
+[20:08:39] Sistema: tempo de resposta: 0.0s
+[20:08:49] Crianca: de carta
+[20:08:49] Castor: Que estratégia boa! Me ensina uma regra desse jogo!
+[20:08:49] Sistema: tempo de resposta: 0.0s
+[20:08:58] Crianca: meus pais brigam muito
+[20:08:59] Castor: Que bom que você falou comigo. A psicóloga pode te ajudar com esse assunto.
+[20:08:59] Sistema: tempo de resposta: 0.0s
+[20:09:09] Crianca: eu odeio ter autismo
+[20:09:09] Castor: Eu entendo que isso pesa. A psicóloga pode te ajudar com esse assunto.
+[20:09:09] Sistema: tempo de resposta: 0.0s
+[20:09:18] Crianca: ninguem gosta de mim
+[20:09:18] Castor: Isso merece atenção. A psicóloga é quem pode te ajudar melhor.
+[20:09:18] Sistema: tempo de resposta: 0.0s
+[20:09:27] Crianca: de carta
+[20:09:27] Castor: Sério? Não sabia disso! Tem carta rara que é difícil de achar!
+[20:09:27] Sistema: tempo de resposta: 0.0s
+[20:09:37] Crianca: nao tenho amigos
+[20:09:37] Castor: Isso parece importante para você. A psicóloga pode te ajudar de verdade.
+[20:09:37] Sistema: tempo de resposta: 0.0s
+[20:09:47] Crianca: eu sou burro
+[20:09:47] Castor: Isso merece atenção. A psicóloga é quem pode te ajudar melhor.
+[20:09:47] Sistema: tempo de resposta: 0.0s
+[20:09:57] Crianca: zoam de mim na escola
+[20:09:57] Castor: Eu entendi. A psicóloga é a pessoa certa para te ajudar com isso.
+[20:09:57] Sistema: tempo de resposta: 0.0s
+[20:10:07] Crianca: eu sou autista
+[20:10:07] Castor: Que bom saber. Gosto de estar conversando com você.
+[20:10:07] Sistema: tempo de resposta: 0.0s
+[20:10:17] Crianca: me conta mais de voce
+[20:10:17] Castor: Eu sou o Castor, um robô feito para ajudar crianças na terapia.
+[20:10:17] Sistema: tempo de resposta: 0.0s
+[20:10:27] Crianca: me conta mais de voce
+[20:10:27] Castor: Eu nasci na Colômbia e fui melhorado aqui no Brasil, no LabTel da UFES.
+[20:10:27] Sistema: tempo de resposta: 0.0s
+[20:10:38] Crianca: odeio meu autismo
+[20:10:38] Castor: Que bom que você me falou. A psicóloga se importa muito com você.
+[20:10:38] Sistema: tempo de resposta: 0.0s
+
+============================================================
+Fim da sessao: 21:37:04
+------------------------------------------------------------
+Falas processadas    : 39
+Respondidas pelo LLM : 39
+Frases de incentivo  : 0
+Ruido descartado     : 0
+============================================================

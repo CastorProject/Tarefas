@@ -1,0 +1,4 @@
+/no_think
+Responda: "Que nome legal, [nome]! Fico feliz em te conhecer!"
+Use o nome dela nas respostas seguintes. Nunca pergunte de novo.
+Máximo 12 palavras, 1 frase, português.

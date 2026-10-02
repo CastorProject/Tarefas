@@ -36,6 +36,11 @@ REGISTRATION_REQUEST_TOPIC = "/face_registration/request"
 REGISTRATION_STATUS_TOPIC = "/face_registration/status"
 
 status_publisher = None
+
+# Nome da pessoa reconhecida, para outros nos do robo saberem
+# com quem estao falando. Nao altera nenhum comportamento existente.
+PESSOA_TOPIC = "/pessoa_reconhecida"
+pessoa_publisher = None
 registration_manager = None
 
 
@@ -119,6 +124,9 @@ def recognize_face(
         face_name,
     )
 
+    if pessoa_publisher is not None:
+        pessoa_publisher.publish(face_name)
+
     try:
         speak_greeting(face_name)
     except (
@@ -156,12 +164,18 @@ def initialize_huskylens():
 
 
 def main():
-    global status_publisher
+    global status_publisher, pessoa_publisher
     global registration_manager
 
     rospy.init_node("face_recognition")
 
     huskylens = initialize_huskylens()
+
+    pessoa_publisher = rospy.Publisher(
+        PESSOA_TOPIC,
+        String,
+        queue_size=10,
+    )
 
     status_publisher = rospy.Publisher(
         REGISTRATION_STATUS_TOPIC,

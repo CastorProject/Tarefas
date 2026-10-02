@@ -1,0 +1,28 @@
+============================================================
+TRANSCRICAO DE SESSAO — CASTOR / labtel / ufes
+============================================================
+Data/Hora : 01/10/2026 17:26:53
+Modo      : VOZ (ROS)
+============================================================
+
+[17:26:55] Castor: Oi! Você sabia que adoro conhecer gente nova? Qual é o seu nome?
+[17:26:55] Sistema: saudacao de abertura (sem LLM)
+[17:27:12] Crianca: me chamo vitória
+[17:27:12] Castor: Que nome legal, Vitória! Fico feliz em te conhecer!
+[17:27:12] Sistema: tempo de resposta: 0.0s
+[17:27:30] Crianca: como você se chama castor
+[17:27:30] Castor: Eu sou o Castor! E você, como se chama?
+[17:27:30] Sistema: tempo de resposta: 0.0s
+[17:27:44] Crianca: já falei vitória
+[17:27:44] Castor: Entendi!
+[17:27:44] Sistema: tempo de resposta: 0.1s
+[17:27:55] Sistema: sessao pausada
+
+============================================================
+Fim da sessao: 17:28:11
+------------------------------------------------------------
+Falas processadas    : 3
+Respondidas pelo LLM : 3
+Frases de incentivo  : 0
+Ruido descartado     : 0
+============================================================

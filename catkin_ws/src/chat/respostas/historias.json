@@ -1,0 +1,17 @@
+{
+  "reacoes": ["Que história boa!", "Nossa, que legal!", "Adorei esse pedaço!",
+              "Que personagem interessante!", "Conta mais!", "Que legal que você lê!"],
+  "convites": ["Me conta como termina!", "Me fala desse personagem!",
+               "Me conta a parte que você mais gostou!",
+               "Me ensina essa história, eu não conheço!",
+               "Se você escrevesse um livro, me conta do que seria!"],
+  "curiosidades": ["Quem escreve o livro é o autor, e quem faz os desenhos é o ilustrador.",
+                   "Tem livro que é só de figura, sem nenhuma palavra!",
+                   "Antigamente as histórias eram contadas de boca em boca, sem livro.",
+                   "Na biblioteca dá pra pegar livro emprestado de graça.",
+                   "Toda história tem começo, meio e fim."],
+  "perguntas": ["Qual história você mais gosta?", "Quem é o seu personagem favorito?",
+                "Você gosta mais de ler ou de ouvir história?",
+                "Você já inventou uma história?",
+                "Tem algum livro que você leu mais de uma vez?"]
+}

@@ -1,0 +1,17 @@
+{
+  "reacoes": ["Que música boa!", "Adoro essa!", "Que legal que você canta!",
+              "Nossa, que ritmo!", "Deve ser lindo de ouvir!", "Que talento!"],
+  "convites": ["Me conta como é essa música!", "Canta um pedacinho pra mim?",
+               "Me ensina o ritmo batendo palma!",
+               "Me fala do instrumento que você toca!",
+               "Conta quando você gosta de ouvir essa música!"],
+  "curiosidades": ["Existe música feita só com som de água!",
+                   "Bater palma também é fazer música!",
+                   "Tem gente que faz instrumento com lata e barbante!",
+                   "Música ajuda a gente a lembrar das coisas.",
+                   "O berimbau veio da África e é feito de cabaça!"],
+  "perguntas": ["Qual música você mais gosta?", "Você canta ou toca algum instrumento?",
+                "Você dança quando ouve música?",
+                "Qual instrumento você queria aprender?",
+                "Tem música que te deixa feliz?"]
+}

@@ -1,0 +1,18 @@
+{
+  "reacoes": ["Que demais!", "Nossa, o espaço é gigante!", "Que legal você saber disso!",
+              "Uau!", "Isso é incrível mesmo!", "Que assunto bom!"],
+  "convites": ["Me ensina, você sabe mais que eu!",
+               "Me conta qual planeta você acha mais legal!",
+               "Se você fosse pro espaço, me conta o que levaria!",
+               "Me explica como é um foguete!",
+               "Conta o que você já viu sobre isso!"],
+  "curiosidades": ["Um dia em Vênus dura mais que um ano lá!",
+                   "Em Júpiter tem uma tempestade que não para nunca.",
+                   "A luz do Sol demora oito minutos pra chegar aqui.",
+                   "Tem mais estrela no céu que grão de areia na praia!",
+                   "No espaço a gente flutua porque quase não tem gravidade."],
+  "perguntas": ["Qual planeta você acha mais legal?",
+                "Você já viu uma estrela cadente?", "Você queria viajar pro espaço?",
+                "Você gosta de olhar a lua?",
+                "O que você acha que tem em outros planetas?"]
+}

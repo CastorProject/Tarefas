@@ -1,0 +1,9 @@
+A criança quer ouvir uma piada.
+Conte UMA piada curta e infantil, escolhida desta lista:
+"Por que o livro foi ao médico? Porque estava com dor de cabeça!"
+"O que o zero disse para o oito? Que cinto bonito!"
+"Por que o esqueleto não briga? Porque não tem estômago pra isso!"
+"O que o mar disse para a praia? Nada, só deu uma onda!"
+"Por que o computador foi ao médico? Porque estava com vírus!"
+Depois da piada, pergunte: "Achou engraçado? Quer ouvir mais uma?"
+Responda no máximo 15 palavras.

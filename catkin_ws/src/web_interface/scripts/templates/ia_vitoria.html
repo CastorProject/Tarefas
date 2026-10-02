@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>IA Vitoria</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+    <style>
+      body {
+        width: 800px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 0 20px 20px 20px;
+        border: 3px solid black;
+        font-family: "Gill Sans Extrabold", Helvetica, sans-serif;
+      }
+      h1 { font-size: 50px; text-align: center; }
+      p { text-align: center; }
+      .status-box {
+        text-align: center;
+        padding: 10px;
+        margin: 15px auto;
+        border-radius: 8px;
+        font-size: 18px;
+        font-weight: bold;
+      }
+      .status-off { background: #f2dede; color: #a94442; }
+      .status-on { background: #dff0d8; color: #3c763d; }
+    </style>
+  </head>
+  <body>
+    <h1>IA Vitoria 🧠</h1>
+    <h4 style="text-align: center;">Modulo de PLN do CASTOR</h4>
+
+    <div class="status-box {{ 'status-on' if ia_ativa else 'status-off' }}">
+      {% if ia_ativa %}
+        IA ativa ✅
+      {% else %}
+        IA inativa ⛔
+      {% endif %}
+    </div>
+
+    {% if mensagem %}
+    <div style="text-align:center; margin:10px; padding:10px; background:#fcf8e3; border-radius:8px;">
+      {{ mensagem }}
+    </div>
+    {% endif %}
+
+    <p>
+      <a class="btn btn-success btn-lg" href="/ia_vitoria/iniciar">Iniciar Sessao ▶️</a>
+      <a class="btn btn-danger btn-lg" href="/ia_vitoria/encerrar">Encerrar Sessao ⏹️</a>
+    </p>
+
+    <p>
+      <a class="btn btn-default btn-lg" href="/">Menu</a>
+    </p>
+  </body>
+</html>

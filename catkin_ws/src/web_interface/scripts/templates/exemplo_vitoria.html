@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IA Vitoria | CASTOR</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+  <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+  <style>
+    body {
+      background: #f0f4f8;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .card-castor {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      padding: 40px;
+      width: 480px;
+      text-align: center;
+    }
+    .robot-icon { font-size: 64px; margin-bottom: 10px; }
+    h1 { font-size: 28px; font-weight: 700; color: #1A2E4A; margin-bottom: 4px; }
+    .subtitulo { color: #888; font-size: 14px; margin-bottom: 24px; }
+    .status-box { background: #f8f9fa; border-radius: 12px; padding: 16px; margin-bottom: 24px; }
+    .status-indicator { display: inline-flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 600; }
+    .dot { width: 12px; height: 12px; border-radius: 50%; background: #ccc; }
+    .dot.ativo    { background: #02C39A; box-shadow: 0 0 8px #02C39A; }
+    .dot.pausado  { background: #f0ad4e; box-shadow: 0 0 8px #f0ad4e; }
+    .dot.parado   { background: #dc3545; }
+    .sessao-info { font-size: 13px; color: #888; margin-top: 6px; }
+    .btns { display: flex; gap: 12px; justify-content: center; margin-bottom: 24px; flex-wrap: wrap; }
+    .btn-castor { border: none; border-radius: 12px; padding: 12px 24px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
+    .btn-iniciar  { background: #02C39A; color: white; }
+    .btn-iniciar:hover  { background: #019e7d; }
+    .btn-pausar   { background: #f0ad4e; color: white; }
+    .btn-pausar:hover   { background: #d4922e; }
+    .btn-parar    { background: #dc3545; color: white; }
+    .btn-parar:hover    { background: #b02a37; }
+    .btn-castor:disabled { opacity: 0.4; cursor: not-allowed; }
+    .ultima-fala { background: #f0f4f8; border-left: 4px solid #028090; border-radius: 8px; padding: 14px 16px; text-align: left; margin-bottom: 24px; min-height: 60px; font-size: 14px; color: #444; font-style: italic; }
+    .ultima-fala .label { font-weight: 700; color: #028090; font-style: normal; font-size: 12px; margin-bottom: 4px; }
+    .rodape-btns { display: flex; justify-content: space-between; align-items: center; }
+    .btn-link { color: #028090; text-decoration: none; font-size: 14px; font-weight: 600; }
+    .btn-link:hover { text-decoration: underline; }
+    .badge-labtel { font-size: 11px; color: #bbb; }
+  </style>
+</head>
+<body>
+  <div class="card-castor">
+    <div class="robot-icon">🤖</div>
+    <h1>IA Vitoria</h1>
+    <p class="subtitulo">Sistema de conversa autonoma | LabTEL/UFES</p>
+    <div class="status-box">
+      <div class="status-indicator">
+        <div class="dot parado" id="dot"></div>
+        <span id="status-texto">Aguardando inicio</span>
+      </div>
+      <div class="sessao-info" id="sessao-info">Nenhuma sessao ativa</div>
+    </div>
+    <div class="btns">
+      <button class="btn-castor btn-iniciar" id="btn-iniciar" onclick="acaoIA('iniciar')">&#9654; Iniciar</button>
+      <button class="btn-castor btn-pausar" id="btn-pausar" onclick="acaoIA('pausar')" disabled>&#9208; Pausar</button>
+      <button class="btn-castor btn-parar" id="btn-parar" onclick="acaoIA('parar')" disabled>&#9209; Parar</button>
+    </div>
+    <div class="ultima-fala">
+      <div class="label">&#128172; CASTOR disse:</div>
+      <div id="ultima-fala-texto">--</div>
+    </div>
+    <div class="rodape-btns">
+      <a href="/" class="btn-link">&#8592; Menu</a>
+      <a href="/Vitoria/sessoes" class="btn-link">&#128193; Ver Sessoes</a>
+      <span class="badge-labtel">LabTEL/UFES</span>
+    </div>
+  </div>
+  <script>
+    var estadoAtual = "parado";
+    function acaoIA(acao) {
+      $.get("/Vitoria/" + acao, function(data) {
+        if (data.status) atualizarStatus(data.status);
+        if (data.sessao) document.getElementById("sessao-info").innerText = "Sessao: " + data.sessao;
+      });
+    }
+    function atualizarStatus(status) {
+      var dot  = document.getElementById("dot");
+      var txt  = document.getElementById("status-texto");
+      var ini  = document.getElementById("btn-iniciar");
+      var pau  = document.getElementById("btn-pausar");
+      var par  = document.getElementById("btn-parar");
+      dot.className = "dot";
+      estadoAtual = status;
+      if (status === "ativo") {
+        dot.classList.add("ativo");
+        txt.innerText = "Respondendo";
+        ini.disabled = true; pau.disabled = false; par.disabled = false;
+        pau.innerText = "Pausar";
+      } else if (status === "pausado") {
+        dot.classList.add("pausado");
+        txt.innerText = "Pausado";
+        ini.disabled = true; pau.disabled = false; par.disabled = false;
+        pau.innerText = "Retomar";
+      } else {
+        dot.classList.add("parado");
+        txt.innerText = "Aguardando inicio";
+        ini.disabled = false; pau.disabled = true; par.disabled = true;
+        pau.innerText = "Pausar";
+        document.getElementById("sessao-info").innerText = "Nenhuma sessao ativa";
+      }
+    }
+    function atualizarFala() {
+      $.get("/Vitoria/ultima_fala", function(data) {
+        if (data.fala) {
+          document.getElementById("ultima-fala-texto").innerText = data.fala;
+        }
+      });
+    }
+    setInterval(atualizarFala, 2000);
+  </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+============================================================
+TRANSCRICAO DE SESSAO — CASTOR / labtel / ufes
+============================================================
+Data/Hora : 19/09/2026 17:15:51
+Modo      : VOZ (ROS)
+============================================================
+
+[17:16:15] Crianca: um
+[17:17:14] Castor: Qual é sua favorita animal?
+[17:17:14] Sistema: tempo de resposta: 59.7s
+[17:17:14] Crianca: o
+[17:18:00] Castor: Qual é sua favorita música?
+[17:18:00] Sistema: tempo de resposta: 45.8s
+[17:18:00] Crianca: castor
+[17:19:55] Castor: Como amanhã?
+[17:19:55] Sistema: tempo de resposta: 114.6s
+[17:19:55] Crianca: essa é
+[17:20:40] Castor: Como amanhã?
+[17:20:40] Sistema: tempo de resposta: 45.1s
+[17:20:40] Crianca: em
+[17:22:31] Castor: como?
+[17:22:31] Sistema: tempo de resposta: 110.4s
+
+============================================================
+Fim da sessao: 17:26:32
+============================================================

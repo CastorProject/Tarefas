@@ -1,0 +1,26 @@
+============================================================
+TRANSCRICAO DE SESSAO — CASTOR / labtel / ufes
+============================================================
+Data/Hora : 20/09/2026 10:22:51
+Modo      : VOZ (ROS)
+============================================================
+
+[10:25:02] Crianca: meu cachorro
+[10:27:32] Castor: Demorei demais para pensar. Pode repetir?
+[10:27:32] Sistema: tempo de resposta: 150.1s
+[10:37:20] Crianca: hoje vou saltou estudante também
+[10:38:40] Castor: Olá, querido! Vamos brincar?
+[10:38:40] Sistema: tempo de resposta: 79.8s
+[10:38:42] Crianca: a foto do
+[10:39:08] Castor: Claro! Vamos brincar com isso?
+[10:39:08] Sistema: tempo de resposta: 26.5s
+[10:42:57] Crianca: colatina que após
+[10:43:27] Castor: Aqui está uma brincadeira: O que vocês gostam de fazer?
+[10:43:27] Sistema: tempo de resposta: 30.5s
+[10:43:34] Crianca: vai ficar
+[10:43:56] Castor: Legal! Me conta uma coisa que vocês gostam.
+[10:43:56] Sistema: tempo de resposta: 22.1s
+
+============================================================
+Fim da sessao: 10:53:50
+============================================================

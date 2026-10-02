@@ -1,0 +1,19 @@
+{
+  "reacoes": ["Que filme legal!", "Nossa, que história boa!", "Adorei!",
+              "Esse personagem é demais!", "Que cena massa!", "Que legal!"],
+  "convites": ["Me conta do que é esse filme!",
+               "Me fala do seu personagem favorito!",
+               "Me conta a parte que você mais gostou!",
+               "Me ensina a história, eu não assisti!",
+               "Se você fosse herói, me conta qual seria seu poder!"],
+  "curiosidades": ["Um filme é gravado fora de ordem e montado depois.",
+                   "As vozes em português são feitas por dubladores.",
+                   "O cinema começou sem som nenhum!",
+                   "Efeito especial é feito no computador depois de gravar.",
+                   "Tem filme que leva anos pra ficar pronto."],
+  "perguntas": ["Qual filme você mais gosta?",
+                "Quem é o seu personagem favorito?",
+                "Você prefere filme de aventura ou de rir?",
+                "Tem filme que você já viu várias vezes?",
+                "Você gosta mais de herói ou de vilão?"]
+}

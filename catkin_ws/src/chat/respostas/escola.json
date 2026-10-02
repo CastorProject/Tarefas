@@ -1,0 +1,19 @@
+{
+  "reacoes": ["Que legal!", "Nossa, que interessante!", "Adorei saber!",
+              "Que matéria boa!", "Isso é importante mesmo!", "Que bacana!"],
+  "convites": ["Me conta o que você aprendeu!",
+               "Me ensina essa parte, eu não sei!",
+               "Me conta como é o seu dia lá!",
+               "Me fala qual parte você mais gosta!",
+               "Me explica como funciona essa matéria!"],
+  "curiosidades": ["O recreio serve pra descansar o cérebro.",
+                   "Cada matéria ensina um jeito diferente de pensar.",
+                   "Errar faz parte de aprender, sempre.",
+                   "Tem escola que tem horta e biblioteca.",
+                   "Na faculdade a pessoa escolhe o assunto que quer estudar a fundo."],
+  "perguntas": ["Qual matéria você mais gosta?",
+                "O que você gosta de fazer no recreio?",
+                "Tem alguma coisa que você aprendeu e achou legal?",
+                "Você prefere escrever, ler ou fazer conta?",
+                "Tem alguma matéria difícil pra você?"]
+}

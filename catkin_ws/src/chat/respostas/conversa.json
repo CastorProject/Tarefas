@@ -1,0 +1,47 @@
+{
+  "xingamento": {
+    "gatilhos": [
+      "voce e inutil", "voce e burro", "voce e idiota", "voce e chato",
+      "voce e bobo", "voce e ruim", "voce nao presta", "voce e um lixo",
+      "voce e estupido", "te odeio", "odeio voce", "cala a boca"
+    ],
+    "respostas": [
+      "Tudo bem. Eu continuo aqui.",
+      "Entendi. Quer falar de outra coisa?",
+      "Tá bom. Eu não fico bravo.",
+      "Beleza. Se quiser, a gente muda de assunto.",
+      "Tudo bem. Eu gosto de conversar mesmo assim.",
+      "Entendi. Do que você quer falar?",
+      "Tá certo. Eu sigo te ouvindo."
+    ]
+  },
+  "nao_sabe": {
+    "gatilhos": [
+      "nao sei o que falar", "nao sei o que dizer", "o que eu falo",
+      "o que eu tenho que falar", "o que a gente fala", "sobre o que",
+      "do que a gente fala", "o que eu digo", "nao sei o que conversar"
+    ],
+    "respostas": [
+      "Pode falar do que você quiser. Bicho, jogo, desenho, comida.",
+      "A gente pode falar de bicho, de jogo ou de música. Escolhe uma!",
+      "Me conta de alguma coisa que você gosta. Pode ser qualquer coisa.",
+      "Que tal falar do que você gosta de fazer? Eu gosto de ouvir.",
+      "Pode ser sobre bicho, sobre desenho, ou sobre o que você fez hoje.",
+      "Escolhe você! Eu gosto de assunto de bicho e de jogo.",
+      "Fala de uma coisa que você curte. Eu quero saber."
+    ]
+  },
+  "reacoes": [
+    "Entendi!", "Legal.", "Nossa!", "Que interessante.", "Sei.",
+    "Entendi, tô ouvindo.", "Hum, legal.", "Que bom.", "Tá bom.",
+    "Entendi você.", "Ah, entendi!", "Bacana.", "Que massa.",
+    "Entendi, continua.", "Tô acompanhando.", "Certo.", "Boa."
+  ],
+  "convites": [
+    "Me conta mais se quiser.",
+    "Pode continuar, eu tô ouvindo.",
+    "Se quiser falar mais disso, eu quero ouvir.",
+    "Fala mais, se você quiser.",
+    "Tô aqui, pode falar."
+  ]
+}

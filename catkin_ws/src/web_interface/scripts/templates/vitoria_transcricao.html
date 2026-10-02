@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transcricao | IA Vitoria</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+  <style>
+    body { background: #f0f4f8; font-family: 'Segoe UI', sans-serif; padding: 40px 20px; }
+    .container-trans { max-width: 640px; margin: 0 auto; }
+    .btn-voltar { display: inline-flex; align-items: center; gap: 8px; color: #028090; text-decoration: none; font-weight: 600; font-size: 14px; margin-bottom: 24px; }
+    .btn-voltar:hover { text-decoration: underline; color: #028090; }
+    h1 { font-size: 22px; font-weight: 700; color: #1A2E4A; margin-bottom: 4px; }
+    .subtitulo { color: #888; font-size: 13px; margin-bottom: 24px; }
+    .transcricao-box { background: #1e1e2e; border-radius: 16px; padding: 24px; font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.8; color: #cdd6f4; white-space: pre-wrap; box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
+    .turno-castor   { color: #89dceb; }
+    .turno-crianca  { color: #a6e3a1; }
+    .turno-standby  { color: #6c7086; }
+    .turno-sistema  { color: #f38ba8; }
+    .turno-header   { color: #fab387; }
+    .stats { display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+    .stat { background: white; border-radius: 10px; padding: 10px 16px; font-size: 13px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .stat strong { color: #028090; }
+  </style>
+</head>
+<body>
+  <div class="container-trans">
+    <a href="/Vitoria/sessoes" class="btn-voltar">&#8592; Sessoes</a>
+    <h1>Sessao {{ numero }} | {{ dia }}</h1>
+    <p class="subtitulo">Transcricao completa da conversa</p>
+    <div class="stats">
+      <div class="stat"><strong>{{ total_turnos }}</strong> turnos</div>
+      <div class="stat"><strong>{{ total_castor }}</strong> falas do Castor</div>
+      <div class="stat"><strong>{{ total_standby }}</strong> em standby</div>
+    </div>
+    <div class="transcricao-box">
+{% for linha in linhas %}
+{% if "Castor:" in linha %}<span class="turno-castor">{{ linha }}</span>
+{% elif "[standby]" in linha %}<span class="turno-standby">{{ linha }}</span>
+{% elif "Sistema:" in linha %}<span class="turno-sistema">{{ linha }}</span>
+{% elif "===" in linha or "Data" in linha or "Modo" in linha %}<span class="turno-header">{{ linha }}</span>
+{% else %}<span class="turno-crianca">{{ linha }}</span>
+{% endif %}
+{% endfor %}
+    </div>
+  </div>
+</body>
+</html>

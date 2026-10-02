@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sessoes | IA Vitoria</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+  <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+  <style>
+    body { background: #f0f4f8; font-family: 'Segoe UI', sans-serif; padding: 40px 20px; }
+    .container-sessoes { max-width: 600px; margin: 0 auto; }
+    h1 { font-size: 24px; font-weight: 700; color: #1A2E4A; margin-bottom: 4px; }
+    .subtitulo { color: #888; font-size: 14px; margin-bottom: 32px; }
+    .dia-grupo { margin-bottom: 24px; }
+    .dia-titulo { font-size: 13px; font-weight: 700; color: #028090; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+    .sessao-item { background: white; border-radius: 12px; padding: 16px 20px; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 8px rgba(0,0,0,0.06); text-decoration: none; color: #333; transition: all 0.2s; }
+    .sessao-item:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); transform: translateY(-1px); color: #1A2E4A; text-decoration: none; }
+    .sessao-num { font-weight: 700; font-size: 16px; }
+    .sessao-meta { font-size: 12px; color: #888; margin-top: 2px; }
+    .seta { color: #028090; font-size: 18px; }
+    .vazio { text-align: center; color: #bbb; padding: 60px 0; font-size: 15px; }
+    .btn-voltar { display: inline-flex; align-items: center; gap: 8px; color: #028090; text-decoration: none; font-weight: 600; font-size: 14px; margin-bottom: 24px; }
+    .btn-voltar:hover { text-decoration: underline; color: #028090; }
+  </style>
+</head>
+<body>
+  <div class="container-sessoes">
+    <a href="/Vitoria/tela" class="btn-voltar">&#8592; Voltar</a>
+    <h1>&#128193; Sessoes gravadas</h1>
+    <p class="subtitulo">Clique em uma sessao para ver a transcricao completa</p>
+    {% if sessoes %}
+      {% for dia, lista in sessoes.items() %}
+        <div class="dia-grupo">
+          <div class="dia-titulo">&#128197; {{ dia }}</div>
+          {% for s in lista %}
+            <a href="/Vitoria/sessoes/{{ dia }}/{{ s.numero }}" class="sessao-item">
+              <div>
+                <div class="sessao-num">Sessao {{ s.numero }}</div>
+                <div class="sessao-meta">{{ s.linhas }} turnos registrados</div>
+              </div>
+              <span class="seta">&#8250;</span>
+            </a>
+          {% endfor %}
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="vazio">
+        Nenhuma sessao encontrada ainda.<br>
+        Inicie uma conversa com o Castor!
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>

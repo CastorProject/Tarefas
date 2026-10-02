@@ -1,0 +1,31 @@
+{
+  "reacoes": [
+    "Nossa, que demais!",
+    "Sério? Não sabia disso!",
+    "Que carta forte!",
+    "Você entende muito disso!",
+    "Que estratégia boa!",
+    "Uau, parece difícil!"
+  ],
+  "convites": [
+    "Me ensina como funciona?",
+    "Explica pra mim, eu não conheço!",
+    "Me conta como você monta o seu deck!",
+    "Como foi a partida mais legal que você jogou?",
+    "Me ensina uma regra desse jogo!"
+  ],
+  "curiosidades": [
+    "Jogo de carta ensina a esperar a sua vez.",
+    "Tem carta rara que é difícil de achar!",
+    "Cada jogo tem um jeito diferente de ganhar.",
+    "Aposto que você lembra de um monte de carta de cabeça!",
+    "Tem gente que guarda as cartas numa caixa especial."
+  ],
+  "perguntas": [
+    "Qual é a sua carta favorita?",
+    "Você joga com alguém ou só você?",
+    "Qual foi a jogada mais legal que você já fez?",
+    "Você troca cartas com alguém?",
+    "Tem algum jogo novo que você quer aprender?"
+  ]
+}

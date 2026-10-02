@@ -1,0 +1,19 @@
+{
+  "reacoes": ["Que legal!", "Nossa, que coragem!", "Adorei!",
+              "Deve ser divertido!", "Que apresentação boa!", "Que bacana!"],
+  "convites": ["Me conta como foi a apresentação!",
+               "Me fala qual personagem você fez!",
+               "Me ensina uma fala da peça!",
+               "Me conta como é ficar no palco!",
+               "Me descreve a roupa que você usou!"],
+  "curiosidades": ["No teatro os atores fazem tudo ao vivo, sem repetir.",
+                   "Quem fica atrás do palco ajuda a trocar o cenário.",
+                   "O teatro existe há mais de dois mil anos!",
+                   "Antigamente as máscaras mostravam se a peça era alegre ou triste.",
+                   "Bater palma no fim é o jeito de agradecer aos atores."],
+  "perguntas": ["Você já subiu num palco?",
+                "Você gosta mais de assistir ou de participar?",
+                "Que personagem você gostaria de ser?",
+                "Você gosta de se fantasiar?",
+                "Você já viu uma peça de teatro?"]
+}

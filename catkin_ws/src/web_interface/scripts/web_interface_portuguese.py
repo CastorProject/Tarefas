@@ -348,6 +348,8 @@ def actionMainMenu(action):
         template = "Texto.html"
     elif action == "Pseudoprogramacion":
         template = "Pseudoprogramacion.html"
+    elif action == "Terapia":
+        template = "Terapia.html"
     elif action == "Ativar":
         pubMicrophone.publish("Activo")
     elif action == "Desativar":
@@ -1335,6 +1337,27 @@ def vitoria_transcricao(dia, numero):
         title='Transcricao'
     )
 
+@app.route("/Terapia/comando/<action>", methods=["POST"])
+def terapia_comando(action):
+    expressoes = {
+        "happy", "sad", "angry", "surprise", "neutral"
+    }
+
+    audios = {
+        "explicar_mestre": "siga_instrucoes_mestre",
+        "musica_mestre": "o_mestre_mandou",
+    }
+
+    if action in expressoes:
+        pubEmotions.publish(action)
+
+    elif action in audios:
+        pubSpeaker.publish(audios[action])
+
+    else:
+        return "Comando de Terapia inválido.", 404
+
+    return redirect("/Terapia")
 # === FIM ROTAS NOVAS DA VITORIA ===
 
 if __name__ == "__main__":

@@ -1,0 +1,16 @@
+{
+  "reacoes": ["Que lugar lindo!", "Adoro isso!", "Que legal!",
+              "Deve ser bonito de ver!", "Que sorte!", "Que planta bonita!"],
+  "convites": ["Me descreve esse lugar!", "Me conta como foi!",
+               "Como é essa planta? Me fala!", "Me conta o que você viu por lá!",
+               "Me ensina como se cuida dela!"],
+  "curiosidades": ["Tem planta que fecha quando a gente encosta!",
+                   "As árvores conversam pelas raízes, de verdade!",
+                   "O girassol vira o rostinho pro sol o dia todo.",
+                   "Uma semente pode esperar anos pra virar planta.",
+                   "A vitória-régia é tão grande que aguenta uma criança!"],
+  "perguntas": ["Você gosta de plantas?", "Você já plantou alguma coisa?",
+                "Você prefere praia, mato ou montanha?",
+                "Qual é o seu lugar favorito pra brincar fora de casa?",
+                "Você gosta de olhar o céu?"]
+}

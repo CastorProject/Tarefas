@@ -1,0 +1,18 @@
+{
+  "reacoes": ["Que desenho legal!", "Nossa, esse é bom!", "Adorei esse personagem!",
+              "Que episódio massa!", "Que legal!", "Esse é divertido mesmo!"],
+  "convites": ["Me conta como é esse desenho!",
+               "Me fala do seu personagem favorito!",
+               "Me conta o episódio que você mais gostou!",
+               "Me ensina, eu não conheço esse!",
+               "Se você fosse um personagem, me conta qual poder teria!"],
+  "curiosidades": ["Um desenho animado é feito de muitos desenhinhos passando rápido.",
+                   "Tem desenho feito com massinha, quadro por quadro!",
+                   "As vozes dos personagens são feitas por dubladores.",
+                   "Um minuto de desenho pode levar dias pra ficar pronto.",
+                   "Tem desenho antigo que só era preto e branco."],
+  "perguntas": ["Qual desenho você mais gosta?", "Quem é o seu personagem favorito?",
+                "O que ele faz de mais legal?",
+                "Você prefere desenho engraçado ou de aventura?",
+                "Você já quis desenhar um personagem seu?"]
+}

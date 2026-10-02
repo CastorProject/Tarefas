@@ -1,0 +1,24 @@
+============================================================
+TRANSCRICAO DE SESSAO — CASTOR / labtel / ufes
+============================================================
+Data/Hora : 20/09/2026 11:49:12
+Modo      : VOZ (ROS)
+============================================================
+
+[11:49:15] Castor: Oi! Você sabia que adoro conhecer gente nova? Qual é o seu nome?
+[11:49:15] Sistema: saudacao de abertura (sem LLM)
+[11:53:02] Crianca: castor meu cachorro
+[11:54:10] Castor: Que legal! Do que você mais gosta de brincar?
+[11:54:10] Sistema: tempo de resposta: 67.9s
+[11:54:50] Crianca: olá jogar bola jogo da baleia
+[11:55:16] Castor: Que legal! Você joga com seus amigos?
+[11:55:16] Sistema: tempo de resposta: 25.1s
+
+============================================================
+Fim da sessao: 12:00:39
+------------------------------------------------------------
+Falas processadas    : 2
+Respondidas pelo LLM : 2
+Frases de incentivo  : 0
+Ruido descartado     : 1
+============================================================

@@ -1,74 +1,310 @@
 #!/usr/bin/env python3
 
-#CREATED WITH NEOVIM
-
-import microphone_listen
-
 import rospy
-import time
-from std_msgs.msg import Float64
+
 from std_msgs.msg import String
 from std_msgs.msg import Bool
 
-class microphoneNode(object):
-    def __init__(self, name):
-        self.name = name
-        rospy.init_node(self.name)
-        self.rate = rospy.Rate(10)  #   10Hz
-        self.initSubscribers()
-        self.initPublishers()
-        self.initVariables()
+import microphone_listen
 
-    def initSubscribers(self):
-        self.micSub = rospy.Subscriber('/mic', String, self.callbackMic)
-        return
 
-    def initPublishers(self):
-        self.microphonePub = rospy.Publisher('/microphone', String, queue_size = 10)
-        self.speakerPub = rospy.Publisher('/speaker', String, queue_size = 10)
-        return
 
-    def initVariables(self):
-        self.voice = String()
-        self.mic = String()
+class MicrophoneNode(object):
+
+    def __init__(self):
+
+        rospy.init_node("microphone")
+
+
+        # ==================================================
+        # VARIÁVEIS
+        # ==================================================
+
+        # começa desligado igual ao seu
         self.start_mic = False
-        return
 
-#CALLBACKS
-    def callbackMic(self, msg):         #solo para tomar los datos del nodo (subscritor)
-        self.mic = msg.data
-        self.start_mic = True
-        return
-    def MicActions(self, textdetected): #NO ESTA EN ESO Para eso es es el nodo CHAT
-        if "castor" in textdetected:
-            self.speakerPub.publish("castor_apresentacao.mp3")
-        elif "hola" in textdetected:
-            self.speakerPub.publish("me_chamo_castor.mp3")
-        elif "canta" in textdetected:
-            self.speakerPub.publish("canta1.mp3")
-        elif "perro" in textdetected:
-            self.speakerPub.publish("cachorro_faz.mp3")
-        elif "chao" in textdetected:
-            self.speakerPub.publish("tchau_amiga.mp3")
 
-    def main(self):
-        rospy.loginfo("[%s] ROS Microphone node started ok", self.name)
-        while not (rospy.is_shutdown()):
-            if self.start_mic == True:
-                if self.mic == 'Inactivo':
-                    self.start_mic = False
-                    microphone_listen.transcribe_audio(self.start_mic)
-                else:
-                    for listening in microphone_listen.transcribe_audio(self.start_mic):
-                        self.voice = listening
-                        self.microphonePub.publish(self.voice)
-                        self.MicActions(self.voice)
-                        if self.mic == 'Inactivo':
-                            break
-            rospy.sleep(0.1)
-        return
+        # controla se o robô está falando
+        self.speaker_busy = False
 
-if __name__=='__main__':
-    microphone = microphoneNode("microphone")
-    microphone.main()
 
+        # força reset do Vosk após fala do robô
+        self.reset_after_speaker = False
+
+
+
+        # ==================================================
+        # SUBSCRIBERS
+        # ==================================================
+
+        rospy.Subscriber(
+            "/mic",
+            String,
+            self.mic_callback
+        )
+
+
+        rospy.Subscriber(
+            "/stopTalk",
+            Bool,
+            self.stop_talk_callback
+        )
+
+
+
+        # ==================================================
+        # PUBLISHER
+        # ==================================================
+
+        self.microphone_pub = rospy.Publisher(
+            "/microphone",
+            String,
+            queue_size=10
+        )
+
+
+
+
+
+    # ==================================================
+    # CONTROLE DO MICROFONE
+    # ==================================================
+
+    def mic_callback(self, msg):
+
+        estado = msg.data.strip()
+
+
+
+        if estado == "Activo":
+
+
+            self.start_mic = True
+
+
+            rospy.loginfo(
+                "Microphone enabled"
+            )
+
+
+
+        elif estado == "Inactivo":
+
+
+            self.start_mic = False
+
+
+            rospy.loginfo(
+                "Microphone disabled"
+            )
+
+
+
+
+
+    # ==================================================
+    # CONTROLE DO SPEAKER
+    # ==================================================
+
+    def stop_talk_callback(self, msg):
+
+
+        estava_falando = self.speaker_busy
+
+
+        self.speaker_busy = msg.data
+
+
+
+
+        if self.speaker_busy:
+
+
+            rospy.loginfo(
+                "Speaker active. Ignoring microphone."
+            )
+
+
+
+        elif estava_falando:
+
+
+            self.reset_after_speaker = True
+
+
+            rospy.loginfo(
+                "Speaker finished. Resetting Vosk."
+            )
+
+
+
+
+
+
+
+    # ==================================================
+    # FUNÇÕES PASSADAS PARA microphone_listen
+    # ==================================================
+
+    def mic_enabled(self):
+
+        return self.start_mic
+
+
+
+
+
+    def should_process_audio(self):
+
+
+        # botão desligado
+
+        if not self.start_mic:
+
+            return False
+
+
+
+        # robô falando
+
+        if self.speaker_busy:
+
+            return False
+
+
+
+        return True
+
+
+
+
+
+    def should_reset_audio(self):
+
+
+        if self.reset_after_speaker:
+
+
+            self.reset_after_speaker = False
+
+
+            return True
+
+
+
+        return False
+
+
+
+
+
+    # ==================================================
+    # LOOP PRINCIPAL
+    # ==================================================
+
+    def run(self):
+
+
+        rospy.loginfo(
+            "Microphone node started"
+        )
+
+
+
+        while not rospy.is_shutdown():
+
+
+
+            try:
+
+
+                for text in microphone_listen.transcribe_audio(
+
+
+                    self.mic_enabled,
+
+                    self.should_process_audio,
+
+                    self.should_reset_audio
+
+
+                ):
+
+
+
+                    if rospy.is_shutdown():
+
+                        break
+
+
+
+
+                    text = str(text).strip()
+
+
+
+
+                    if text == "":
+
+                        continue
+
+
+
+
+
+                    # evita publicar se desligou no meio
+
+                    if not self.should_process_audio():
+
+                        continue
+
+
+
+
+                    rospy.loginfo(
+
+                        "Detected speech: %s",
+
+                        text
+
+                    )
+
+
+
+
+                    self.microphone_pub.publish(
+
+                        text
+
+                    )
+
+
+
+
+
+            except Exception as e:
+
+
+
+                rospy.logerr(
+
+                    "Microphone error: %s",
+
+                    e
+
+                )
+
+
+                rospy.sleep(1)
+
+
+
+
+
+
+if __name__ == "__main__":
+
+
+    node = MicrophoneNode()
+
+    node.run()

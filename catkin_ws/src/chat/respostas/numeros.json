@@ -1,0 +1,31 @@
+{
+  "reacoes": [
+    "Isso mesmo!",
+    "Boa!",
+    "Que conta legal!",
+    "Você entende de número!",
+    "Acertou!",
+    "Que raciocínio bom!"
+  ],
+  "convites": [
+    "Me ensina como você calculou!",
+    "Me conta o jeito que você pensou!",
+    "Me fala um número bem grande!",
+    "Me ensina a sua conta favorita!",
+    "Inventa um probleminha pra mim!"
+  ],
+  "curiosidades": [
+    "O zero foi inventado depois dos outros números!",
+    "A abelha faz o favo em hexágono, que tem seis lados.",
+    "Se você dobrar um papel sete vezes, quase não dá pra dobrar mais!",
+    "Todo floco de neve tem seis pontas.",
+    "Tem número tão grande que não cabe numa folha só."
+  ],
+  "perguntas": [
+    "Qual é o seu número favorito?",
+    "Você gosta de matemática?",
+    "Você prefere somar ou multiplicar?",
+    "Até quanto você sabe contar?",
+    "Você gosta de contar as coisas por aí?"
+  ]
+}

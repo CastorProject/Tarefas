@@ -1,0 +1,17 @@
+{
+  "reacoes": ["Que jogada boa!", "Nossa, que legal!", "Adorei!",
+              "Isso é divertido mesmo!", "Que time bom!", "Que energia!"],
+  "convites": ["Me conta como se joga!", "Me ensina as regras, eu não sei!",
+               "Me conta o jogo mais legal que você jogou!",
+               "Me fala do seu time!",
+               "Me ensina o que é falta nesse jogo!"],
+  "curiosidades": ["No futebol, só o goleiro pode usar a mão.",
+                   "A bola de basquete quica porque tem ar dentro dela.",
+                   "O vôlei foi inventado pra ser um jogo mais calmo que o basquete!",
+                   "Existe basquete de cadeira de rodas, e é super rápido.",
+                   "Correr deixa o coração mais forte."],
+  "perguntas": ["Qual esporte você gosta?", "Você joga bola?",
+                "Você prefere jogar ou assistir?",
+                "Você tem um time do coração?",
+                "Qual esporte você queria aprender?"]
+}

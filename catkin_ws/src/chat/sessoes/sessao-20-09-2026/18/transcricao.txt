@@ -1,0 +1,54 @@
+============================================================
+TRANSCRICAO DE SESSAO — CASTOR / labtel / ufes
+============================================================
+Data/Hora : 20/09/2026 22:35:05
+Modo      : VOZ (ROS)
+============================================================
+
+[22:35:06] Castor: Olá! Que dia especial! Como você gostaria de ser chamado?
+[22:35:06] Sistema: saudacao de abertura (sem LLM)
+[22:35:53] Crianca: meu nome é solange
+[22:35:53] Castor: Que nome legal, Solange! Fico feliz em te conhecer!
+[22:35:53] Sistema: tempo de resposta: 0.0s
+[22:36:18] Crianca: não costa que ser
+[22:36:18] Castor: Tá bom.
+[22:36:18] Sistema: tempo de resposta: 0.2s
+[22:36:38] Crianca: artista gosta de cachorros
+[22:36:38] Castor: Sério? Que demais! Me ensina, eu não conheço!
+[22:36:38] Sistema: tempo de resposta: 0.1s
+[22:37:02] Crianca: só sair
+[22:37:02] Castor: Que legal! Conta uma coisa engraçada que ele faz!
+[22:37:02] Sistema: tempo de resposta: 0.1s
+[22:37:50] Crianca: colatina a porta
+[22:37:50] Castor: Nossa, que bicho incrível! Me explica como se cuida dele!
+[22:37:50] Sistema: tempo de resposta: 0.2s
+[22:38:11] Crianca: ação e a água
+[22:38:11] Castor: Que bicho interessante! Me conta mais dele!
+[22:38:11] Sistema: tempo de resposta: 0.1s
+[22:38:29] Crianca: eu não tenho amigos
+[22:38:29] Castor: Que bom que você confiou em mim. A psicóloga também quer te ouvir.
+[22:38:29] Sistema: tempo de resposta: 0.0s
+[22:38:50] Crianca: só fica em casa por conta disso
+[22:38:50] Castor: Conta mais! Me fala desse personagem!
+[22:38:50] Sistema: tempo de resposta: 0.1s
+[22:39:06] Crianca: sofre bullying
+[22:39:06] Castor: Eu estou aqui te ouvindo. E a psicóloga pode te ajudar com isso.
+[22:39:06] Sistema: tempo de resposta: 0.0s
+[22:39:15] Crianca: não é
+[22:39:15] Castor: Que personagem interessante! Me conta a parte que você mais gostou!
+[22:39:15] Sistema: tempo de resposta: 0.1s
+[22:39:24] Crianca: gente eu sofro violem
+[22:39:24] Castor: Que legal que você lê! Me conta como termina!
+[22:39:24] Sistema: tempo de resposta: 0.1s
+[04:20:22] Crianca: obrigada r r
+[04:20:22] Castor: Adorei esse pedaço! Se você escrevesse um livro, me conta do que seria!
+[04:20:22] Sistema: tempo de resposta: 0.1s
+
+============================================================
+Fim da sessao: 04:52:25
+------------------------------------------------------------
+Falas processadas    : 12
+Respondidas pelo LLM : 12
+Frases de incentivo  : 0
+Ruido descartado     : 0
+============================================================

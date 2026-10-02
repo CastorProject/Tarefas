@@ -1,0 +1,19 @@
+{
+  "reacoes": ["Que profissão legal!", "Nossa, que importante!", "Que trabalho bacana!",
+              "Adorei!", "Que escolha boa!", "Que interessante!"],
+  "convites": ["Me conta o que essa pessoa faz!",
+               "Me explica como é esse trabalho!",
+               "Me conta por que você gosta disso!",
+               "Se você trabalhasse com isso, me conta o que faria!",
+               "Me ensina, eu quero entender!"],
+  "curiosidades": ["Tem gente que trabalha cuidando de animais o dia todo.",
+                   "Tem profissão que trabalha no fundo do mar!",
+                   "O bombeiro treina muito antes de apagar um incêndio de verdade.",
+                   "Tem gente que trabalha construindo robô!",
+                   "O veterinário é o médico dos bichos."],
+  "perguntas": ["O que você quer ser quando crescer?",
+                "Qual trabalho você acha mais legal?",
+                "Você gostaria de trabalhar com bicho, com máquina ou com gente?",
+                "Você conhece alguém que faz um trabalho legal?",
+                "Você já quis inventar uma profissão nova?"]
+}

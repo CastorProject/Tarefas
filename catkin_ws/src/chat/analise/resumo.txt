@@ -1,0 +1,33 @@
+turnos analisados: 39
+tempo medio:   0.000 s
+tempo mediano: 0.000 s
+tempo maximo:  0.000 s
+dentro do limiar de 2.5 s: 39 de 39 (100.0%)
+
+rotas de resposta:
+   banco          21  (53.8%)
+   persona         7  (17.9%)
+   seguranca       7  (17.9%)
+   sobre_castor    2  (5.1%)
+   nome            1  (2.6%)
+   identidade      1  (2.6%)
+   determinismo: 39 de 39 (100.0%)
+
+contextos acionados: 15 distintos
+   animais           3
+   jogos_cartas      3
+   fotografia        2
+   comemoracoes      2
+   quebracabeca      1
+   espaco            1
+   comida            1
+   esportes          1
+   historias         1
+   teatro            1
+   filmes            1
+   escola            1
+   organizar         1
+   desenhos          1
+   natureza          1
+
+rejeicoes do validador: 0

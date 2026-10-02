@@ -1,0 +1,19 @@
+{
+  "reacoes": ["Que delícia!", "Essa é boa mesmo!", "Que fome me deu!",
+              "Adorei!", "Que gostoso!", "Boa escolha!"],
+  "convites": ["Me conta como essa comida é feita!",
+               "Me descreve o gosto, eu não sei o que é!",
+               "Conta quando você come isso!",
+               "Me fala qual parte é a mais gostosa!",
+               "Me ensina o que vai nela!"],
+  "curiosidades": ["O mel nunca estraga, nem depois de mil anos.",
+                   "A banana é uma fruta, mas também é uma erva!",
+                   "O chocolate vem de uma semente chamada cacau.",
+                   "A pipoca estoura porque tem água dentro do milho!",
+                   "O sorvete derrete porque o gelo dentro dele vira água."],
+  "perguntas": ["Qual é a sua comida favorita?",
+                "Você gosta de aprender a fazer alguma comida?",
+                "Você prefere doce ou salgado?",
+                "Tem alguma comida que você não gosta?",
+                "Qual fruta você mais gosta?"]
+}

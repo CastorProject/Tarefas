@@ -1,0 +1,73 @@
+============================================================
+TRANSCRICAO DE SESSAO — CASTOR / labtel / ufes
+============================================================
+Data/Hora : 20/09/2026 21:37:32
+Modo      : VOZ (ROS)
+============================================================
+
+[21:37:34] Castor: Oi! Estou animado pra te conhecer! Como você se chama?
+[21:37:34] Sistema: saudacao de abertura (sem LLM)
+[21:40:00] Crianca: meu nome é solange
+[21:40:00] Castor: Que nome legal, Solange! Fico feliz em te conhecer!
+[21:40:00] Sistema: tempo de resposta: 0.0s
+[21:40:23] Crianca: castor eu só autista
+[21:40:23] Castor: Me conta, você prefere brincar, desenhar ou ouvir música?
+[21:40:23] Sistema: tempo de resposta: 0.1s
+[21:40:42] Crianca: brincar
+[21:40:42] Castor: Que legal! Do que você mais gosta de brincar?
+[21:40:42] Sistema: tempo de resposta: 0.0s
+[21:41:01] Crianca: quem me
+[21:41:01] Castor: Adorei saber! O que mais você gosta de fazer?
+[21:41:01] Sistema: tempo de resposta: 0.0s
+[21:41:25] Crianca: de passear com a minha cachorra
+[21:41:25] Castor: Solange, que bom conversar com você! O que você gosta de fazer?
+[21:41:25] Sistema: tempo de resposta: 0.0s
+[21:41:50] Crianca: eu não gosto de autista
+[21:41:50] Castor: Interessante! Me conta outra coisa sobre você!
+[21:41:50] Sistema: tempo de resposta: 0.0s
+[21:42:09] Crianca: eu sou
+[21:42:09] Castor: Adorei saber! O que mais você gosta de fazer?
+[21:42:09] Sistema: tempo de resposta: 0.0s
+[21:42:29] Crianca: autista fiquei em casa
+[21:42:29] Castor: Que legal! Me fala mais sobre isso!
+[21:42:29] Sistema: tempo de resposta: 0.0s
+[21:42:47] Crianca: aqui em casa porque eu não tenho amigo
+[21:42:47] Castor: Adorei saber! O que mais você gosta de fazer?
+[21:42:47] Sistema: tempo de resposta: 0.0s
+[21:43:09] Crianca: ficar em casa
+[21:43:09] Castor: Me conta, você prefere brincar, desenhar ou ouvir música?
+[21:43:09] Sistema: tempo de resposta: 0.0s
+[21:44:36] Crianca: o que eu tenho falar com você
+[21:44:36] Castor: Me conta uma coisa que você gosta!
+[21:44:36] Sistema: tempo de resposta: 0.0s
+[21:44:55] Crianca: o que eu tenho que falar com você
+[21:44:55] Castor: Que legal! Me fala mais sobre isso!
+[21:44:55] Sistema: tempo de resposta: 0.0s
+[21:45:05] Crianca: por que
+[21:45:05] Castor: Que bom conversar com você! O que você gosta de fazer?
+[21:45:05] Sistema: tempo de resposta: 0.0s
+[21:45:15] Crianca: o que você
+[21:45:15] Castor: Solange, me conta uma coisa que você gosta!
+[21:45:15] Sistema: tempo de resposta: 0.0s
+[21:45:26] Crianca: o que
+[21:45:26] Castor: Solange, que legal! Me fala mais sobre isso!
+[21:45:26] Sistema: tempo de resposta: 0.0s
+[21:45:33] Crianca: o que
+[21:45:33] Castor: Interessante! Me conta outra coisa sobre você!
+[21:45:33] Sistema: tempo de resposta: 0.0s
+[21:45:47] Crianca: você faz o que o
+[21:45:48] Castor: Que bom conversar com você! O que você gosta de fazer?
+[21:45:48] Sistema: tempo de resposta: 0.0s
+[21:46:06] Crianca: você inútil
+[21:46:06] Castor: Interessante! Me conta outra coisa sobre você!
+[21:46:06] Sistema: tempo de resposta: 0.0s
+[22:34:10] Sistema: sessao pausada
+
+============================================================
+Fim da sessao: 22:34:29
+------------------------------------------------------------
+Falas processadas    : 18
+Respondidas pelo LLM : 18
+Frases de incentivo  : 0
+Ruido descartado     : 1
+============================================================

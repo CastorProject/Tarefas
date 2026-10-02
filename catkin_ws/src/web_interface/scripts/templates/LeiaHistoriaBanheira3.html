@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+<html lang="pt-BR">
 <head>
+  <meta charset="UTF-8">
   <title>{{ title }}</title>
 
   <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
@@ -7,77 +9,135 @@
   <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
 
   <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body
+    {
+      min-height: 100%;
+    }
+
     body
     {
       width: 800px;
+      max-width: 96vw;
       margin: 0 auto;
       background-color: white;
-      padding: 0 20px 20px 20px;
+      padding: 8px 16px 10px 16px;
       border: 3px solid black;
       font-family: "Gill Sans Extrabold", Helvetica, sans-serif;
     }
 
     h1
     {
-      font-size: 50px;
+      font-size: 40px;
       text-align: center;
+      margin: 6px 0 8px 0;
     }
 
     p
     {
       text-align: center;
+      margin: 5px 0;
     }
 
     .imagem-historia
     {
       display: block;
-      max-width: 750px;
-      width: 100%;
+      max-width: 100%;
+      width: auto;
+      max-height: 55vh;
       height: auto;
-
-      margin: 20px auto;
-
+      object-fit: contain;
+      margin: 6px auto 8px auto;
       border: 2px solid #ccc;
       border-radius: 8px;
     }
 
-    .button
+    .feedback-leitura
     {
-      background: transparent;
-      border: 1px solid transparent;
-      box-sizing: border-box;
-      cursor: pointer;
-      font-size: 20px;
-      font-weight: 700;
-      line-height: 1;
-      margin: 10px;
-      padding: 5px 15px;
+      max-width: 750px;
+      margin: 7px auto;
+      padding: 7px 14px;
+      background-color: #f7f8fa;
+      border: 2px solid #d9dfe5;
+      border-radius: 10px;
       text-align: center;
-      text-decoration: none;
+    }
+
+    .feedback-titulo
+    {
+      font-size: 15px;
+      font-weight: bold;
+      color: #555;
+      margin-bottom: 3px;
+    }
+
+    .frase-feedback
+    {
+      font-size: 21px;
+      font-weight: 600;
+      line-height: 1.3;
+      min-height: 28px;
+    }
+
+    .palavra
+    {
       display: inline-block;
-      outline: none;
-      position: relative;
-      top: 0;
-      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
-      transition: all 0.2s ease-in-out 0s;
+      margin: 0 2px;
+      transition: color 0.2s;
     }
 
-    .grey
+    .palavra-correta
     {
-      background: #4c4c4c;
-      color: #fff;
-      box-shadow: 0 2px 0 #333333;
+      color: #159447;
     }
 
-    .grey:hover
+    .palavra-errada
     {
-      background: #747373;
+      color: #d32f2f;
     }
 
-    .grey:active,
-    .grey:focus
+    .porcentagem-feedback
     {
-      background: #444444;
+      margin-top: 3px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #444;
+      min-height: 20px;
+    }
+
+    .btn
+    {
+      margin: 2px;
+    }
+
+    @media (max-height: 750px)
+    {
+      h1
+      {
+        font-size: 34px;
+        margin: 4px 0 6px 0;
+      }
+
+      .imagem-historia
+      {
+        max-height: 50vh;
+      }
+
+      .feedback-leitura
+      {
+        padding: 5px 12px;
+        margin: 5px auto;
+      }
+
+      .frase-feedback
+      {
+        font-size: 19px;
+      }
     }
   </style>
 </head>
@@ -93,6 +153,16 @@
       alt="Imagem da história">
   </p>
 
+  <div class="feedback-leitura">
+    <div class="feedback-titulo">Reconhecido:</div>
+
+    <div id="frase-feedback" class="frase-feedback">
+      Aguardando leitura...
+    </div>
+
+    <div id="porcentagem-feedback" class="porcentagem-feedback"></div>
+  </div>
+
   <p>
     <a class="btn btn-default btn-lg" href="/Activities">
       Voltar
@@ -102,37 +172,69 @@
       Proximo
     </a>
 
-
     <a class="btn btn-default btn-lg" href="/">
       Menu
     </a>
   </p>
 
-<script>
-  const verificarLeitura = setInterval(function() {
+  <script>
+    let mudandoPagina = false;
 
-    fetch('/Activities/A8/banheira/verificar/3')
-      .then(response => response.json())
-      .then(data => {
+    function mostrarFeedback(data) {
+      const frase = document.getElementById("frase-feedback");
+      const porcentagem = document.getElementById("porcentagem-feedback");
 
-        console.log("Falado:", data.heard);
-        console.log("Acerto:", data.percentage + "%");
+      frase.innerHTML = "";
 
-        if (data.success) {
-          clearInterval(verificarLeitura);
+      // Enquanto nenhuma frase chegou em /microphone.
+      if (data.heard === "") {
+        frase.textContent = "Aguardando leitura...";
+        porcentagem.textContent = "";
+        return;
+      }
 
-          window.location.href =
-            "/Activities/A8/banheira/pagina4";
+      // Exibe exatamente a saída reconhecida pelo microfone.
+      data.feedback.forEach(function(item) {
+        const palavra = document.createElement("span");
+
+        palavra.textContent = item.word;
+        palavra.classList.add("palavra");
+
+        if (item.correct) {
+          palavra.classList.add("palavra-correta");
+        }
+        else {
+          palavra.classList.add("palavra-errada");
         }
 
-      })
-      .catch(error => {
-        console.log("Erro ao verificar leitura:", error);
+        frase.appendChild(palavra);
+        frase.appendChild(document.createTextNode(" "));
       });
 
-  }, 250);
+      porcentagem.textContent =
+        "Acerto: " + data.percentage + "%";
+    }
 
-</script>
+    const verificarLeitura = setInterval(function() {
+      fetch('/Activities/A8/banheira/verificar/3')
+        .then(response => response.json())
+        .then(data => {
+          mostrarFeedback(data);
+
+          if (data.success && !mudandoPagina) {
+            mudandoPagina = true;
+            clearInterval(verificarLeitura);
+
+            setTimeout(function() {
+              window.location.href = "/Activities/A8/banheira/pagina4";
+            }, 1800);
+          }
+        })
+        .catch(error => {
+          console.log("Erro ao verificar leitura:", error);
+        });
+    }, 250);
+  </script>
+
 </body>
 </html>
-

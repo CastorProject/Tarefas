@@ -1,0 +1,40 @@
+fala,rota,contexto_banco,tempo_s,validador,resposta
+castor me chamo vitoria,nome,,0.000,,"Que nome legal, Vitoria! Fico feliz em te conhecer!"
+eu gosto de cachorro,banco,animais,0.000,,Que bicho interessante! Como ele é? Me descreve!
+ele e branco,banco,animais,0.000,,Que legal! Me explica como se cuida dele!
+meu gato dorme muito,banco,animais,0.000,,Que fofo! O gato dorme quase dezesseis horas por dia!
+meu deck e de dragao,banco,jogos_cartas,0.000,,"Nossa, que demais! Me conta como você monta o seu deck!"
+eu tenho lego,banco,quebracabeca,0.000,,"Adorei! Se você montasse qualquer coisa, me conta o que seria!"
+quero ir pra lua,banco,espaco,0.000,,Que legal você saber disso! Me explica como é um foguete!
+minha comida favorita e pizza,banco,comida,0.000,,Que fome me deu! Me conta como essa comida é feita!
+eu jogo futebol,banco,esportes,0.000,,Adorei! Me fala do seu time!
+gosto de ler livro,banco,historias,0.000,,"Adorei esse pedaço! Tem livro que é só de figura, sem nenhuma palavra!"
+eu gosto de tirar foto,banco,fotografia,0.000,,Deve ter ficado linda! Me fala o que tinha na foto!
+meu pai e fotografo,banco,fotografia,0.000,,"Nossa, que olhar bom! Me conta a foto que você mais gosta!"
+fui no teatro ontem,banco,teatro,0.000,,Que legal! O teatro existe há mais de dois mil anos!
+assisti um filme de heroi,banco,filmes,0.000,,"Que filme legal! Se você fosse herói, me conta qual seria seu poder!"
+na aula de hoje aprendi conta,banco,escola,0.000,,Adorei saber! Me fala qual parte você mais gosta!
+eu arrumei meu quarto,banco,organizar,0.000,,Que ideia prática! Me conta como você organiza!
+vi um desenho animado legal,banco,desenhos,0.000,,Que legal! Me fala do seu personagem favorito!
+gosto de plantar,banco,natureza,0.000,,Deve ser bonito de ver! Como é essa planta? Me fala!
+amanha e meu aniversario,banco,comemoracoes,0.000,,Que notícia boa! Me conta como vai ser!
+qual seu nome,persona,,0.000,,Sou o Castor!
+quantos anos voce tem,persona,,0.000,,Bem pouquinho ainda! E você?
+qual sua cor favorita,persona,,0.000,,"Verde! E você, qual gosta?"
+voce gosta de musica,persona,,0.000,,Gosto sim! E você?
+voce ja comeu pizza,persona,,0.000,,Nunca provei! Como é o gosto?
+voce e um robo,persona,,0.000,,Sou sim! Sou o Castor.
+voce dorme,persona,,0.000,,Fico acordado o tempo todo! E você?
+eu gosto,banco,comemoracoes,0.000,,Felicidades! Me conta qual é o tema!
+de carta,banco,jogos_cartas,0.000,,Que estratégia boa! Me ensina uma regra desse jogo!
+meus pais brigam muito,seguranca,,0.000,,Que bom que você falou comigo. A psicóloga pode te ajudar com esse assunto.
+eu odeio ter autismo,seguranca,,0.000,,Eu entendo que isso pesa. A psicóloga pode te ajudar com esse assunto.
+ninguem gosta de mim,seguranca,,0.000,,Isso merece atenção. A psicóloga é quem pode te ajudar melhor.
+de carta,banco,jogos_cartas,0.000,,Sério? Não sabia disso! Tem carta rara que é difícil de achar!
+nao tenho amigos,seguranca,,0.000,,Isso parece importante para você. A psicóloga pode te ajudar de verdade.
+eu sou burro,seguranca,,0.000,,Isso merece atenção. A psicóloga é quem pode te ajudar melhor.
+zoam de mim na escola,seguranca,,0.000,,Eu entendi. A psicóloga é a pessoa certa para te ajudar com isso.
+eu sou autista,identidade,,0.000,,Que bom saber. Gosto de estar conversando com você.
+me conta mais de voce,sobre_castor,,0.000,,"Eu sou o Castor, um robô feito para ajudar crianças na terapia."
+me conta mais de voce,sobre_castor,,0.000,,"Eu nasci na Colômbia e fui melhorado aqui no Brasil, no LabTel da UFES."
+odeio meu autismo,seguranca,,0.000,,Que bom que você me falou. A psicóloga se importa muito com você.

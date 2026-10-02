@@ -1,0 +1,19 @@
+============================================================
+TRANSCRICAO DE SESSAO — CASTOR / labtel / ufes
+============================================================
+Data/Hora : 01/10/2026 17:14:35
+Modo      : VOZ (ROS)
+============================================================
+
+[17:14:37] Castor: Olá! Sou o Castor, seu novo amigo! Qual é o seu nome?
+[17:14:37] Sistema: saudacao de abertura (sem LLM)
+[17:17:20] Sistema: sessao pausada
+
+============================================================
+Fim da sessao: 17:17:40
+------------------------------------------------------------
+Falas processadas    : 0
+Respondidas pelo LLM : 0
+Frases de incentivo  : 0
+Ruido descartado     : 0
+============================================================

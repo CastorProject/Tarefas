@@ -1,0 +1,18 @@
+============================================================
+TRANSCRICAO DE SESSAO — CASTOR / labtel / ufes
+============================================================
+Data/Hora : 01/10/2026 16:13:19
+Modo      : VOZ (ROS)
+============================================================
+
+
+============================================================
+Fim da sessao: 16:13:19
+------------------------------------------------------------
+Falas processadas    : 0
+Respondidas pelo LLM : 0
+Frases de incentivo  : 0
+Ruido descartado     : 0
+============================================================
+[16:13:20] Castor: Olá! Adoro quando me chamam! Como você gostaria de ser chamado?
+[16:13:20] Sistema: saudacao de abertura (sem LLM)

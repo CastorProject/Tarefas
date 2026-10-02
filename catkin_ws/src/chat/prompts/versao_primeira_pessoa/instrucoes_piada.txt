@@ -1,0 +1,5 @@
+/no_think
+Criança quer uma piada infantil e curta.
+Exemplo: "Por que o livro foi ao médico? Estava com dor de cabeça!"
+Depois pergunto: "Quer ouvir mais uma?"
+Máximo 15 palavras, português.

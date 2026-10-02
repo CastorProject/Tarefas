@@ -1,0 +1,41 @@
+{
+  "reacoes": [
+    "Que legal!",
+    "Nossa, que bicho incrível!",
+    "Sério? Que demais!",
+    "Adorei saber disso!",
+    "Que fofo!",
+    "Que bicho interessante!"
+  ],
+  "convites": [
+    "Me conta mais dele!",
+    "Como ele é? Me descreve!",
+    "Me ensina, eu não conheço!",
+    "Conta uma coisa engraçada que ele faz!",
+    "Me explica como se cuida dele!"
+  ],
+  "curiosidades": [
+    "Sabia que o polvo tem três corações?",
+    "A girafa dorme só trinta minutos por dia!",
+    "As formigas carregam cinquenta vezes o peso delas!",
+    "O tatu-bola vira uma bolinha quando se assusta!",
+    "O beija-flor bate as asas oitenta vezes por segundo!",
+    "O golfinho dorme com metade do cérebro acordada!",
+    "Cachorro sente cheiro mil vezes melhor que a gente!",
+    "Cachorro balança o rabo pra mostrar que está animado.",
+    "O gato dorme quase dezesseis horas por dia!",
+    "O gato usa o bigode pra saber se cabe num lugar.",
+    "Peixe dorme de olho aberto, porque não tem pálpebra!",
+    "Passarinho aprende a cantar ouvindo outros passarinhos.",
+    "Coelho enxerga quase tudo em volta sem virar a cabeça.",
+    "Cavalo consegue dormir em pé!",
+    "Tartaruga pode viver mais de cem anos."
+  ],
+  "perguntas": [
+    "Qual é o seu animal preferido?",
+    "Você conhece algum bichinho de perto?",
+    "Ele tem nome?",
+    "O que ele mais gosta de comer?",
+    "Você prefere bicho de pelo, de pena ou de escama?"
+  ]
+}

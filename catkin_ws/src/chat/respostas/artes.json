@@ -1,0 +1,16 @@
+{
+  "reacoes": ["Que bonito!", "Nossa, que criativo!", "Adorei essa ideia!",
+              "Que legal que você desenha!", "Isso deve ficar lindo!",
+              "Que cor mais bonita!"],
+  "convites": ["Me descreve o seu desenho!", "Me conta o que você desenhou!",
+               "Como você faz pra desenhar isso?", "Me ensina, eu não sei desenhar!",
+               "Conta a história desse desenho!"],
+  "curiosidades": ["Tem gente que pinta usando só os dedos!",
+                   "Fotografia também é arte — é desenhar com luz!",
+                   "Misturar azul com amarelo dá verde. Já tentou?",
+                   "Tem artista que faz quadro do tamanho de uma parede!",
+                   "Antigamente a tinta era feita de pedra moída!"],
+  "perguntas": ["O que você mais gosta de desenhar?", "Qual é a sua cor preferida?",
+                "Você usa lápis, giz ou tinta?", "Você guarda os seus desenhos?",
+                "Você já tirou uma foto bem bonita?"]
+}

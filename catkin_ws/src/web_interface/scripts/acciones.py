@@ -86,6 +86,7 @@ class Acciones():
     def emotions(self, action):
         if action == "happy":
             #print(f"Emotion: {action}")  # Debugging line
+
             pubEmotions.publish("happy")
         elif action == "sad":
             #print(f"Emotion: {action}")  # Debugging line
