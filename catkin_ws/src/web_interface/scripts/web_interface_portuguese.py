@@ -16,6 +16,8 @@ import rps_camera  # adicionado por Adryan
 
 from acciones import Acciones
 from get_activities import get_activities
+from activity9 import Activity9
+from activity9_voice import Activity9Voice
 
 from std_msgs.msg import String
 
@@ -256,6 +258,31 @@ def gerar_feedback_palavras(texto_falado, texto_esperado):
 app = Flask(__name__)
 app.secret_key = os.environ.get('CASTOR_FLASK_SECRET_KEY') or os.urandom(32)
 
+pubActivity9 = rospy.Publisher('/activity9/request', String, queue_size=10)
+activity9_voice = Activity9Voice(rospy.logerr)
+activity9 = Activity9(
+    lambda command: pubActivity9.publish(json.dumps(command)),
+    pubEmotions.publish,
+    activity9_voice.say,
+    silence=activity9_voice.cancel,
+)
+app.register_blueprint(activity9.blueprint)
+app.before_request(activity9.navigation_cleanup)
+rospy.on_shutdown(activity9.shutdown)
+
+
+def callbackActivity9Status(message):
+    try:
+        activity9.receive_status(json.loads(message.data))
+    except (TypeError, ValueError) as error:
+        rospy.logwarn("Status da atividade 9 inválido: %s", error)
+
+
+subActivity9Status = rospy.Subscriber(
+    '/activity9/status', String, callbackActivity9Status, queue_size=1,
+)
+
+
 # Recarrega os templates HTML sempre que forem alterados
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
@@ -436,99 +463,11 @@ def actionAct(action):
         pubSpeaker.publish("Hora_Da_Leitura")
         template = 'LeiaHistoriaMenu.html'
     elif action == "A9":
-        if session.get('a9_game'):
-            return redirect(url_for('jogar_atividade_9'))
-        audio_explicacao = "/home/pi/Sounds/explicacao_atividade_9_emocoes.mp3"
-        if os.path.isfile(audio_explicacao):
-            pubSpeaker.publish("explicacao_atividade_9_emocoes.mp3")
-        template = "Act9_1_emocoes.html"
+        return redirect(url_for('a9.explicar'))
     templateData = {
 		'title' : 'Activities',
 	}
     return render_template(template, **templateData)
-
-EMOCOES_A9 = ("happy", "sad", "angry", "surprise")
-TOTAL_RODADAS_A9 = 10
-
-@app.route("/Activities/A9/iniciar", methods=["POST"])
-def iniciar_atividade_9():
-    if session.get('a9_game'):
-        return redirect(url_for('jogar_atividade_9'))
-    emocao = random.choice(EMOCOES_A9)
-    session['a9_game'] = {
-        'round': 1,
-        'score': 0,
-        'emotion': emocao,
-        'answered': False,
-        'feedback': '',
-    }
-    pubSpeakerAction.publish("stop")
-    time.sleep(0.2)
-    pubEmotions.publish(emocao)
-    return redirect(url_for('jogar_atividade_9'))
-
-@app.route("/Activities/A9/jogar")
-def jogar_atividade_9():
-    game = session.get('a9_game')
-    if not game:
-        return redirect(url_for('actionAct', action='A9'))
-    return render_template(
-        'Act9_2_emocoes.html',
-        title='Jogo das Emoções',
-        rodada=game['round'],
-        total_rodadas=TOTAL_RODADAS_A9,
-        respondeu=game['answered'],
-        feedback=game['feedback'],
-    )
-
-@app.route("/Activities/A9/emocao/<emocao>", methods=["POST"])
-def selecionar_emocao_atividade_9(emocao):
-    if emocao not in EMOCOES_A9:
-        return "Emoção inválida", 404
-    game = session.get('a9_game')
-    if not game or game['answered']:
-        return redirect(url_for('jogar_atividade_9'))
-    acertou = emocao == game['emotion']
-    game['score'] += int(acertou)
-    game['answered'] = True
-    game['feedback'] = 'Você acertou!' if acertou else 'Você errou!'
-    session['a9_game'] = game
-    if game['round'] == TOTAL_RODADAS_A9:
-        pubEmotions.publish("neutral")
-    return redirect(url_for('jogar_atividade_9'))
-
-@app.route("/Activities/A9/proxima", methods=["POST"])
-def proxima_rodada_atividade_9():
-    game = session.get('a9_game')
-    if not game or not game['answered'] or game['round'] >= TOTAL_RODADAS_A9:
-        return redirect(url_for('jogar_atividade_9'))
-    emocao = random.choice(EMOCOES_A9)
-    game['round'] += 1
-    game['emotion'] = emocao
-    game['answered'] = False
-    game['feedback'] = ''
-    session['a9_game'] = game
-    pubEmotions.publish(emocao)
-    return redirect(url_for('jogar_atividade_9'))
-
-@app.route("/Activities/A9/resultado")
-def resultado_atividade_9():
-    game = session.get('a9_game')
-    if not game or game['round'] != TOTAL_RODADAS_A9 or not game['answered']:
-        return redirect(url_for('jogar_atividade_9'))
-    pubEmotions.publish("neutral")
-    return render_template(
-        'Act9_3_emocoes.html',
-        title='Resultado - Jogo das Emoções',
-        pontuacao=game['score'],
-        total_rodadas=TOTAL_RODADAS_A9,
-    )
-
-@app.route("/Activities/A9/sair", methods=["POST"])
-def sair_atividade_9():
-    session.pop('a9_game', None)
-    pubEmotions.publish("neutral")
-    return redirect(url_for('actionMainMenu', action='Activities'))
 
 #################################################
 ##################### Act1 ######################

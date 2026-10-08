@@ -1,0 +1,47 @@
+:root { color-scheme: light; --ink: #253454; --blue: #345fce; }
+* { box-sizing: border-box; }
+body { margin: 0; padding: 24px 16px; background: #edf4ff; color: var(--ink); font-family: "Trebuchet MS", Arial, sans-serif; }
+.game { width: min(100%, 1040px); margin: auto; padding: 28px 36px; background: #fffdf8; border: 3px solid var(--ink); border-radius: 30px; box-shadow: 0 9px 0 #c5d4ed; text-align: center; }
+.game-header { display: flex; gap: 20px; align-items: center; justify-content: space-between; text-align: left; margin-bottom: 22px; }
+h1 { font-size: clamp(28px, 4vw, 38px); margin: 0 0 10px; font-weight: 900; }
+.eyebrow { font-size: 14px; letter-spacing: 2px; font-weight: bold; color: var(--blue); margin: 0 0 8px; }
+.round { font-size: 20px; margin: 0; }
+.scoreboard { flex: 0 0 auto; background: #ffde75; border: 3px solid var(--ink); border-radius: 22px; box-shadow: 4px 5px 0 var(--ink); transform: rotate(2deg); padding: 12px 18px; }
+.scoreboard h2 { font-size: 15px; text-align: center; letter-spacing: 1px; margin: 0 0 8px; }
+.score-line { display: flex; gap: 14px; align-items: center; justify-content: space-between; font-size: 17px; }
+.score-line strong { font-size: 25px; }
+.turn { display: inline-block; padding: 8px 18px; border-radius: 20px; background: #e6edff; font-weight: bold; font-size: 18px; }
+.prompt { font-size: 23px; line-height: 1.5; margin: 10px auto 22px; max-width: 720px; }
+.emocoes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; max-width: 760px; margin: 0 auto 26px; }
+.emocoes form { margin: 0; }
+.emoji-button { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 224px; border: 3px solid var(--ink); border-radius: 26px; box-shadow: 0 6px 0 var(--ink); cursor: pointer; color: var(--ink); font: inherit; }
+.emoji-button .emoji { font-size: clamp(78px, 8vw, 108px); line-height: 1.25; }
+.emoji-button .label { font-size: 23px; font-weight: bold; }
+.happy { background: #fff0b6; } .sad { background: #dceeff; } .angry { background: #ffe0dc; } .surprise { background: #eadeff; }
+button, a { -webkit-tap-highlight-color: transparent; }
+.emoji-button:hover { transform: translateY(-3px); }
+.emoji-button:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--ink); }
+button:focus-visible, a:focus-visible { outline: 4px solid #315fdb; outline-offset: 5px; }
+.action { display: inline-block; border: 2px solid var(--ink); border-radius: 15px; background: var(--blue); color: white; padding: 14px 24px; font: bold 20px "Trebuchet MS", Arial, sans-serif; cursor: pointer; text-decoration: none; box-shadow: 0 4px 0 var(--ink); }
+.secondary { background: #fff; color: var(--ink); }
+.actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; margin: 24px 0; }
+.actions form { margin: 0; }
+.exit { margin-top: 26px; }
+.exit button { border: 0; background: transparent; font: bold 16px "Trebuchet MS", Arial, sans-serif; text-decoration: underline; color: #526180; padding: 12px; cursor: pointer; }
+.panel { background: #eef3ff; border: 2px dashed #9caed6; border-radius: 26px; padding: 30px 20px; margin: 24px auto; max-width: 760px; }
+.hero-emoji { display: block; font-size: clamp(48px, 8vw, 100px); line-height: 1.4; }
+.feedback { font-size: 27px; font-weight: bold; line-height: 1.5; }
+.explanation { font-size: 24px; line-height: 1.7; max-width: 780px; margin: 24px auto; }
+.results { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin: 28px auto; max-width: 720px; }
+.result-card { background: #ffefb3; border: 3px solid var(--ink); border-radius: 24px; padding: 24px 12px; }
+.result-card h2 { font-size: 23px; } .result-card strong { font-size: 38px; }
+@media (max-width: 600px) {
+  body { padding: 12px 8px; } .game { padding: 20px 14px; border-radius: 24px; }
+  .game-header { gap: 12px; align-items: flex-start; } .scoreboard { padding: 8px 10px; }
+  .score-line { font-size: 13px; gap: 8px; } .score-line strong { font-size: 20px; }
+  .emocoes { gap: 14px; } .emoji-button { min-height: 166px; border-radius: 20px; }
+  .emoji-button .emoji { font-size: 70px; } .emoji-button .label { font-size: 19px; }
+  .prompt, .explanation { font-size: 20px; } .feedback { font-size: 23px; }
+  .result-card strong { font-size: 28px; }
+}
+@media (prefers-reduced-motion: reduce) { .emoji-button:hover, .emoji-button:active { transform: none; } }

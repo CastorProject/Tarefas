@@ -1,28 +1,24 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ title }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
-    <style>
-      body {
-        max-width: 800px;
-        margin: 24px auto;
-        padding: 40px 24px;
-        border: 3px solid #222;
-        font-family: Arial, Helvetica, sans-serif;
-        text-align: center;
-      }
-      h1 { margin-bottom: 30px; }
-      .score { font-size: 40px; margin-bottom: 36px; }
-    </style>
-  </head>
-  <body>
-    <h1>Jogo das Emoções</h1>
-    <p class="score">Você acertou {{ pontuacao }} de {{ total_rodadas }}!</p>
-    <form method="post" action="{{ url_for('sair_atividade_9') }}">
-      <button class="btn btn-primary btn-lg" type="submit">Voltar ao menu de atividades</button>
-    </form>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='activity9.css') }}">
+</head>
+<body>
+<main class="game">
+  <p class="eyebrow">ATIVIDADE 9 CONCLUÍDA</p>
+  <h1>Que bom brincar com você!</h1>
+  <span class="hero-emoji" aria-hidden="true">🏆</span>
+  <div class="results">
+    <section class="result-card"><h2>Você</h2><strong>⭐ {{ game.score }} / {{ chances }}</strong><p>emoções adivinhadas</p></section>
+    <section class="result-card"><h2>CASTOR</h2><strong>⭐ {{ game.castor_score }} / {{ chances }}</strong><p>emoções adivinhadas</p></section>
+  </div>
+  <p class="prompt">Cada expressão é uma nova descoberta. Obrigado por jogar comigo!</p>
+  <form method="post" action="{{ url_for('a9.sair') }}">
+    <button class="action" type="submit">Voltar às atividades</button>
+  </form>
+</main>
+</body>
 </html>

@@ -1,77 +1,88 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ title }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
-    <style>
-      body {
-        max-width: 900px;
-        margin: 24px auto;
-        padding: 32px 24px;
-        border: 3px solid #222;
-        font-family: Arial, Helvetica, sans-serif;
-        text-align: center;
-      }
-      h1 { margin: 0 0 36px; }
-      .emocoes {
-        display: flex;
-        justify-content: center;
-        gap: 14px;
-        flex-wrap: wrap;
-      }
-      .emocoes form { margin: 0; }
-      .emoji-button {
-        width: 155px;
-        height: 155px;
-        border: 2px solid #d2d2d2;
-        border-radius: 12px;
-        background: #fff;
-        font-size: 78px;
-        line-height: 1;
-        cursor: pointer;
-      }
-      .emoji-button:hover, .emoji-button:focus {
-        border-color: #337ab7;
-        background: #f2f8fc;
-      }
-      .round { font-size: 24px; margin-bottom: 28px; }
-      .feedback { font-size: 30px; font-weight: bold; margin: 32px 0; }
-      .next { margin-top: 24px; }
-      @media (max-width: 400px) {
-        .emoji-button { width: 120px; height: 120px; font-size: 64px; }
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Jogo das Emoções</h1>
-    <p class="round">Rodada {{ rodada }} de {{ total_rodadas }}</p>
-    {% if not respondeu %}
-    <p>Qual emoção o CASTOR está mostrando?</p>
-    <div class="emocoes" aria-label="Escolha uma emoção">
-      <form method="post" action="{{ url_for('selecionar_emocao_atividade_9', emocao='happy') }}">
-        <button class="emoji-button" type="submit" aria-label="Feliz" title="Feliz">😊</button>
-      </form>
-      <form method="post" action="{{ url_for('selecionar_emocao_atividade_9', emocao='sad') }}">
-        <button class="emoji-button" type="submit" aria-label="Triste" title="Triste">😢</button>
-      </form>
-      <form method="post" action="{{ url_for('selecionar_emocao_atividade_9', emocao='angry') }}">
-        <button class="emoji-button" type="submit" aria-label="Com raiva" title="Com raiva">😠</button>
-      </form>
-      <form method="post" action="{{ url_for('selecionar_emocao_atividade_9', emocao='surprise') }}">
-        <button class="emoji-button" type="submit" aria-label="Surpreso" title="Surpreso">😮</button>
-      </form>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='activity9.css') }}">
+</head>
+<body>
+<main class="game">
+  <header class="game-header">
+    <div>
+      <p class="eyebrow">ATIVIDADE 9</p>
+      <h1>Jogo das Emoções</h1>
+      <p class="round">Rodada {{ game.round }} de {{ total }}</p>
     </div>
-    {% else %}
-    <p class="feedback" role="status">{{ feedback }}</p>
-      {% if rodada < total_rodadas %}
-      <form method="post" action="{{ url_for('proxima_rodada_atividade_9') }}">
-        <button class="btn btn-primary btn-lg next" type="submit">Próxima rodada</button>
+    <aside class="scoreboard" aria-label="Placar">
+      <h2>⭐ ESTRELAS ⭐</h2>
+      <div class="score-line"><span>Você</span><strong>{{ game.score }}</strong></div>
+      <div class="score-line"><span>CASTOR</span><strong>{{ game.castor_score }}</strong></div>
+    </aside>
+  </header>
+  {% if game.stage == 'answered' %}
+    <section class="panel">
+      <span class="hero-emoji" aria-hidden="true">🌟</span>
+      <p class="feedback" role="status">{{ game.feedback }}</p>
+    </section>
+    <form method="post" action="{{ url_for('a9.proxima') }}">
+      <input type="hidden" name="token" value="{{ game.token }}">
+      <button class="action" type="submit">Sortear próxima rodada 🎲</button>
+    </form>
+  {% elif game.turn == 'person' %}
+    <p class="turn">Sua vez de adivinhar! 👀</p>
+    <p class="prompt">Olhe para o CASTOR. Qual emoção ele está mostrando?</p>
+    <div class="emocoes" aria-label="Escolha uma emoção">
+      {% for emotion, details in emotions.items() %}
+      <form method="post" action="{{ url_for('a9.responder', emocao=emotion) }}">
+        <input type="hidden" name="token" value="{{ game.token }}">
+        <button class="emoji-button {{ emotion }}" type="submit" aria-label="{{ details[0] }}">
+          <span class="emoji" aria-hidden="true">{{ details[1] }}</span>
+          <span class="label">{{ details[0] }}</span>
+        </button>
       </form>
-      {% else %}
-      <a class="btn btn-primary btn-lg next" href="{{ url_for('resultado_atividade_9') }}">Ver pontuação</a>
-      {% endif %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="turn">Vez do CASTOR adivinhar! 🤖</p>
+    {% if game.stage == 'guess' %}
+      <section class="panel">
+        <span class="hero-emoji" aria-hidden="true">{{ emotions[game.guess][1] }}</span>
+        <p class="feedback">Acho que sua expressão é: {{ emotions[game.guess][0] }}!</p>
+        <p class="prompt">Acertei?</p>
+        <div class="actions">
+          {% for answer, label in [('sim', 'Sim, acertou! ⭐'), ('nao', 'Não, tente na próxima!')] %}
+          <form method="post" action="{{ url_for('a9.confirmar', resposta=answer) }}">
+            <input type="hidden" name="token" value="{{ game.token }}">
+            <button class="action {{ 'secondary' if answer == 'nao' else '' }}" type="submit">{{ label }}</button>
+          </form>
+          {% endfor %}
+        </div>
+      </section>
+    {% elif game.stage == 'capturing' %}
+      <section class="panel">
+        <span class="hero-emoji" aria-hidden="true">👀</span>
+        <p class="prompt">Olhe para mim e mantenha sua expressão!</p>
+        <p id="camera-message" class="feedback" role="status" aria-live="polite">{{ game.feedback }}</p>
+      </section>
+    {% else %}
+      <section class="panel">
+        <span class="hero-emoji" aria-hidden="true">😊 😢 😠 😮</span>
+        <p class="prompt">Escolha uma destas emoções, faça a expressão e olhe para o CASTOR. Eu vou tentar adivinhar!</p>
+        {% if game.stage == 'error' %}<p class="feedback" role="status">{{ game.feedback }}</p>{% endif %}
+        <form method="post" action="{{ url_for('a9.observar') }}">
+          <input type="hidden" name="token" value="{{ game.token }}">
+          <button class="action" type="submit">{{ 'Tentar novamente' if game.stage == 'error' else 'Pronto! Pode adivinhar' }}</button>
+        </form>
+      </section>
     {% endif %}
-  </body>
+  {% endif %}
+  <form class="exit" method="post" action="{{ url_for('a9.sair') }}">
+    <!--<button type="submit">Encerrar atividade</button>-->
+  </form>
+</main>
+<script src="{{ url_for('static', filename='activity9.js') }}?v=2" defer
+        data-status-url="{{ url_for('a9.status') }}"
+        data-stage="{{ game.stage }}" data-token="{{ game.token }}"></script>
+</body>
 </html>

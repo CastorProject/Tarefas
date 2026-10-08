@@ -16,6 +16,7 @@ sys.path.append(
 )
 
 from dfrobot_huskylensv2 import (
+    ALGORITHM_EMOTION_RECOGNITION,
     ALGORITHM_FACE_RECOGNITION,
     HuskylensV2_I2C,
 )
@@ -27,6 +28,7 @@ from face_registration import (
     read_center_result,
 )
 from piper_castor_tts import speak_greeting
+from activity9_recognition import Activity9Recognition
 
 
 LOOP_FREQUENCY_HZ = 10
@@ -42,6 +44,7 @@ status_publisher = None
 PESSOA_TOPIC = "/pessoa_reconhecida"
 pessoa_publisher = None
 registration_manager = None
+activity9 = None
 
 
 def publish_registration_status(
@@ -72,7 +75,19 @@ def publish_registration_status(
 
 
 def registration_request_callback(message):
+    if activity9 is not None and (activity9.dirty or activity9.request_token):
+        publish_registration_status("busy", "Encerre a rodada de emoções antes de cadastrar.")
+        return
     registration_manager.request(message.data)
+
+
+def activity9_request_callback(message):
+    try:
+        command = json.loads(message.data)
+        if isinstance(command, dict):
+            activity9.request(command)
+    except (TypeError, ValueError) as error:
+        rospy.logwarn("Comando da atividade 9 inválido: %s", error)
 
 
 def recognize_face(
@@ -151,8 +166,9 @@ def initialize_huskylens():
     if not huskylens.knock():
         raise RuntimeError("HuskyLens não encontrada.")
 
-    huskylens.switchAlgorithm(ALGORITHM_FACE_RECOGNITION)
-    time.sleep(1)
+    if not huskylens.switchAlgorithm(ALGORITHM_FACE_RECOGNITION):
+        raise RuntimeError("A HuskyLens não confirmou o modelo facial.")
+    time.sleep(5)
 
     huskylens.loadKnowledges(
         ALGORITHM_FACE_RECOGNITION,
@@ -166,6 +182,7 @@ def initialize_huskylens():
 def main():
     global status_publisher, pessoa_publisher
     global registration_manager
+    global activity9
 
     rospy.init_node("face_recognition")
 
@@ -188,6 +205,17 @@ def main():
         publish_registration_status
     )
 
+    emotion_status = rospy.Publisher(
+        "/activity9/status", String, queue_size=1, latch=True,
+    )
+    activity9 = Activity9Recognition(
+        huskylens, ALGORITHM_FACE_RECOGNITION, ALGORITHM_EMOTION_RECOGNITION,
+        KNOWLEDGE_ID,
+        lambda status: emotion_status.publish(json.dumps(status, ensure_ascii=False)),
+    )
+    rospy.Subscriber("/activity9/request", String,
+                     activity9_request_callback, queue_size=10)
+
     rospy.Subscriber(
         REGISTRATION_REQUEST_TOPIC,
         String,
@@ -204,29 +232,39 @@ def main():
     last_face_id = None
     last_greeting_by_face_id = {}
 
-    while not rospy.is_shutdown():
-        try:
-            result = read_center_result(huskylens)
-
-            if registration_manager.active:
-                # O reconhecimento é pausado somente durante o cadastro.
-                if registration_manager.update(huskylens, result):
+    try:
+        while not rospy.is_shutdown():
+            try:
+                if activity9.tick(registration_manager.active):
                     last_face_id = None
-                    time.sleep(0.5)
-            else:
-                last_face_id = recognize_face(
-                    result,
-                    last_face_id,
-                    last_greeting_by_face_id,
+                    rate.sleep()
+                    continue
+                result = read_center_result(huskylens)
+
+                if registration_manager.active:
+                    # O reconhecimento é pausado somente durante o cadastro.
+                    if registration_manager.update(huskylens, result):
+                        last_face_id = None
+                        time.sleep(0.5)
+                else:
+                    last_face_id = recognize_face(
+                        result,
+                        last_face_id,
+                        last_greeting_by_face_id,
+                    )
+
+            except Exception as error:
+                rospy.logerr_throttle(
+                    5,
+                    "Erro na HuskyLens: {}".format(error),
                 )
 
+            rate.sleep()
+    finally:
+        try:
+            activity9.restore()
         except Exception as error:
-            rospy.logerr_throttle(
-                5,
-                "Erro na HuskyLens: {}".format(error),
-            )
-
-        rate.sleep()
+            rospy.logerr("Erro ao restaurar a câmera no encerramento: %s", error)
 
 
 if __name__ == "__main__":
