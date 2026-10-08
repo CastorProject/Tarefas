@@ -16,6 +16,8 @@ h1 { font-size: clamp(28px, 4vw, 38px); margin: 0 0 10px; font-weight: 900; }
 .emocoes form { margin: 0; }
 .emoji-button { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 224px; border: 3px solid var(--ink); border-radius: 26px; box-shadow: 0 6px 0 var(--ink); cursor: pointer; color: var(--ink); font: inherit; }
 .emoji-button .emoji { font-size: clamp(78px, 8vw, 108px); line-height: 1.25; }
+.emoji-button .emotion-image { display: block; width: auto; height: 200px; max-width: 100%; object-fit: contain; }
+.emoji-button { padding: 16px; }
 .emoji-button .label { font-size: 23px; font-weight: bold; }
 .happy { background: #fff0b6; } .sad { background: #dceeff; } .angry { background: #ffe0dc; } .surprise { background: #eadeff; }
 button, a { -webkit-tap-highlight-color: transparent; }
@@ -41,6 +43,7 @@ button:focus-visible, a:focus-visible { outline: 4px solid #315fdb; outline-offs
   .score-line { font-size: 13px; gap: 8px; } .score-line strong { font-size: 20px; }
   .emocoes { gap: 14px; } .emoji-button { min-height: 166px; border-radius: 20px; }
   .emoji-button .emoji { font-size: 70px; } .emoji-button .label { font-size: 19px; }
+  .emoji-button .emotion-image { height: 150px; }
   .prompt, .explanation { font-size: 20px; } .feedback { font-size: 23px; }
   .result-card strong { font-size: 28px; }
 }

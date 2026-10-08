@@ -39,22 +39,31 @@ class Activity9Voice:
                 / "castor_aac" / "src" / "piper_castor_tts.py")
         piper = None
         while True:
-            generation, text = self.queue.get()
+            generation, prompt = self.queue.get()
             try:
                 if piper is None:
                     spec = importlib.util.spec_from_file_location("activity9_piper", path)
                     loaded = importlib.util.module_from_spec(spec)
                     spec.loader.exec_module(loaded)
                     piper = loaded
-                audio = piper.prepare_audio(text)
-                with self.lock:
-                    if generation != self.generation:
-                        continue
-                    playback = subprocess.Popen(["aplay", "-q", audio])
-                    self.playback = playback
-                playback.wait()
-                with self.lock:
-                    if self.playback is playback:
-                        self.playback = None
+                texts = prompt if isinstance(prompt, (tuple, list)) else (prompt,)
+                for text in texts:
+                    with self.lock:
+                        if generation != self.generation:
+                            break
+                    audio = piper.prepare_audio(text)
+                    with self.lock:
+                        if generation != self.generation:
+                            break
+                        playback = subprocess.Popen(["aplay", "-q", audio])
+                        self.playback = playback
+                    status = playback.wait()
+                    with self.lock:
+                        if self.playback is playback:
+                            self.playback = None
+                        if generation != self.generation:
+                            break
+                    if status:
+                        self.log_error("Erro ao falar na atividade 9: aplay terminou com código %s", status)
             except Exception as error:
                 self.log_error("Erro ao falar na atividade 9: %s", error)

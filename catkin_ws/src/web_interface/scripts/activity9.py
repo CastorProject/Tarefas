@@ -20,6 +20,39 @@ INTRODUCTION = (
     "expressão e olhe para mim. Depois, me conte se eu acertei. Vamos brincar?"
 )
 PERSON_TURN_PROMPT = "Sua vez! Adivinhe qual é a minha emoção."
+CASTOR_TURN_PHRASES = (
+    "Agora é minha vez! Escolha uma emoção, faça a expressão e olhe para mim!",
+    "Será que eu consigo descobrir? Escolha uma das emoções e mostre com seu rosto!",
+    "Vamos trocar de papel! Faça uma expressão e eu vou tentar adivinhar!",
+    "Minha vez de adivinhar! Olhe para mim e mostre a emoção que você escolheu!",
+    "Prepare sua expressão! Quando estiver pronto, aperte o botão para eu adivinhar!",
+    "Escolha alegria, tristeza, raiva ou surpresa. Mostre sua expressão e eu tento descobrir!",
+    "Que emoção você vai escolher? Faça a expressão e deixe que eu tente adivinhar!",
+    "Estou curioso! Escolha uma das emoções e mostre para mim!",
+    "Vamos brincar com as expressões! Escolha uma emoção e olhe para mim!",
+    "Agora o desafio é meu! Faça sua expressão e aperte o botão quando estiver pronto!",
+)
+SUCCESS_PHRASES = (
+    "Muito bem! Você acertou!",
+    "Parabéns! Você descobriu minha emoção!",
+    "Isso mesmo! Uma estrela para você!",
+    "Excelente! Você reconheceu minha expressão!",
+    "Que legal! Você mandou muito bem!",
+    "Boa! Vamos continuar brincando!",
+)
+ENCOURAGEMENT_PHRASES = (
+    "Passou perto! Vamos tentar na próxima!",
+    "Boa tentativa! Continue observando minhas expressões!",
+    "Foi por pouco! Vamos continuar!",
+    "Tudo bem! Cada rodada é uma nova chance!",
+    "Não foi dessa vez, mas você está aprendendo!",
+    "Continue tentando! Vamos descobrir mais emoções!",
+)
+RESULT_PHRASES = {
+    "win": "Foi muito bom jogar com você! Você ganhou! Parabéns por reconhecer tantas emoções!",
+    "draw": "Foi muito bom jogar com você! Nós empatamos! Parabéns, formamos uma ótima dupla!",
+    "loss": "Foi muito bom jogar com você! Desta vez eu ganhei, mas você se esforçou muito! Parabéns pela participação!",
+}
 
 
 class Activity9:
@@ -88,7 +121,7 @@ class Activity9:
         return redirect(url_for("a9.jogar"))
 
     def begin_round(self):
-        self.game.update(token=uuid4().hex, stage="prepare", feedback="", guess=None,
+        self.game.update(token=uuid4().hex, stage="prepare", feedback="", guess=None, correct=None,
                          emotion=random.choice(tuple(EMOTIONS)))
         turn = self.game["turns"][self.game["round"] - 1]
         self.game["turn"] = turn
@@ -96,24 +129,44 @@ class Activity9:
         self.keep_camera()
         if turn == "person":
             self.speak(PERSON_TURN_PROMPT)
+        else:
+            self.speak(self.choose_castor_prompt())
+
+    def choose_castor_prompt(self):
+        counts = self.game["castor_phrase_counts"]
+        choices = [phrase for phrase in CASTOR_TURN_PHRASES
+                   if phrase != self.game["last_castor_phrase"] and counts.get(phrase, 0) < 2]
+        phrase = random.choice(choices)
+        counts[phrase] = counts.get(phrase, 0) + 1
+        self.game["last_castor_phrase"] = phrase
+        return phrase
 
     def explicar(self):
-        if self.current():
+        game = self.current()
+        if game and game["stage"] != "intro":
             return self.to_game()
+        if not game:
+            if self.game and self.game["stage"] != "finished":
+                return "O CASTOR já está jogando. Encerre a atividade na outra tela antes de começar.", 409
+            self.game = {"id": uuid4().hex, "token": uuid4().hex, "stage": "intro", "seen": self.clock()}
+            session["a9_id"] = self.game["id"]
+        self.keep_camera()
         self.speak(INTRODUCTION)
         return render_template("Act9_1_emocoes.html", title="Atividade 9 - Emoções",
-                               explanation=INTRODUCTION)
+                               explanation=INTRODUCTION, game=self.game)
 
     def iniciar(self):
-        if self.current():
+        game = self.current()
+        if game and game["stage"] != "intro":
             return self.to_game()
-        if self.game and self.game["stage"] != "finished":
+        if not game and self.game and self.game["stage"] != "finished":
             return "O CASTOR já está jogando. Encerre a atividade na outra tela antes de começar.", 409
         turns = ["person"] * 5 + ["castor"] * 5
         random.shuffle(turns)
-        self.game = {"id": uuid4().hex, "token": uuid4().hex, "round": 1,
+        self.game = {"id": game["id"] if game else uuid4().hex, "token": uuid4().hex, "round": 1,
                      "score": 0, "castor_score": 0, "turns": turns,
-                     "seen": self.clock()}
+                     "seen": self.clock(), "phrase_counts": {}, "last_phrase": None,
+                     "castor_phrase_counts": {}, "last_castor_phrase": None}
         self.silence()
         session.pop("a9_game", None)  # Remove cookies from the previous game version.
         session["a9_id"] = self.game["id"]
@@ -124,17 +177,36 @@ class Activity9:
         game = self.current()
         if not game:
             return redirect(url_for("a9.explicar"))
+        if game["stage"] == "intro":
+            return redirect(url_for("a9.explicar"))
         if game["stage"] == "finished":
             return redirect(url_for("a9.resultado"))
         return render_template("Act9_2_emocoes.html", title="Jogo das Emoções",
                                game=game, emotions=EMOTIONS, total=self.TOTAL)
 
-    def finish_answer(self, feedback):
+    def choose_feedback(self, correct):
+        phrases = SUCCESS_PHRASES if correct else ENCOURAGEMENT_PHRASES
+        counts = self.game["phrase_counts"]
+        choices = [phrase for phrase in phrases
+                   if phrase != self.game["last_phrase"] and counts.get(phrase, 0) < 2]
+        phrase = random.choice(choices)
+        counts[phrase] = counts.get(phrase, 0) + 1
+        self.game["last_phrase"] = phrase
+        return phrase
+
+    def finish_answer(self, feedback, spoken=None):
         self.silence()
         self.game.update(stage="answered", feedback=feedback)
         self.show_emotion("neutral")
         if self.game["round"] == self.TOTAL:
             self.game["stage"] = "finished"
+            score, castor_score = self.game["score"], self.game["castor_score"]
+            outcome = "win" if score > castor_score else "loss" if score < castor_score else "draw"
+            self.game.update(outcome=outcome, result_message=RESULT_PHRASES[outcome])
+            # One voice job preserves the last round's feedback before the goodbye.
+            self.speak((spoken, self.game["result_message"]) if spoken else self.game["result_message"])
+        elif spoken:
+            self.speak(spoken)
         self.keep_camera()
 
     def responder(self, emocao):
@@ -145,8 +217,9 @@ class Activity9:
                 and game["stage"] == "prepare"):
             correct = emocao == game["emotion"]
             game["score"] += int(correct)
-            self.finish_answer("Você acertou! Uma estrela para você!" if correct else
-                               "Boa tentativa! Minha emoção era: {}.".format(EMOTIONS[game["emotion"]][0]))
+            game["correct"] = correct
+            phrase = self.choose_feedback(correct)
+            self.finish_answer(phrase, spoken=phrase)
         return self.to_game()
 
     def observar(self):

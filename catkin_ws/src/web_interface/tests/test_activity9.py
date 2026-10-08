@@ -2,6 +2,7 @@
 
 from pathlib import Path
 import sys
+import threading
 from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
@@ -11,8 +12,10 @@ sys.path.insert(0, str(SRC / "web_interface" / "scripts"))
 sys.path.insert(0, str(SRC / "huskylens_2" / "scripts" / "castor_aac" / "src"))
 
 from flask import Flask
-from activity9 import Activity9, INTRODUCTION, PERSON_TURN_PROMPT
+from activity9 import (Activity9, INTRODUCTION, PERSON_TURN_PROMPT, CASTOR_TURN_PHRASES,
+                       SUCCESS_PHRASES, ENCOURAGEMENT_PHRASES, RESULT_PHRASES)
 from activity9_recognition import Activity9Recognition, normalize_emotion
+from activity9_voice import Activity9Voice
 
 
 class Clock:
@@ -173,7 +176,8 @@ class GameTests(unittest.TestCase):
         self.client.get("/Activities/A9/status")
         self.assertEqual(self.commands[-1]["mode"], "emotion")
         self.post("proxima")
-        self.assertEqual(self.spoken, [PERSON_TURN_PROMPT, PERSON_TURN_PROMPT])
+        self.assertEqual([text for text in self.spoken if text == PERSON_TURN_PROMPT],
+                         [PERSON_TURN_PROMPT, PERSON_TURN_PROMPT])
         self.assertTrue(all(command["token"] == game_id for command in self.commands))
 
     def test_previous_capture_from_same_game_cannot_answer_next_attempt(self):
@@ -185,6 +189,140 @@ class GameTests(unittest.TestCase):
         self.activity.receive_status({"token": self.activity.game["id"], "capture_token": old_capture,
                                       "state": "detected", "emotion": "happy"})
         self.assertEqual(self.client.get("/Activities/A9/status").json["stage"], "capturing")
+
+    def test_intro_activates_multi_and_start_preserves_camera_session(self):
+        page = self.client.get("/Activities/A9")
+        self.assertEqual(self.commands[-1]["mode"], "emotion")
+        self.assertIn('data-stage="intro"', page.get_data(as_text=True))
+        game_id = self.activity.game["id"]
+        self.client.get("/Activities/A9/status")
+        self.start()
+        self.assertEqual(self.activity.game["id"], game_id)
+        self.assertTrue(all(command["token"] == game_id for command in self.commands))
+        self.assertTrue(all(command["mode"] == "emotion" for command in self.commands))
+
+    def test_intro_exit_and_navigation_restore_face_without_starting_game(self):
+        for path in ["/Activities/A9/sair", "/Activities"]:
+            with self.subTest(path=path):
+                self.client.get("/Activities/A9")
+                if path.endswith("sair"):
+                    self.client.post(path)
+                else:
+                    self.client.get(path, headers={"Accept": "text/html"})
+                self.assertIsNone(self.activity.game)
+                self.assertEqual(self.commands[-1]["mode"], "face")
+
+    def test_intro_cannot_be_taken_over_by_another_client(self):
+        self.client.get("/Activities/A9")
+        game_id = self.activity.game["id"]
+        other = self.app.test_client()
+        self.assertEqual(other.get("/Activities/A9").status_code, 409)
+        other.post("/Activities/A9/sair")
+        self.assertEqual(self.activity.game["id"], game_id)
+        self.assertEqual(self.activity.game["stage"], "intro")
+
+    def test_images_only_in_person_guessing_turn(self):
+        self.start()
+        page = self.client.get("/Activities/A9/jogar").get_data(as_text=True)
+        self.assertEqual(page.count('class="emotion-image"'), 4)
+        for emotion in ["happy", "sad", "angry", "surprise"]:
+            self.assertIn('/static/activity9/' + emotion + '.png', page)
+            response = self.client.get('/static/activity9/' + emotion + '.png')
+            self.assertEqual(response.status_code, 200)
+            response.close()
+        self.activity.game["turn"] = "castor"
+        page = self.client.get("/Activities/A9/jogar").get_data(as_text=True)
+        self.assertNotIn('class="emotion-image"', page)
+        self.capture()
+        self.assertNotIn('class="emotion-image"', self.client.get("/Activities/A9/jogar").get_data(as_text=True))
+
+    def test_feedback_never_consecutive_or_over_twice_and_new_game_resets(self):
+        for correct in [True, False]:
+            with self.subTest(correct=correct):
+                self.client.post("/Activities/A9/sair")
+                self.start()
+                phrases = []
+                with patch("activity9.random.choice", lambda choices: choices[0]):
+                    for _ in range(5):
+                        emotion = self.activity.game["emotion"]
+                        answer = emotion if correct else next(e for e in ["happy", "sad", "angry", "surprise"] if e != emotion)
+                        token = self.activity.game["token"]
+                        self.post("emocao/" + answer)
+                        phrase = self.activity.game["feedback"]
+                        phrases.append(phrase)
+                        self.assertIn(phrase, SUCCESS_PHRASES if correct else ENCOURAGEMENT_PHRASES)
+                        before = len(self.spoken)
+                        self.post("emocao/" + answer, token)
+                        self.client.get("/Activities/A9/jogar")
+                        self.assertEqual(len(self.spoken), before)
+                        self.post("proxima")
+                self.assertTrue(all(a != b for a, b in zip(phrases, phrases[1:])))
+                self.assertTrue(all(phrases.count(phrase) <= 2 for phrase in phrases))
+                self.assertEqual(max(phrases.count(phrase) for phrase in phrases), 2)
+                self.client.post("/Activities/A9/sair")
+                self.start()
+                self.assertEqual(self.activity.game["phrase_counts"], {})
+
+    def test_castor_prompts_limited_even_with_person_turns_between_and_reset(self):
+        def alternating(turns):
+            turns[:] = ["castor", "person"] * 5
+        with patch("activity9.random.shuffle", alternating), \
+                patch("activity9.random.choice", lambda choices: choices[0]):
+            self.client.post("/Activities/A9/iniciar")
+            for number in range(1, 11):
+                game = self.activity.game
+                if game["turn"] == "castor":
+                    self.capture()
+                    self.post("confirmar/sim")
+                else:
+                    self.post("emocao/" + game["emotion"])
+                if number < 10:
+                    token = game["token"]
+                    self.post("proxima")
+                    before = len(self.spoken)
+                    self.post("proxima", token)
+                    self.assertEqual(len(self.spoken), before)
+            phrases = [text for text in self.spoken if text in CASTOR_TURN_PHRASES]
+            self.assertEqual(len(phrases), 5)
+            self.assertTrue(all(a != b for a, b in zip(phrases, phrases[1:])))
+            self.assertEqual(max(phrases.count(phrase) for phrase in phrases), 2)
+            self.assertTrue(all(phrases.count(phrase) <= 2 for phrase in phrases))
+            self.client.post("/Activities/A9/sair")
+            self.client.post("/Activities/A9/iniciar")
+            self.assertEqual(self.activity.game["castor_phrase_counts"], {CASTOR_TURN_PHRASES[0]: 1})
+
+    def test_castor_prompt_does_not_repeat_on_reload_start_duplicates_or_capture_retry(self):
+        with patch("activity9.random.shuffle", lambda turns: turns.reverse()):
+            self.client.post("/Activities/A9/iniciar")
+        self.assertEqual(len(self.spoken), 1)
+        self.assertIn(self.spoken[0], CASTOR_TURN_PHRASES)
+        for _ in range(2):
+            self.client.get("/Activities/A9/jogar")
+            self.client.get("/Activities/A9/status")
+            self.client.post("/Activities/A9/iniciar")
+        self.post("observar")
+        self.clock.advance(41)
+        self.assertEqual(self.client.get("/Activities/A9/status").json["stage"], "error")
+        self.post("observar")
+        self.client.get("/Activities/A9/jogar")
+        self.assertEqual(len(self.spoken), 1)
+        self.assertEqual(sum(self.activity.game["castor_phrase_counts"].values()), 1)
+
+    def test_final_result_uses_stars_and_speaks_once_after_last_feedback(self):
+        for initial_score, castor_score, outcome in [(1, 0, "win"), (1, 2, "draw"), (0, 3, "loss")]:
+            with self.subTest(outcome=outcome):
+                self.client.post("/Activities/A9/sair")
+                self.start()
+                game = self.activity.game
+                game.update(round=10, score=initial_score, castor_score=castor_score)
+                self.post("emocao/" + game["emotion"])
+                self.assertEqual(game["outcome"], outcome)
+                self.assertEqual(self.spoken[-1], (game["feedback"], RESULT_PHRASES[outcome]))
+                before = len(self.spoken)
+                for _ in range(2):
+                    page = self.client.get("/Activities/A9/resultado").get_data(as_text=True)
+                    self.assertIn(RESULT_PHRASES[outcome], page)
+                self.assertEqual(len(self.spoken), before)
 
 
 class Camera:
@@ -348,6 +486,42 @@ class RecognitionTests(unittest.TestCase):
         self.clock.advance(16)
         self.assertFalse(self.manager.tick())
         self.assertEqual(self.statuses[-1]["state"], "face")
+
+
+class VoiceTests(unittest.TestCase):
+    def check_sequence(self, cancel_first=False):
+        finished = threading.Event()
+        played, errors = [], []
+        voice_ref = []
+        def playback(arguments):
+            text = arguments[-1]
+            played.append(('start', text))
+            def wait():
+                played.append(('finish', text))
+                if cancel_first:
+                    voice_ref[0].cancel()
+                if cancel_first or text == 'goodbye':
+                    finished.set()
+                return 0
+            return SimpleNamespace(wait=wait, poll=lambda: 0, terminate=lambda: None)
+        piper = SimpleNamespace(prepare_audio=lambda text: text)
+        spec = SimpleNamespace(loader=SimpleNamespace(exec_module=lambda module: None))
+        with patch('activity9_voice.importlib.util.spec_from_file_location', return_value=spec), \
+                patch('activity9_voice.importlib.util.module_from_spec', return_value=piper), \
+                patch('activity9_voice.subprocess.Popen', side_effect=playback):
+            voice = Activity9Voice(lambda *args: errors.append(args))
+            voice_ref.append(voice)
+            voice.say(('feedback', 'goodbye'))
+            self.assertTrue(finished.wait(3), 'A sequência de voz não terminou')
+        self.assertEqual(errors, [])
+        return played
+
+    def test_last_feedback_finishes_before_goodbye(self):
+        self.assertEqual(self.check_sequence(), [('start', 'feedback'), ('finish', 'feedback'),
+                                                  ('start', 'goodbye'), ('finish', 'goodbye')])
+
+    def test_cancel_during_feedback_prevents_stale_goodbye(self):
+        self.assertEqual(self.check_sequence(cancel_first=True), [('start', 'feedback'), ('finish', 'feedback')])
 
 
 if __name__ == "__main__":

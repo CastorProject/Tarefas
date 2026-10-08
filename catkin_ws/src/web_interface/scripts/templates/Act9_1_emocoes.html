@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ title }}</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='activity9.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='activity9.css') }}?v=3">
 </head>
 <body>
 <main class="game">
@@ -23,5 +23,8 @@
     <button type="submit">Voltar às atividades</button>
   </form>
 </main>
+<script src="{{ url_for('static', filename='activity9.js') }}?v=3" defer
+        data-status-url="{{ url_for('a9.status') }}"
+        data-stage="{{ game.stage }}" data-token="{{ game.token }}"></script>
 </body>
 </html>
