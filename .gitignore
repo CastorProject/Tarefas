@@ -2,6 +2,7 @@
 # Keep unrelated home files and directories out of Git.
 /*
 !/.gitignore
+!/audios/
 !/Sounds/
 !/catkin_ws/
 !/config/
@@ -216,3 +217,6 @@ pyrightconfig.json
 /sessoes_vazias/
 /Sounds/CastorSAY.wav
 /catkin_ws/src/chat/.ultima_saudacao
+
+# Include all Castor audio assets and manifests.
+!/audios/**
