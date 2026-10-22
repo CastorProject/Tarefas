@@ -1,0 +1,48 @@
+{
+  "face_id": 13,
+  "name": "diogo",
+  "audios": {
+    "01_que_bom_ver_voce": {
+      "text": "Olá, diogo! Que bom ver você!",
+      "voice_version": "pt_BR-castor-medium-legacy-v1"
+    },
+    "02_alegria_ter_sua_companhia": {
+      "text": "Oi, diogo! É uma alegria ter sua companhia!",
+      "voice_version": "pt_BR-castor-medium-legacy-v1"
+    },
+    "03_felicidade_encontrar_voce": {
+      "text": "Olá, diogo! Que felicidade encontrar você!",
+      "voice_version": "pt_BR-castor-medium-legacy-v1"
+    },
+    "04_que_bom_ter_voce_aqui": {
+      "text": "Que bom ter você por aqui, diogo!",
+      "voice_version": "pt_BR-castor-medium-legacy-v1"
+    },
+    "05_bom_dia": {
+      "text": "Bom dia, diogo!",
+      "voice_version": "pt_BR-castor-medium-legacy-v1"
+    },
+    "06_boa_tarde": {
+      "text": "Boa tarde, diogo!",
+      "voice_version": "pt_BR-castor-medium-legacy-v1"
+    },
+    "07_boa_noite": {
+      "text": "Boa noite, diogo!",
+      "voice_version": "pt_BR-castor-medium-legacy-v1"
+    },
+    "08_bom_estar_com_voce": {
+      "text": "É bom estar com você, diogo!",
+      "voice_version": "pt_BR-castor-medium-legacy-v1"
+    }
+  },
+  "last_greeting": "01_que_bom_ver_voce",
+  "remaining_greetings": [
+    "02_alegria_ter_sua_companhia",
+    "03_felicidade_encontrar_voce",
+    "04_que_bom_ter_voce_aqui",
+    "05_bom_dia",
+    "06_boa_tarde",
+    "07_boa_noite",
+    "08_bom_estar_com_voce"
+  ]
+}

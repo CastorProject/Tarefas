@@ -27,7 +27,7 @@ from face_registration import (
     normalize_name,
     read_center_result,
 )
-from piper_castor_tts import speak_greeting
+from piper_castor_tts import prepare_registration_audios, speak_greeting
 from activity9_recognition import Activity9Recognition
 
 
@@ -143,12 +143,12 @@ def recognize_face(
         pessoa_publisher.publish(face_name)
 
     try:
-        speak_greeting(face_name)
+        speak_greeting(face_name, face_id)
     except (
         OSError,
         RuntimeError,
         ValueError,
-        subprocess.CalledProcessError,
+        subprocess.SubprocessError,
     ) as error:
         rospy.logerr(
             "Erro ao reproduzir a saudação: %s",
@@ -187,6 +187,7 @@ def main():
     rospy.init_node("face_recognition")
 
     huskylens = initialize_huskylens()
+    prepare_registration_audios()
 
     pessoa_publisher = rospy.Publisher(
         PESSOA_TOPIC,
@@ -261,6 +262,7 @@ def main():
 
             rate.sleep()
     finally:
+        registration_manager.finish()
         try:
             activity9.restore()
         except Exception as error:

@@ -1,0 +1,48 @@
+{
+  "face_id": 9,
+  "name": "Yago",
+  "audios": {
+    "01_que_bom_ver_voce": {
+      "text": "Olá, Yago! Que bom ver você!",
+      "voice_version": "pt_BR-castor-medium-legacy-v1"
+    },
+    "02_alegria_ter_sua_companhia": {
+      "text": "Oi, Yago! É uma alegria ter sua companhia!",
+      "voice_version": "pt_BR-castor-medium-legacy-v1"
+    },
+    "03_felicidade_encontrar_voce": {
+      "text": "Olá, Yago! Que felicidade encontrar você!",
+      "voice_version": "pt_BR-castor-medium-legacy-v1"
+    },
+    "04_que_bom_ter_voce_aqui": {
+      "text": "Que bom ter você por aqui, Yago!",
+      "voice_version": "pt_BR-castor-medium-legacy-v1"
+    },
+    "05_bom_dia": {
+      "text": "Bom dia, Yago!",
+      "voice_version": "pt_BR-castor-medium-legacy-v1"
+    },
+    "06_boa_tarde": {
+      "text": "Boa tarde, Yago!",
+      "voice_version": "pt_BR-castor-medium-legacy-v1"
+    },
+    "07_boa_noite": {
+      "text": "Boa noite, Yago!",
+      "voice_version": "pt_BR-castor-medium-legacy-v1"
+    },
+    "08_bom_estar_com_voce": {
+      "text": "É bom estar com você, Yago!",
+      "voice_version": "pt_BR-castor-medium-legacy-v1"
+    }
+  },
+  "last_greeting": "03_felicidade_encontrar_voce",
+  "remaining_greetings": [
+    "01_que_bom_ver_voce",
+    "02_alegria_ter_sua_companhia",
+    "04_que_bom_ter_voce_aqui",
+    "05_bom_dia",
+    "06_boa_tarde",
+    "07_boa_noite",
+    "08_bom_estar_com_voce"
+  ]
+}

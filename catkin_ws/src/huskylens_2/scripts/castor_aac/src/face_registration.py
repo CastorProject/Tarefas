@@ -14,7 +14,8 @@ sys.path.append(
 
 from dfrobot_huskylensv2 import ALGORITHM_FACE_RECOGNITION
 
-from piper_castor_tts import prepare_greeting
+from piper_castor_tts import prepare_greetings
+from registration_voice import RegistrationVoice
 
 
 KNOWLEDGE_ID = 1
@@ -43,8 +44,10 @@ def read_center_result(huskylens):
 class FaceRegistrationManager:
     """Controla uma solicitação de cadastro por vez."""
 
-    def __init__(self, status_callback):
+    def __init__(self, status_callback, voice_factory=RegistrationVoice):
         self.status_callback = status_callback
+        self.voice_factory = voice_factory
+        self.voice = None
         self.name = None
         self.requested_at = None
         self.face_started_at = None
@@ -93,9 +96,11 @@ class FaceRegistrationManager:
                 )
                 return False
 
-            self.name = requested_name
             self.requested_at = time.monotonic()
             self.face_started_at = None
+            self.voice = self.voice_factory()
+            self.voice.say("inicio")
+            self.name = requested_name
 
         self.publish(
             "waiting_face",
@@ -105,13 +110,24 @@ class FaceRegistrationManager:
         )
         return True
 
-    def finish(self):
+    def finish(self, terminal_stage=None):
+        if self.voice is not None:
+            self.voice.close(terminal_stage)
         with self.lock:
+            self.voice = None
             self.name = None
             self.requested_at = None
             self.face_started_at = None
 
     def update(self, huskylens, result):
+        try:
+            return self._update(huskylens, result)
+        except Exception as error:
+            self.publish("error", "Cadastro interrompido: {}".format(error))
+            self.finish()
+            return True
+
+    def _update(self, huskylens, result):
         """Avança o cadastro e retorna True quando ele termina."""
 
         if not self.active:
@@ -130,6 +146,7 @@ class FaceRegistrationManager:
         if result is None:
             if self.face_started_at is not None:
                 self.face_started_at = None
+                self.voice.say("nova_tentativa")
                 self.publish(
                     "waiting_face",
                     "Rosto perdido. Aproxime a pessoa novamente.",
@@ -138,6 +155,7 @@ class FaceRegistrationManager:
 
         if self.face_started_at is None:
             self.face_started_at = now
+            self.voice.say("captura")
             self.publish(
                 "face_detected",
                 "Rosto detectado. Mantenha {} parado por 3 segundos.".format(
@@ -171,6 +189,7 @@ class FaceRegistrationManager:
             "learning",
             "Cadastrando {}, aguarde...".format(person_name),
         )
+        self.voice.say("processamento")
 
         learned_id = huskylens.learn(ALGORITHM_FACE_RECOGNITION)
 
@@ -180,27 +199,37 @@ class FaceRegistrationManager:
                 "Cadastro não concluído: a HuskyLens não conseguiu "
                 "aprender o rosto.",
             )
-            self.finish()
+            self.finish("nova_tentativa")
             return True
 
-        huskylens.setNameByID(
+        named = huskylens.setNameByID(
             ALGORITHM_FACE_RECOGNITION,
             learned_id,
             person_name,
         )
+        if not named:
+            raise RuntimeError("A HuskyLens não confirmou o nome do cadastro.")
 
-        huskylens.saveKnowledges(
+        saved = huskylens.saveKnowledges(
             ALGORITHM_FACE_RECOGNITION,
             KNOWLEDGE_ID,
         )
+        if not saved:
+            raise RuntimeError("A HuskyLens não confirmou o salvamento do cadastro.")
+
+        self.publish(
+            "preparing_audio",
+            "Rosto salvo. Preparando as oito saudações de {}...".format(person_name),
+            learned_id,
+        )
 
         try:
-            audio_file = prepare_greeting(person_name)
+            audio_files = prepare_greetings(person_name, learned_id)
         except (
             OSError,
             RuntimeError,
             ValueError,
-            subprocess.CalledProcessError,
+            subprocess.SubprocessError,
         ) as error:
             self.publish(
                 "registered_audio_error",
@@ -216,7 +245,8 @@ class FaceRegistrationManager:
                 ),
                 learned_id,
             )
-            print("Áudio preparado: {}".format(audio_file))
+            print("Saudações preparadas: {}".format(len(audio_files)))
 
-        self.finish()
+        # O rosto já foi salvo, mesmo se a geração de alguma saudação falhar.
+        self.finish("concluido")
         return True

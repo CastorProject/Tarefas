@@ -14,5 +14,6 @@ services:
       - /home/pi/piper:/opt/piper:ro
       - ./assets/models:/models:ro
       - ./generated_audio:/output
+      - ${CASTOR_AUDIO_DIR:-../../../../../audios}:/audios
 
     command: ["sleep", "infinity"]
